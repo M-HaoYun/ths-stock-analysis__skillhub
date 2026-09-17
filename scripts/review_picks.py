@@ -91,23 +91,62 @@ def query(sql: str, timeout: int = 180) -> list[dict]:
         return []
 
 
-def parse_reports(pattern: str) -> dict[str, list[tuple[str, str]]]:
+def _pick_final(paths: list[str]) -> tuple[str, str]:
+    """同一天多份报告时选「最终交付版」（坑 45）。
+
+    2026-09-08 当天有两份：`精选5股推荐_20260908.html`（跑能力#8 验证**之前**的版本，
+    含后被剔除的金正大/上海电影/中京电子）与 `..._20260908_验证版.html`（最终交付版）。
+    用错名单会把平均收益 −1.73% 算成 −2.61%、最差 −13.65% 算成 −25.54%。
+    以前靠 `sorted()` 的字典序"碰巧"让验证版覆盖前者——这里显式定死，别再靠运气。
+    """
+    if len(paths) == 1:
+        return paths[0], "唯一"
+    verified = [p for p in paths if "验证版" in os.path.basename(p)]
+    if len(verified) == 1:
+        return verified[0], "含「验证版」"
+    if len(verified) > 1:
+        return max(verified, key=os.path.getmtime), "多份「验证版」取最后修改"
+    return max(paths, key=os.path.getmtime), "**无「验证版」**，退回取最后修改的一份（请人工确认）"
+
+
+def parse_reports(pattern: str, force_loose: bool = False) -> dict[str, list[tuple[str, str]]]:
     """{推荐日 YYYY-MM-DD: [(名称, 代码)]} —— 从文件名取日期，从卡片取标的。"""
-    out: dict[str, list[tuple[str, str]]] = {}
+    by_day: dict[str, list[str]] = {}
     for f in sorted(glob.glob(pattern)):
         m = re.search(r"(\d{4})(\d{2})(\d{2})", os.path.basename(f))
         if not m:
             continue
-        day = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
-        html = open(f, encoding="utf-8", errors="replace").read()
+        by_day.setdefault(f"{m.group(1)}-{m.group(2)}-{m.group(3)}", []).append(f)
+
+    out: dict[str, list[tuple[str, str]]] = {}
+    for day in sorted(by_day):
+        cands = by_day[day]
+        chosen, why = _pick_final(cands)
+        if len(cands) > 1:
+            print(f"  ⚠️ {day} 有 {len(cands)} 份报告 → 选用 `{os.path.basename(chosen)}`（{why}）；"
+                  f"其它：{', '.join(os.path.basename(c) for c in cands if c != chosen)}")
+            if "无「验证版」" in why:
+                print("     ⚠️ 该日没有「验证版」——若当期跑过能力#8 验证，结论可能有偏（坑 45）")
+
+        html = open(chosen, encoding="utf-8", errors="replace").read()
         cards = CARD_IN_CARD.findall(html)
+        loose = False
         if not cards:
             cards = CARD_MAIN.findall(html)
-            print(f"  ⚠️ {os.path.basename(f)}：未匹配到推荐卡标记，退回宽松匹配（{len(cards)} 项），请人工核对名单")
-        if len(cards) > 8:
-            print(f"  ⚠️ {os.path.basename(f)}：匹配到 {len(cards)} 项（疑似过度捕获），只取前 5 项")
+            loose = True
+            print(f"  ⚠️ {os.path.basename(chosen)}：未匹配到推荐卡标记，退回宽松匹配（{len(cards)} 项）")
+        # 严格解析应恰好 5 张卡；数量异常 = 名单不可信 → 拒绝静默截断（坑 45 的教训）
+        if len(cards) > 5:
+            print(f"  ❌ {os.path.basename(chosen)}：解析到 {len(cards)} 项（期望 5，疑似过度捕获）")
+            if not force_loose:
+                print("     → 已跳过该日。确认名单无误可用 `--force-loose` 强行取前 5 项")
+                continue
+            print("     → --force-loose 已开启，取前 5 项")
             cards = cards[:5]
-        print(f"  · {os.path.basename(f)} → {len(cards)} 只：{', '.join(n for n, _ in cards)}")
+        if loose and len(cards) != 5 and not force_loose:
+            print("     → 宽松模式结果不是 5 项，名单不可信，已跳过该日（--force-loose 可强行使用）")
+            continue
+        print(f"  · {os.path.basename(chosen)} → {len(cards)} 只：{', '.join(n for n, _ in cards)}")
         # 去重（同页正文可能重复提及）
         seen, uniq = set(), []
         for nm, code in cards:
@@ -124,9 +163,11 @@ def main() -> int:
     ap.add_argument("--pattern", default="精选*推荐_*.html", help="历史推荐报告的文件通配")
     ap.add_argument("--end", default=None, help="平仓日（缺省=本地库最新交易日）")
     ap.add_argument("--json", default=None, help="把逐笔明细另存为 JSON")
+    ap.add_argument("--force-loose", action="store_true",
+                    help="名单解析异常时强行使用（默认拒绝，避免静默用错名单——坑 45）")
     args = ap.parse_args()
 
-    picks = parse_reports(args.pattern)
+    picks = parse_reports(args.pattern, force_loose=args.force_loose)
     if not picks:
         print(f"未找到匹配 {args.pattern} 的历史推荐报告（请在**工作区根目录**执行）")
         return 2

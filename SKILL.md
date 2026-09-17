@@ -40,17 +40,38 @@ agent_created: true
    - **当日收盘数据可用性快速探测（remote 类当日报告开工前，2026-09-07 实证）**：`index history` 拉上证 000001.SH 最近 5 日窗口（`--source remote`）→ 看 `data.item[-1].date_ms` 对应日期 == 今天 **且 turnover 与近期交易日同量级**（如上证 8979 亿 vs 前日 9383 亿）→ 判定当日完整收盘已发布、可开工；收盘后约 1.5h（16:30+）remote 通常已就绪，若仍停在上一交易日 → **如实告知用户"今日数据未发布，暂不做"**，勿用旧数据顶替（用户 2026-09-07 明确要求"没有数据就先不做"）
    - 依赖本地库的能力：#1 回测（DuckDB/parquet）、#6 情绪（涨跌家数）、#7 轮动（板块历史量能）、#10 组合（个股复权K）——**回测引擎已内置检查，其余能力用 ensure_data.py 或手动先行更新**
 
+### 通用收尾：构建后自检（**做数据版脚本时必跑**，2026-09-17 起）
+
+模板是「读 skill 模板 → 正则替换数据区 → 写成 `gen_xxx_日期.py` → 运行」。这一步的失败几乎都是**静默的**
+（漏 `NAME = ` 前缀、`DATE` 没换、模板数据区变量没重新定义…），靠记忆和事后 grep 逐个查成本极高。
+现把判据固化成脚本，**跑一次代替逐条排查**：
+
+- `scripts/check_build.py` — 构建链路自检器（覆盖坑 28/33/42/44/46/52/53/54/55/56/58/59/60/61）：
+  ```bash
+  python "<skill>/scripts/check_build.py" --builder  build_xxx.py                       # 构建器静态检查
+  python "<skill>/scripts/check_build.py" --script   gen_xxx_MMDD.py --template "<skill>/scripts/gen_xxx.py" \
+         --expect-date 2026-09-17                                                        # 生成脚本
+  python "<skill>/scripts/check_build.py" --html     产物.html --hist hist.json --expect-points 252 --expect-date 2026-09-17
+  python "<skill>/scripts/check_build.py" --codes    codes.txt                           # 喂 CLI 的参数清单 CRLF（坑 28）
+  python "<skill>/scripts/check_build.py" --selftest                                     # 自检：用故意写坏的样本证明检查器有效
+  ```
+  **退出码 0=全过 / 1=有必须修的（❌） / 2=仅告警（⚠️）。出现 ❌ 必须先修再交付。**
+- `scripts/ths_indicators.py` — **指标与 K 线口径的唯一实现**：MA(简单均值) / RSI14(Wilder) / MACD(12,26,9) /
+  布林 %B(样本 σ，与 SQL `stddev_samp` 同口径) / 量比(不含当日) / 乖离 + **近一年 = 252 交易日窗口** +
+  K 线双结构解析（本地 `date/close` 与远端 `date_ms/close_price`）与 `round(2)` 落盘。
+  **短线/口径类脚本一律 `import` 它，别再各写一遍**（口径见 `references/CLI与数据坑清单.md` 坑 35/61）。
+
 ## 能力 #1：DuckDB 回测引擎（已实现 · 重点功能）
 
 回答"这个策略历史赚钱吗？"——用本地 DuckDB 前复权日K对用户定义的交易策略做事件驱动回测。
 
 **资产**：
-- `scripts/bt_backtest.py` — 回测引擎 v3.6（策略模板引擎：读**同目录** `strategies.json` 定义，SQL 一次预计算 MA/RSI/布林/唐奇安/新高低/连板/KDJ/MACD/乖离/连阳等全部指标，按 buy_signal/sell_signal 分派信号；`--strategy <id>` 跑单个 / `--all` 批量 / `--universe <thscode,...>` 限定标的池 / `--parquet <path>` 自定义数据源（ETF/指数，默认 A 股 bt_qfq_1y.parquet）/ `--force` 跳过数据检查；**内置数据就绪检查（交互式）**：启动即检测 DuckDB 本地库是否初始化 + 回测数据最新交易日是否 ≤30 天，不满足打印初始化/更新方法并**询问用户是否先更新数据**（y=更新后重跑 / n=跳过继续 / q=退出，非交互默认退出）；**v3.6 起自动加载/生成股票名称映射回填 trades.name（坑 41）**；输出 bt_result_{id}.json + bt_all.json）
+- `scripts/bt_backtest.py` — 回测引擎 v3.6（策略模板引擎：读**同目录** `strategies.json` 定义，SQL 一次预计算 MA/RSI/布林/唐奇安/新高低/连板/KDJ/MACD/乖离/连阳等全部指标，按 buy_signal/sell_signal 分派信号；`--strategy <id>` 跑单个 / `--all` 批量 / `--universe <thscode,...>` 限定标的池 / `--parquet <path>` 自定义数据源（ETF/指数，默认 A 股 bt_qfq_1y.parquet）/ `--force` 跳过数据检查；**内置数据就绪检查（交互式）**：启动即检测 DuckDB 本地库是否初始化 + 回测数据最新交易日是否 ≤30 天，不满足打印初始化/更新方法并**询问用户是否先更新数据**（y=更新后重跑 / n=跳过继续 / q=退出，非交互默认退出）；**v3.6 起自动加载/生成股票名称映射回填 trades.name**；输出 bt_result_{id}.json + bt_all.json）
 - `scripts/strategies.json` — **20 大策略定义**（五要素 + 信号 + 参数：10 经典 + **9 大短线策略** + 形态反转 W底双底突破）；**这是策略定义的唯一来源**，引擎/报告生成器按脚本同目录读取
-- `scripts/gen_backtest_report.py` — 报告 HTML 生成器 v3.2（`--strategy <id>` / `--out <dir>` 指定报告输出目录；交易明细含选股日/买入日/卖出日/触发日/股票名称/候选数/当前资金列，05 卖出原因分布，06 区块为 **20 策略横向对比表**，07 优化与风险；每策略专家分析文案在 ANALYSIS 字典，**新增 9 策略文案齐全**；输出文件名自动净化 Windows 非法字符，坑 37）
+- `scripts/gen_backtest_report.py` — 报告 HTML 生成器 v3.2（`--strategy <id>` / `--out <dir>` 指定报告输出目录；交易明细含选股日/买入日/卖出日/触发日/股票名称/候选数/当前资金列，05 卖出原因分布，06 区块为 **20 策略横向对比表**，07 优化与风险；每策略专家分析文案在 ANALYSIS 字典，**新增 9 策略文案齐全**；输出文件名自动净化 Windows 非法字符）
 - `examples/10策略回测/` — 经典策略定义文档 + **20 份完整回测报告 HTML**（2026-08-21 版：10 经典 + 9 短线 + W底双底突破），展示模板成品形态
 
-> ✅ **路径约定（v3.5 起，坑 36 已修复）**：**策略定义 = 脚本同目录 `scripts/strategies.json`**（永远以 skill 内版本为准，工作区不再需要副本）；**数据与产物 = `<工作区>/.workbuddy/output/`**（自动创建）。
+> ✅ **路径约定（v3.5 起）**：**策略定义 = 脚本同目录 `scripts/strategies.json`**（永远以 skill 内版本为准，工作区不再需要副本）；**数据与产物 = `<工作区>/.workbuddy/output/`**（自动创建）。
 > **运行规范：直接用 skill 里的脚本跑，不要复制脚本到工作区再跑——优先保证 skill 正确。**
 > `THS_WORKSPACE="<工作区>" python "<skill>/scripts/bt_backtest.py" --all`（未设 THS_WORKSPACE 时 = 当前运行目录）
 > 两个脚本启动时都会打印实际读取的策略定义路径与个数，便于确认。自定义策略文件可用 `THS_STRATEGIES` 覆盖。
@@ -87,7 +108,7 @@ agent_created: true
 3. **策略定义**：自定义策略 → 在 **skill 内 `scripts/strategies.json`**（唯一来源）新增条目（buy_signal/sell_signal 从引擎支持的信号表选，或加新信号函数）；经典策略直接用内置 20 个（10 经典 + 9 短线 + W底）。
 4. **跑回测**：`THS_WORKSPACE="<工作区>" python "<skill>/scripts/bt_backtest.py" --strategy <id>`（或 `--all`；**直接用 skill 里的脚本，不要复制到工作区**）→ 输出 bt_result_{id}.json（**总收益含期末未平仓浮动，equity=每笔平仓后资金**）+ bt_all.json 到 `<工作区>/.workbuddy/output/`。
 5. **名称映射（v3.6 起引擎自动，无需手动）**：**本地 v_symbol.name 全为 NULL** → `bt_backtest.py` 启动时**自动加载** `<工作区>/.workbuddy/output/bt_name_map.json`（thscode→name）回填每笔交易 `name` 字段；**文件缺失时自动调** `hithink-finance symbol list --asset-type a-share --exchange SH,SZ,BJ --limit 10000 --output <path>` **生成**，失败则告警回退代码。启动打印 `名称映射: <路径>（N 条）`。
-   > ⚠️ **若明细「股票」列左右都是代码**（坑 41，曾复发）→ 说明 `name` 未回填：跑一次 `bt_backtest.py`（会自动重建映射）再 `gen_backtest_report.py`。报告侧已有兜底：缺名称时渲染「代码 + 金色待补名称」并控制台告警，不再重复显示两遍代码。
+   > ⚠️ **若明细「股票」列左右都是代码**（曾复发）→ 说明 `name` 未回填：跑一次 `bt_backtest.py`（会自动重建映射）再 `gen_backtest_report.py`。报告侧已有兜底：缺名称时渲染「代码 + 金色待补名称」并控制台告警，不再重复显示两遍代码。
 6. **渲染报告**：`python "<skill>/scripts/gen_backtest_report.py" --strategy <id>` → 输出 `DuckDB回测引擎_{策略名}_{YYYYMMDD}.html`（默认到工作区根目录，`--out <dir>` 可改；每策略独立报告，06 区含全策略对比）。
 7. **校验**：区块编号 01-07 唯一、交易明细列齐全（卖出日/触发日/名称/当前资金/候选）、无占位符残留、06 对比表当前策略 ★ 高亮、**配色正红负绿（A股惯例）**。
 
