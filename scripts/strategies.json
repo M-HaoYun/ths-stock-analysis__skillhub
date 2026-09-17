@@ -1,0 +1,365 @@
+{
+ "note": "20大A股经典策略定义（事件驱动·单标的满仓·DuckDB前复权日K回测；含形态反转 W底双底突破与 9 大短线策略）。五要素齐全：买入时机/买入仓位/卖出时机/卖出仓位/选股条件。通用风控：单日跌超 stop_single 或连续阴线累计超 stop_consec_sum 次日开盘卖出（所有策略生效）。信号字段说明见 bt_backtest.py。",
+ "common": {
+  "initial_capital": 1000000,
+  "fee_rate": 0.0003,
+  "limit_up_main": 0.098,
+  "limit_up_ge": 0.198,
+  "market_strong_cnt": 20,
+  "market_strong_ratio": 0.5,
+  "gap_threshold": -0.03,
+  "min_amount": 100000000
+ },
+ "strategies": [
+  {
+   "id": "ma_cross",
+   "name": "双均线金叉趋势跟随",
+   "family": "趋势跟随",
+   "buy_signal": "ma_cross",
+   "sell_signal": "ma_dead",
+   "desc": "经典双均线系统（MA5/MA20），金叉买入死叉卖出，捕捉中期趋势。A股散户最常用的经典趋势策略。",
+   "buy_note": "MA5 上穿 MA20（金叉）当日收盘确认，次日开盘买入",
+   "sell_note": "持仓中 MA5 下穿 MA20（死叉）次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null
+   }
+  },
+  {
+   "id": "ma20_break",
+   "name": "MA20 放量突破",
+   "family": "趋势跟随",
+   "buy_signal": "ma20_break",
+   "sell_signal": "close_below_ma20",
+   "desc": "收盘站上 20 日均线且放量（量比>1.2）买入，跌破 20 日线卖出——均线突破的经典形态。",
+   "buy_note": "收盘站上 MA20 且量比>1.2（放量确认），次日开盘买入",
+   "sell_note": "收盘跌破 MA20 次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null,
+    "vol_ratio": 1.2
+   }
+  },
+  {
+   "id": "channel_break",
+   "name": "海龟唐奇安通道突破",
+   "family": "趋势跟随",
+   "buy_signal": "channel_break",
+   "sell_signal": "channel_exit",
+   "desc": "趋势跟踪鼻祖海龟交易法简化版：突破前 20 日最高价买入，跌破前 10 日最低价离场，止损放宽至 -10%（对应 ATR 2 倍）。",
+   "buy_note": "收盘突破前 20 日最高价（唐奇安通道上轨），次日开盘买入",
+   "sell_note": "收盘跌破前 10 日最低价（通道下轨）次日开盘卖出；或单日跌超 10% 止损；最长持有 20 个交易日",
+   "params": {
+    "stop_single": -0.1,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 20
+   }
+  },
+  {
+   "id": "boll_break",
+   "name": "布林带突破",
+   "family": "波动突破",
+   "buy_signal": "boll_break",
+   "sell_signal": "boll_mid",
+   "desc": "布林带（20 日, 2 倍标准差）上轨突破买入——波动收窄后放量的突破信号，跌破中轨离场。",
+   "buy_note": "收盘突破布林上轨（MA20+2σ），次日开盘买入",
+   "sell_note": "收盘跌破布林中轨（MA20）次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null
+   }
+  },
+  {
+   "id": "rsi_oversold",
+   "name": "RSI 超卖反转",
+   "family": "超跌反转",
+   "buy_signal": "rsi_oversold",
+   "sell_signal": "rsi_overbought",
+   "desc": "RSI(14) 跌入超卖区（<30）抄底，反弹至 RSI>70 或盈利 ≥8% 止盈离场——均值回归经典指标策略。",
+   "buy_note": "RSI14 < 30（超卖区），次日开盘买入",
+   "sell_note": "RSI14 > 70（超买）或盈利 ≥8% 次日开盘卖出；最长持有 10 个交易日；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": 0.08,
+    "max_hold": 10,
+    "rsi_buy": 30,
+    "rsi_sell": 70
+   }
+  },
+  {
+   "id": "new_low_rebound",
+   "name": "60日新低超跌反弹",
+   "family": "超跌反转",
+   "buy_signal": "new_low_rebound",
+   "sell_signal": "profit_or_time",
+   "desc": "创 60 日新低后当日收阳（恐慌止跌信号）买入，反弹 5% 或持有 5 日离场——超跌反弹的经典左侧策略。",
+   "buy_note": "盘中创 60 日新低且当日收阳（止跌信号），次日开盘买入",
+   "sell_note": "盈利 ≥5% 或持有满 5 个交易日次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": 0.05,
+    "max_hold": 5
+   }
+  },
+  {
+   "id": "new_high",
+   "name": "120日新高强势追涨",
+   "family": "动量追涨",
+   "buy_signal": "new_high",
+   "sell_signal": "close_below_ma10",
+   "desc": "创 120 日新高（半年新高）买入强势股，跌破 10 日均线离场——强者恒强动量策略。",
+   "buy_note": "盘中创 120 日新高（半年新高），次日开盘买入",
+   "sell_note": "收盘跌破 MA10 次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null
+   }
+  },
+  {
+   "id": "bull_retrace",
+   "name": "均线多头回踩",
+   "family": "趋势回踩",
+   "buy_signal": "bull_retrace",
+   "sell_signal": "close_below_ma20",
+   "desc": "MA5>MA20>MA60 多头排列且回踩 20 日均线（乖离 ≤2%）买入，跌破 20 日线离场——趋势中的低吸买点。",
+   "buy_note": "MA5>MA20>MA60（多头排列）且收盘距 MA20 乖离 ≤2%（回踩），次日开盘买入",
+   "sell_note": "收盘跌破 MA20 次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null,
+    "retrace_dev": 0.02
+   }
+  },
+  {
+   "id": "limit_low_open",
+   "name": "涨停次日低吸",
+   "family": "打板低吸",
+   "buy_signal": "limit_low_open",
+   "sell_signal": "profit_or_time",
+   "desc": "昨日涨停强势股今日低开 ≥2% 时低吸（龙头分歧买点），反弹 5% 或持有 3 日离场——打板族的分歧低吸策略。",
+   "buy_note": "昨日涨停且今日低开 ≥2%（低吸），次日开盘买入",
+   "sell_note": "盈利 ≥5% 或持有满 3 个交易日次日开盘卖出；或单日跌超 7% 止损",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": 0.05,
+    "max_hold": 3,
+    "low_open_pct": -0.02
+   }
+  },
+  {
+   "id": "streak_2",
+   "name": "二连板打板接力",
+   "family": "打板接力",
+   "buy_signal": "streak_2",
+   "sell_signal": "streak_sell",
+   "desc": "情绪强周期（当日涨停≥20 家且上涨占比>50% [ASSUMED]）中买入二连板+多头排列+热度最高的股票，次日开盘 ≥昨收-3% 买入——打板接力策略（已实测基准）。",
+   "buy_note": "连续 2 天涨停 + 多头排列 + 市场情绪强，选热度最高 1 只，次日开盘 ≥昨收-3% 买入",
+   "sell_note": "买入当天收阴 → 第 3 天（T+2）开盘卖；或单日跌超 7% 止损；或连续阴线累计超 10%",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": null,
+    "market_strong": true,
+    "bull_required": true,
+    "streak": 2
+   }
+  },
+  {
+   "id": "w_bottom",
+   "name": "W底双底突破",
+   "family": "形态反转",
+   "buy_signal": "w_bottom",
+   "sell_signal": "w_fail",
+   "desc": "经典双重底（W底）反转形态：下跌趋势后形成两个接近的低点（右底与左底价差±5%内），两底间反弹高点构成颈线，收盘价放量突破颈线确认形态成立、次日开盘买入；跌破右底（形态失败）或跌回颈线下方（假突破）止损离场。",
+   "buy_note": "W底形态确认：最近60日内双底（两低点接近±5%、颈线=两底间最高收盘），当日收盘突破颈线",
+   "sell_note": "跌破右底止损；跌回颈线下方（假突破）离场；单日跌超 8% 或连亏累计 10% 止损；持有 20 天到期",
+   "params": {
+    "tol": 0.05,
+    "min_gap": 5,
+    "lookback": 60,
+    "stop_single": -0.08,
+    "stop_consec_sum": -0.1,
+    "max_hold": 20
+   }
+  },
+  {
+   "id": "kdj_golden",
+   "name": "KDJ 低位金叉",
+   "family": "震荡指标",
+   "buy_signal": "kdj_golden",
+   "sell_signal": "kdj_dead",
+   "desc": "KDJ(9,3,3) 在低位区（D≤35）金叉买入、死叉卖出——A 股散户最常用的短线震荡指标策略，专做超跌后的第一波反抽。",
+   "buy_note": "K 上穿 D（金叉）且 D ≤ 35（低位区，避免高位钝化假金叉）当日收盘确认，次日开盘买入",
+   "sell_note": "K 下穿 D（死叉）次日开盘卖出；或单日跌超 7% 止损；最长持有 10 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 10,
+    "kd_max": 35
+   }
+  },
+  {
+   "id": "macd_golden",
+   "name": "MACD 零轴下金叉",
+   "family": "震荡指标",
+   "buy_signal": "macd_golden",
+   "sell_signal": "macd_dead",
+   "desc": "MACD(12,26,9) 在零轴下方金叉（超跌后动能反转的第一信号）买入、死叉离场——比零轴上金叉更早、赔率更高，但需接受更低的胜率。",
+   "buy_note": "DIF 上穿 DEA（金叉）且 DIF < 0（零轴下方，超跌反转）当日收盘确认，次日开盘买入",
+   "sell_note": "DIF 下穿 DEA（死叉）次日开盘卖出；或单日跌超 7% 止损；最长持有 15 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 15,
+    "macd_pos": "below"
+   }
+  },
+  {
+   "id": "gap_up",
+   "name": "向上跳空缺口放量",
+   "family": "缺口突破",
+   "buy_signal": "gap_up",
+   "sell_signal": "gap_fill",
+   "desc": "开盘向上跳空 ≥2% 且未回补（当日最低仍高于前收）+ 放量确认买入——缺口代表隔夜增量资金抢筹，短线惯性通常延续 2-5 日。",
+   "buy_note": "开盘跳空 ≥2% 且全天未回补（low > 前收）+ 量比 ≥1.5 当日收盘确认，次日开盘买入",
+   "sell_note": "收盘跌破前一日收盘（缺口开始回补）次日开盘卖出；或单日跌超 7% 止损；最长持有 5 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 5,
+    "gap_min": 0.02,
+    "vol_min": 1.5,
+    "keep_gap": true
+   }
+  },
+  {
+   "id": "shrink_pullback",
+   "name": "缩量回踩 MA5/MA10",
+   "family": "趋势回踩",
+   "buy_signal": "shrink_pullback",
+   "sell_signal": "close_below_ma20",
+   "desc": "多头排列（MA5>MA20>MA60）中缩量回踩 5 日线或 10 日线（乖离 ≤1.5%）低吸——上涨中继的经典「上车点」，不追高、买回调。",
+   "buy_note": "MA5>MA20>MA60 多头排列 + 收盘距 MA5 或 MA10 乖离 ≤1.5% + 量比 <0.9（缩量）当日确认，次日开盘买入",
+   "sell_note": "收盘跌破 MA20 次日开盘卖出；或单日跌超 7% 止损；最长持有 10 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 10,
+    "near_dev": 0.015,
+    "vol_max": 0.9
+   }
+  },
+  {
+   "id": "first_red_pullback",
+   "name": "强势股首阴低吸",
+   "family": "趋势回踩",
+   "buy_signal": "first_red_pullback",
+   "sell_signal": "close_below_ma5",
+   "desc": "连续 3 根以上阳线的强势股出现第一根阴线（洗盘概率大于转向）时低吸，博次日反抽——短线「首阴战法」，前提是不在高位连板段（须非涨停）。",
+   "buy_note": "前一日之前连续 ≥3 根阳线 + 当日收阴（首阴）+ 多头排列 + 非涨停状态当日确认，次日开盘买入",
+   "sell_note": "收盘跌破 MA5 次日开盘卖出；或单日跌超 7% 止损；最长持有 5 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 5,
+    "min_up": 3,
+    "limit_streak": true
+   }
+  },
+  {
+   "id": "ma_squeeze_break",
+   "name": "均线粘合向上突破",
+   "family": "形态突破",
+   "buy_signal": "ma_squeeze_break",
+   "sell_signal": "close_below_ma10",
+   "desc": "MA5/MA10/MA20/MA60 四线高度收敛（极差 ≤3%）后收盘放量向上突破全部均线——横盘蓄势后的方向选择，突破即主升起点。",
+   "buy_note": "四均线极差 ≤3%（粘合）+ 收盘上穿全部均线（前一日仍在均线下）+ 量比 ≥1.3 当日确认，次日开盘买入",
+   "sell_note": "收盘跌破 MA10 次日开盘卖出；或单日跌超 7% 止损；最长持有 15 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 15,
+    "squeeze": 0.03,
+    "vol_min": 1.3
+   }
+  },
+  {
+   "id": "consec_up",
+   "name": "放量连续阳线接力",
+   "family": "动量追涨",
+   "buy_signal": "consec_up",
+   "sell_signal": "bear_engulf",
+   "desc": "连续 ≥3 根阳线且当日放量（量比 ≥1.2）买入——短线资金持续流入的接力信号，直到出现阴包阳的反转形态离场。",
+   "buy_note": "连续 ≥3 根阳线 + 当日量比 ≥1.2（放量）+ 多头排列当日收盘确认，次日开盘买入",
+   "sell_note": "出现阴包阳（当日阴线吞没前一日阳线实体）次日开盘卖出；或单日跌超 7% 止损；最长持有 10 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 10,
+    "min_up": 3,
+    "vol_min": 1.2,
+    "need_bull": true
+   }
+  },
+  {
+   "id": "strong_pullback_ma20",
+   "name": "强势股缩量回踩 MA20",
+   "family": "趋势回踩",
+   "buy_signal": "strong_pullback_ma20",
+   "sell_signal": "close_below_ma20",
+   "desc": "站上 MA60 的中期强势股缩量回踩 20 日线（乖离 ±2%）且当日未连阳——中期趋势的黄金坑，比回踩 MA5/MA10 容错更高、信号更少。",
+   "buy_note": "收盘价位于 MA60 上方 + 距 MA20 乖离 ±2% 以内 + 量比 ≤1.0（缩量）+ 当日非连阳状态当日确认，次日开盘买入",
+   "sell_note": "收盘跌破 MA20 次日开盘卖出；或单日跌超 7% 止损；最长持有 15 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 15,
+    "dev": 0.02,
+    "vol_max": 1.0,
+    "max_up": 0
+   }
+  },
+  {
+   "id": "limit_gene_pullback",
+   "name": "涨停基因缩量回踩",
+   "family": "打板低吸",
+   "buy_signal": "limit_gene_pullback",
+   "sell_signal": "close_below_ma20",
+   "desc": "MA5>MA20>MA60 多头排列的近强势股（有涨停基因的活跃票）缩量回踩 MA20 不破时低吸——用「涨停过的活跃度」换「回踩后的低吸位」，避免追高开板股。",
+   "buy_note": "MA5>MA20>MA60 多头 + 距 MA20 乖离 ≤6% + 量比 ≤1.0（缩量）+ 收盘未跌破 MA20 下方 1% 当日确认，次日开盘买入",
+   "sell_note": "收盘跌破 MA20 次日开盘卖出；或单日跌超 7% 止损；最长持有 10 个交易日",
+   "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.1,
+    "take_profit": null,
+    "max_hold": 10,
+    "max_bias": 0.06,
+    "vol_max": 1.0,
+    "break_dev": 0.01
+   }
+  }
+ ]
+}

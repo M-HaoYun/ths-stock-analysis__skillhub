@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>精选 5 股推荐报告 · 2026-09-10</title>
+<style>
+:root{--navy:#1f3a93;--navy2:#2f56c9;--gold:#c9a227;--ink:#1c2333;--ink2:#5b6478;--line:#e6e9f2;--bg:#f4f6fb;
+--red:#e5484d;--green:#2fa36b;--gold-bg:linear-gradient(135deg,#fdf6e0,#fbecc0);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;padding:20px}
+.wrap{max-width:1060px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums}
+header{background:linear-gradient(135deg,#1f3a93,#2749b3);border-radius:14px;padding:22px 26px;color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+header .logo i{font-style:normal;background:var(--gold);color:#1f3a93;border-radius:6px;padding:2px 8px;font-size:12px}
+header h1{font-size:21px;margin-top:2px}
+header .date{text-align:right;font-size:12px;opacity:.9}
+header .date b{display:block;font-size:15px;opacity:1}
+.banner{background:var(--gold-bg);border:1px solid #eeda9a;border-radius:10px;padding:11px 16px;margin:14px 0;color:#6b5410;font-size:13.5px}
+.banner b{color:#8a6d00}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .v{font-size:24px;font-weight:800}
+.kpi .k{font-size:12px;color:var(--ink2);margin-top:2px}
+.up{color:var(--red)} .dn{color:var(--green)} .hot{color:var(--red)}
+.idx{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 16px}
+.idx span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:12.5px}
+.idx b{margin-left:6px}
+.lines{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.lines .ln{background:#eef1fb;color:var(--navy);border-radius:8px;padding:5px 11px;font-size:12.5px;font-weight:600}
+h2{font-size:16px;color:var(--navy);margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+h2 .no{background:var(--navy);color:#fff;border-radius:6px;padding:1px 8px;font-size:12.5px}
+h2 .hint{font-weight:400;font-size:12px;color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(31,58,147,.05)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.no{display:inline-flex;width:26px;height:26px;border-radius:7px;background:var(--navy);color:#fff;align-items:center;justify-content:center;font-weight:800;margin-right:8px;font-size:14px}
+.nm{font-size:20px;font-weight:800}
+.tcode{font-size:12px;color:var(--ink2);margin-left:7px;background:#f0f2f8;border-radius:5px;padding:1px 7px;font-weight:600}
+.stag{margin-left:8px;border-radius:6px;padding:2px 9px;font-size:11.5px;font-weight:700;color:#fff}
+.stag.a{background:var(--green)} .stag.b{background:#c97818} .stag.c{background:var(--red)} .stag.d{background:var(--navy2)} .stag.e{background:#8a6d9b} .stag.f{background:#0f8a83}
+.px{text-align:right}
+.px b{font-size:26px;font-weight:800}
+.chg{display:block;font-size:14px;font-weight:700}
+.tags{margin:9px 0 4px;display:flex;gap:7px;flex-wrap:wrap}
+.tg{font-size:11px;color:var(--navy);background:#e9edfb;border-radius:20px;padding:1px 10px;font-weight:600}
+.sec-t{font-size:15px;font-weight:800;color:var(--navy);margin:4px 0 6px}
+.why{font-size:13.5px;color:#333c50}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 14px;margin:10px 0;background:#f7f8fc;border-radius:9px;padding:10px 13px}
+.tgrid{background:#f0f4ff;border:1px solid #dbe3f8;border-radius:9px;padding:9px 13px;margin:8px 0}
+.tgrid .tt{font-size:11.5px;color:var(--navy);font-weight:800;margin-bottom:6px}
+.tgrid .grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:5px 14px}
+.tnote{font-size:12px;color:#3b4a6b;margin-top:7px;padding-top:6px;border-top:1px dashed #c9d5f0;line-height:1.55}
+.kv{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px}
+.kv span{color:var(--ink2)} .kv b{font-size:13px}
+.plan,.risk{font-size:13px;margin-top:7px;padding-left:13px;border-left:3px solid var(--gold);}
+.plan b,.risk b{color:#8a6d00;margin-right:6px;font-size:12.5px}
+.risk{border-left-color:#e0a3a6} .risk b{color:#b04548}
+.vchk{margin-top:9px;padding:6px 11px;border-radius:8px;font-size:12.5px;font-weight:700;display:flex;gap:6px;align-items:flex-start;line-height:1.55}
+.vchk.ok{background:#e9f7f0;color:#157a4f;border:1px solid #bfe8d4}
+.vchk.bad{background:#fdeeee;color:#b04548;border:1px solid #f2c6c6}
+.vchk span{font-weight:400}
+.evrow{display:flex;gap:6px;align-items:center;margin-top:9px;flex-wrap:wrap;font-size:11.5px;color:var(--ink2)}
+.evrow b{color:var(--ink2);font-weight:600}
+.ev{background:#eef7f2;color:var(--green);border-radius:5px;padding:1px 7px;font-weight:600}
+.ev.off{background:#f0f1f5;color:#aab}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:13px}
+th{background:#f0f3fb;color:var(--navy);padding:8px 10px;text-align:left;font-size:12.5px}
+td{padding:8px 10px;border-top:1px solid var(--line)}
+.ck{color:var(--green);font-weight:800} .no2{color:#c4c9d6;font-weight:800}
+.pill{display:inline-block;border-radius:5px;padding:1px 8px;font-weight:700;font-size:11.5px;white-space:nowrap}
+.pill.ok{background:#e9f7f0;color:#157a4f} .pill.bad{background:#fdeeee;color:#b04548}
+.audit td{vertical-align:top;font-size:12.5px}
+.insight{background:var(--gold-bg);border:1px solid #eeda9a;border-radius:10px;padding:12px 16px;margin:14px 0;color:#6b5410;font-size:13.5px;font-weight:700}
+.insight::before{content:"💡 "}
+footer{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin:18px 0 8px;font-size:11.5px;color:var(--ink2)}
+</style></head><body><div class="wrap">
+
+<header>
+  <div><div class="logo"><i>THS</i>多能力协同选股<span style="opacity:.7;font-weight:400;font-size:12px">轮动×情绪×龙虎榜×经典策略回测 + 能力#8 验证</span></div>
+  <h1>精选 5 股推荐报告</h1></div>
+  <div class="date">数据截至<b>2026-09-10 收盘</b>周四 · 20:40 生成（短中线技术指标版 v1.2 · 能力#8 验证流程）</div>
+</header>
+
+<div class="banner">💡 <b>核心研判：普跌加深、情绪连续第二日退潮、资金高低切换至红利防御</b>——涨停 34 家（09-09 的 48 家继续回落）、跌停 11 家、炸板 22 家、封板率 61%、最高仅 4 板（桂林旅游），上涨仅 954 家（下跌 4512 家、个股中位 -1.49% 深度普跌）；四大指数全绿（上证 -0.43%、深成 -0.77%、创业板 -0.49%、沪深300 -0.53%）。资金主线：<b>银行今日 +1.47% 全场最强（42 只个股全红、宁波银行 +3.49% 创历史新高）→ 证券/保险跟涨，红利防御接棒</b>；而三周霸榜的农业链高位回落（种植今日 -3.50% 领跌）、资源系小幅回踩换挡；半导体/电池/光伏/小金属/航天继续垫底。普跌市中「防御 > 进攻」，追高退潮方向与抄底缩量方向同样危险。</div>
+
+<h2><span class="no">01</span>市场环境速写<span class="hint">数据：hithink CLI 实测（涨停/炸板池、龙虎榜、板块指数、本地库涨跌家数）</span></h2>
+<div class="kpis"><div class="kpi"><div class="v num hot">34 家</div><div class="k">涨停（09-09: 48）</div></div><div class="kpi"><div class="v num hot">61%</div><div class="k">封板率（炸板 22）</div></div><div class="kpi"><div class="v num dn">954 / 4512</div><div class="k">上涨 / 下跌家数（中位 -1.49%）</div></div><div class="kpi"><div class="v num dn">11 家</div><div class="k">跌停（09-09: 7）</div></div></div>
+<div class="idx"><span>上证指数<b class="num dn">3934.40 -0.43%</b></span><span>深证成指<b class="num dn">13617.67 -0.77%</b></span><span>创业板指<b class="num dn">3338.42 -0.49%</b></span><span>沪深300<b class="num dn">4548.39 -0.53%</b></span><span>连板梯队<b class="num ">4板×1 · 3板×2 · 2板×6</b></span></div>
+<div class="lines"><span class="ln">🏦 银行今日 +1.47% 全场最强（42 只全红·宁波 +3.49% 创新高）</span><span class="ln">📈 证券 +0.84% / 保险 +0.31% 跟随·红利防御接棒</span><span class="ln">🥇 种植业 20日 +27.8% 仍第一，但今日 -3.50% 领跌（三周霸榜终结）</span><span class="ln">⚡ 资源回踩：煤炭 -0.95% / 石油 -1.65% / 工业金属 -1.48%</span><span class="ln">🟠 覆铜板：华正新材龙虎榜净买 +4.89 亿居首（生益同链真受益方）</span><span class="ln">📉 半导体/电池/光伏/小金属/航天继续垫底</span><span class="ln">⚠️ 农业链整体退潮：养殖 -2.90% / 粤桂（磷肥）-4.35% 回踩</span></div>
+<div class="insight">涨停热词=业绩增长 6 家居首、机器人 2 / AI应用 2 / 电力 2 / 商业航天 2；高标压缩至 4 板（桂林旅游·AI文旅），3 板仅 2 家（瑞尔特/云煤能源）——情绪连续第二日退潮，赚钱效应弱。龙虎榜净买第一=华正新材 +4.89 亿（高速覆铜板+AI算力）、湖南黄金 +4.39 亿（重大重组+黄金锑钨）、崇达技术 +3.29 亿（PCB）——资金聚焦<b>覆铜板/PCB 链</b>（生益科技=同链龙头真受益方）；机构净买第一=崇达技术 +2.17 亿。值得注意：09-09 被 #8 否决的中京电子今日仍获机构 +0.52 亿——<b>资金热度 ≠ 值得买</b>，口径不变。普跌日仓位从严。</div>
+
+<h2><span class="no">02</span>精选 5 股推荐<span class="hint">短中线定位（持有 3~10 个交易日）· 按确定性排序 · 每只均经能力#8 全面分析验证 · 全部为 2026-09-10 当日新信号</span></h2>
+
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">1</span><span class="nm">宁波银行</span>
+          <span class="tcode">002142.SZ</span><span class="stag a">防御主线</span></div>
+        <div class="px"><b>35.87</b><span class="chg up"><span class="up">+3.49%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">板块轮动</span><span class="tg">经典策略信号</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">城商行龙头 · 风格切换主线（低估值高股息 + 业绩最优）</div>
+      <div class="why">09-10 市场普跌中银行板块 +1.47% 全场最强、42 只个股全红，宁波银行涨超 3% 与南京/成都/杭州同步创历史新高——核心逻辑=「红利防御 + 基本面重估」双轮驱动：上半年上市银行营收同增 7.42%（上年同期 1.04%）、归母 +2.96%，17 家净息差同比回升；板块 PE 7.26/PB 0.69、平均股息率 4.33%，险资/社保长线持续增配，与高位科技形成「跷跷板」。能力#8 验证：宁波银行 2026H1 营收 +11.5%、归母 +12.1%（城商行第一梯队）、净利率 40.4%、PE_TTM 7.6/PB 0.98——低估值 + 业绩确定性 + 板块动量三者共振，是普跌市中极少数「有基本面支撑的逆势方向」。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+3.49%</span> 创新高</b></div><div class="kv"><span>20日涨幅</span><b><span class="up">+11.1%</span></b></div><div class="kv"><span>60日涨幅</span><b><span class="up">+17.3%</span></b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+12.1%</span></b></div><div class="kv"><span>PE_TTM</span><b>7.6</b></div><div class="kv"><span>PB / 股息参考</span><b>0.98 / 板块 4.33%</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>多头排列 MA5>10>20>60</b></div><div class="kv"><span>RSI14</span><b>75.3 超买</b></div><div class="kv"><span>MACD</span><b>金叉多头 DIF 0.76</b></div><div class="kv"><span>量比</span><b>1.80 温和放量</b></div><div class="kv"><span>布林%B</span><b>106.6 破上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA5 34.8 / 前高 35.9</b></div></div><div class="tnote">RSI 75.3 + %B 106.6 破上轨 + 创 20 日新高 = 短线超买三连，技术面不支持追高；等回踩 MA5（34.8）缩量企稳再分批，跌破 MA10（34.5）短线转弱。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】不追高开，回踩 MA5（34.8）/MA10（34.5）分批；站上 36 元后以 5 日线为移动止盈；板块跌破 20 日线或息差逻辑证伪即退出。</span></div>
+      <div class="risk"><b>主要风险</b><span>银行股弹性有限（进攻性弱于资源/科技），风格若快速切回成长可能跑输；RSI 已超买、板块连续创新高后拥挤度上升；区域行资产质量与地方债务关联需跟踪。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——H1 营收+11.5%/归母+12.1% 城商行最优、PE 7.6/PB 0.98 低估、板块今日全场最强且 42 只全红；技术面超买须等回踩</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev off">○ 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev ">● 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">2</span><span class="nm">云铝股份</span>
+          <span class="tcode">000807.SZ</span><span class="stag c">资源回踩</span></div>
+        <div class="px"><b>28.33</b><span class="chg dn"><span class="dn">-2.41%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">板块轮动</span><span class="tg">能力#8验证</span><span class="tg">回踩低吸</span></div>
+      <div class="sec-t">电解铝弹性王 · 缩量回踩不破均线（H1 +177.6%）</div>
+      <div class="why">工业金属 20日 +7.2% 仍居前列（成交 355 亿）、电解铝供给端逻辑未破坏——霍尔木兹地缘扰动中东约 9% 供给、国内产能已近 4500 万吨政策天花板、旺季去库+下游开工回升，铝价中枢上行预期仍在。云铝=绿色水电铝龙头，2026H1 营收 +20.3%、归母 +177.6%、ROE 21.9%、净利率 25.2%、流动比率高达 4.01（财务稳健），PE_TTM 9.0。今日 -2.41% 随板块高位换挡、量比 0.76 缩量——属主升后正常回踩而非放量出货，估值仍是安全垫（09-09 首推延续，位置更低）。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="dn">-2.41%</span> 缩量回踩</b></div><div class="kv"><span>20日涨幅</span><b><span class="up">+9.4%</span></b></div><div class="kv"><span>60日涨幅</span><b><span class="up">+13.3%</span></b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+177.6%</span></b></div><div class="kv"><span>PE_TTM</span><b>9.0</b></div><div class="kv"><span>ROE(H1)</span><b>21.9%</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>多头排列（未破）</b></div><div class="kv"><span>RSI14</span><b>60.1 中性偏强</b></div><div class="kv"><span>MACD</span><b>金叉多头 DIF 0.51</b></div><div class="kv"><span>量比</span><b>0.76 缩量回踩</b></div><div class="kv"><span>布林%B</span><b>95.8 上轨附近</b></div><div class="kv"><span>关键位</span><b>支撑 MA10 27.4 / 前高 29.0</b></div></div><div class="tnote">量比 0.76 缩量回踩 + 均线多头排列未破 = 主升后健康换挡（非放量出货）；收复 MA5（27.7）或缩量止跌于 MA10（27.4）分批，跌破 MA20（26.8）离场。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】回踩企稳（缩量止跌/收复 5 日线）后分批低吸，不在下跌中接刀；目标看前高 29.0，铝价跌破 24000 元或地缘缓和致供给预期反转即降级退出。</span></div>
+      <div class="risk"><b>主要风险</b><span>铝价随地缘情绪大幅摆动；资源系整体已高位，若板块级退潮个股难独立；今日仍处回踩途中，需等企稳信号。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——H1 +177.6%/ROE 21.9%/PE 9.0 报表已兑现、流动比率 4.0 稳健；今日缩量回踩非放量出货</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev off">○ 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev off">○ 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">3</span><span class="nm">生益科技</span>
+          <span class="tcode">600183.SH</span><span class="stag e">主线低吸</span></div>
+        <div class="px"><b>146.96</b><span class="chg dn"><span class="dn">-0.81%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">市场情绪</span><span class="tg">龙虎榜资金</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">覆铜板龙头 · 资金主线里的真受益方（H1 +130.4%）</div>
+      <div class="why">覆铜板涨价周期持续深化：建滔积层板年内第七次提价、FR-4 年内累计涨幅超 100%，松下/南亚塑胶 9 月起跟涨；AI 服务器/800G-1.6T 光模块挤占高端产能，高速 CCL 供不应求。今日龙虎榜资金聚焦该链——华正新材净买 +4.89 亿居首、崇达技术 +3.29 亿。生益=全球第二大/内资第一覆铜板龙头，M9 级材料已进英伟达 Rubin 供应链，2026H1 营收 +50.0%、归母 +130.4%、ROE 18.2%；今日 -0.81% 抗跌、60日 -18.4% 位置干净——买「业绩兑现的真受益方」而非「资金博弈的弹性小票」（09-08 反查补位逻辑延续）。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="dn">-0.81%</span> 抗跌</b></div><div class="kv"><span>20日涨幅</span><b><span class="up">+3.7%</span></b></div><div class="kv"><span>60日涨幅</span><b><span class="dn">-18.4%</span></b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+130.4%</span></b></div><div class="kv"><span>PE_TTM</span><b>68.7</b></div><div class="kv"><span>成交额</span><b>86 亿</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>均线纠缠 / 站上 MA20</b></div><div class="kv"><span>RSI14</span><b>55.6 中性</b></div><div class="kv"><span>MACD</span><b>多头收敛 DIF 3.73</b></div><div class="kv"><span>量比</span><b>0.85 缩量</b></div><div class="kv"><span>布林%B</span><b>71.4 中上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA20 139.8 / 前高 153.4</b></div></div><div class="tnote">均线纠缠 + 缩量（0.85）于 MA20（139.8）上方横向蓄势，方向未定；<b>放量站上 153.4（20 日高）才确认二次启动</b>，跌破 MA20 止损。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】回踩 MA20（139.8）/MA10（145.9）企稳分批；放量突破 153.4 前高可加仓、目标 160~165；覆铜板报价证伪或跌破 MA20 离场。</span></div>
+      <div class="risk"><b>主要风险</b><span>PE 68.7 偏贵，涨价持续性若证伪回撤大；PCB/覆铜板短期情绪波动剧烈（华正 20日已 +43%），板块获利回吐或拖累龙头；AI 硬件整体弱势时独立难支。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过（谨慎档）——H1 +130.4% 涨价直接兑现在报表、位置干净(60日-18.4%)、真受益龙头非资金票；估值偏高为唯一瑕疵</span></div>
+      <div class="evrow"><b>证据</b><span class="ev off">○ 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev ">● 龙虎榜</span><span class="ev off">○ 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">4</span><span class="nm">中际旭创</span>
+          <span class="tcode">300308.SZ</span><span class="stag d">超跌回踩</span></div>
+        <div class="px"><b>890.10</b><span class="chg dn"><span class="dn">-2.07%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">经典策略信号</span><span class="tg">市场情绪</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">AI 光模块龙头 · W底确认后缩量回踩（forward ≈30x）</div>
+      <div class="why">60日 -30.2% 深度回调后，09-08 以天量完成 W 底突破（颈线 866.12），今日 -2.07% 缩量回踩（量比 0.64、成交 155 亿）——突破后回踩蓄势形态。能力#8 验证：2026H1 营收 +182.5%、归母 +241.7%、ROE 37.6%、毛利率 46.3%；49 家机构 2026E 净利 338 亿（+213%）→ forward PE ≈30x，综合目标价 1494 元——高景气足以消化静态高估值。通信设备 20日 +4.6% 处于中游，「AI 算力/CPO/800G 光引擎」仍在今日涨停热词中——科技端唯一仍有景气背书的低位方向。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="dn">-2.07%</span> 缩量回踩</b></div><div class="kv"><span>60日涨幅</span><b><span class="dn">-30.2%</span></b></div><div class="kv"><span>W底</span><b>颈线 866.12 已确认</b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+241.7%</span></b></div><div class="kv"><span>forward PE</span><b>≈30x</b></div><div class="kv"><span>成交额</span><b>155 亿</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>纠缠 / MA60(1020) 承压</b></div><div class="kv"><span>RSI14</span><b>48.1 中性偏弱</b></div><div class="kv"><span>MACD</span><b>零轴下金叉（超跌反弹）</b></div><div class="kv"><span>量比</span><b>0.64 极度缩量</b></div><div class="kv"><span>布林%B</span><b>51.8 中轨</b></div><div class="kv"><span>关键位</span><b>支撑 866 颈线 / 压力 1001</b></div></div><div class="tnote">零轴下方 MACD 金叉=超跌反弹初期，但量比 0.64 极度缩量、反弹力度待<b>放量</b>确认；守住 866 颈线（W 底）持有，放量站上 1001（20 日高/MA60 下方）才算反转，跌破 813（右底）止损。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】颈线上方持有；回踩 866±1% 分批低吸；放量突破 1001 可加仓看 1050+；跌破右底区域止损——「跌回颈线即跑」（回测：W底 +76.3% 唯一正收益范式）。</span></div>
+      <div class="risk"><b>主要风险</b><span>科技资金连续两周撤离未回流、创业板弱势；PB 26.3 极高、900 元高价股波动大；若通信板块持续缩量则 W 底可能假突破。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——H1 +241.7%/ROE 37.6% 业绩爆发、forward ≈30x 消化估值、超跌(60日-30%)且 W底颈线确认</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev ">● 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">5</span><span class="nm">粤桂股份</span>
+          <span class="tcode">000833.SZ</span><span class="stag f">主线回踩</span></div>
+        <div class="px"><b>22.21</b><span class="chg dn"><span class="dn">-4.35%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">板块轮动</span><span class="tg">市场情绪</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">磷肥主线 · 放量深回踩但均线未破（农业链业绩最硬）</div>
+      <div class="why">农业链（种植 20日 +27.8% 名义仍第一）本日高位回落、种植 -3.50% 领跌，粤桂 -4.35% 随链回调——但基本面与链条杂毛完全不同：2026H1 营收 +72.4%、归母 +182.8%、ROE 15.8%、毛利率 43.5%、净利率 28.1%、PE_TTM 20.9，60日仅 +0.4%（位置干净）。硫铁矿+精制磷酸+光伏银粉业务结构，受益磷肥出口景气与磷化工涨价；09-09 曾获龙虎榜净买 +1.45 亿。今日深回踩把 5 日涨幅压缩至 +11.8%，是本组合中「业绩最硬 + 位置最低」的农业链标的（09-08 首推延续，等企稳）。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="dn">-4.35%</span> 深回踩</b></div><div class="kv"><span>20日涨幅</span><b><span class="up">+8.4%</span></b></div><div class="kv"><span>60日涨幅</span><b><span class="up">+0.4%</span></b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+182.8%</span></b></div><div class="kv"><span>PE_TTM</span><b>20.9</b></div><div class="kv"><span>毛利率(H1)</span><b>43.5%</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>多头排列 MA5>10>20</b></div><div class="kv"><span>RSI14</span><b>57.4 中性</b></div><div class="kv"><span>MACD</span><b>金叉多头 DIF 0.33</b></div><div class="kv"><span>量比</span><b>1.53 放量回踩</b></div><div class="kv"><span>布林%B</span><b>80.0 中上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA10 21.3 / 前高 23.2</b></div></div><div class="tnote">放量回踩（量比 1.53）显示分歧加大，但均线仍多头排列、MACD 金叉未破；守住 MA10（21.3）为强势整理，收复 MA5（21.8）可再参与，跌破 MA20（21.2）离场。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】农业链整体退潮中不接飞刀，等缩量止跌/收复 MA5（21.8）再分批；目标前高 23.2；跌破 MA20（21.2）或磷肥板块集体退潮离场。</span></div>
+      <div class="risk"><b>主要风险</b><span>农业链已高位（种植 20日 +27.8% 但今日领跌），链条级回调时个股难独立；今日放量深跌 -4.35% 显示承接偏弱；硫磺/磷肥价格波动、PB 4.3 不便宜。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——H1 +182.8% 与 PE 20.9 匹配、位置干净(60日+0.4%)、毛利率 43.5% 盈利质量高；今日放量回踩需等企稳</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev off">○ 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+
+<h2><span class="no">03</span>信号证据交叉矩阵<span class="hint">●=该股当日具备此项能力证据（5 项能力独立取证，末列=能力#8 验证通过）</span></h2>
+<table>
+<tr><th>股票</th><th>主线定位</th><th>板块轮动</th><th>市场情绪</th><th>龙虎榜</th><th>经典策略</th><th>能力#8</th></tr>
+<tr><td><b>宁波银行</b> 002142</td><td>银行·红利重估</td><td class="ck">●</td><td class="no2">○</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td></tr><tr><td><b>云铝股份</b> 000807</td><td>电解铝·供给缺口</td><td class="ck">●</td><td class="no2">○</td><td class="no2">○</td><td class="no2">○</td><td class="ck">●</td></tr><tr><td><b>生益科技</b> 600183</td><td>覆铜板·涨价受益</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td></tr><tr><td><b>中际旭创</b> 300308</td><td>光模块·W底右侧</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td></tr><tr><td><b>粤桂股份</b> 000833</td><td>磷化工·农业链</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="no2">○</td><td class="ck">●</td></tr>
+</table>
+<div class="insight">能力#8 验证后五只均有硬业绩背书且位置可控（<b>全部为短中线 3~10 个交易日口径，非长线推荐</b>）：<b>宁波银行</b>（银行风格切换主线 H1 营收 +11.5%/归母 +12.1%、PE 7.6/PB 0.98、今日 +3.49% 创新高）是本日唯一逆势方向的载体，但 RSI 75.3 已超买、须等回踩；<b>云铝股份</b>（电解铝 H1 +177.6%、ROE 21.9%、PE 9.0、今日 -2.41% 缩量回踩）与 <b>粤桂股份</b>（磷肥 H1 +182.8%、PE 20.9、今日 -4.35% 回踩）提供资源/化工的业绩+估值双支撑；<b>生益科技</b>（覆铜板涨价真受益方 H1 +130.4%、当日 -0.81% 抗跌）沿今日资金主线（华正/崇达）取真受益龙头；<b>中际旭创</b>（H1 +241.7%、60日 -30.2% 深调）为超跌右侧观察。原 09-09 组合神火（与云铝同铝链，为分散度让位）转观察——非否决。被剔除方向：农业种业（敦煌种业 20日 +88%/60日 +126% 妖股化、种植今日领跌）、基本面下滑票（上汽归母 -14.4%、盾安 -12.8%）。</div>
+
+<h2><span class="no">★</span>能力#8 验证记录（v1.1 新增）<span class="hint">原选/候选逐一验证 → 剔除与补位全程留痕，宁缺毋滥</span></h2><table class="audit"><tr><th>标的</th><th>判定</th><th>关键依据（数据=CLI 实测，事件=WebSearch 公开披露）</th></tr><tr><td style="white-space:nowrap"><b>神火股份（09-09 选·转观察）</b></td><td><span class="pill ok">通过</span></td><td>H1 归母 +151.1%/ROE 18.4%/PE 9.2 基本面仍优，技术面多头排列（MA20 上方 +4.7%）；与云铝同属铝链、组合已有铝敞口——为分散度让位，非否决，作资源线替补观察</td></tr><tr><td style="white-space:nowrap"><b>江苏银行 600919（候选·银行）</b></td><td><span class="pill ok">通过</span></td><td>H1 营收 +9.1%/归母 +8.1%、PE 6.4/PB 0.85，技术面 RSI 68.4/%B 107.2 同创历史新高——与宁波银行同主线同逻辑，取盈利弹性更强的宁波作代表，江苏并列观察（同样超买）</td></tr><tr><td style="white-space:nowrap"><b>华正新材 603186（候选·龙虎榜第一）</b></td><td><span class="pill bad">剔除</span></td><td>H1 归母 +305.3%、今日龙虎榜净买 +4.89 亿居首（800G 光模块材料过华为认证）——但 PE 84、净利率仅 5.9%、20日 +43.1%；<b>技术面独立佐证超买：乖离 MA20 +20.3%、%B 118 破上轨、5日 +20.9%</b> → 估值透支+位置风险双否，覆铜板链取龙头生益（观察其弹性）</td></tr><tr><td style="white-space:nowrap"><b>湖南黄金 002155（候选·龙虎榜第二）</b></td><td><span class="pill ok">通过</span></td><td>重大重组+黄金锑钨、龙虎榜净买 +4.39 亿、H1 归母 +46.0%——但毛利率仅 5.6%（贸易业务占比高、盈利质量薄），贵金属板块缩量退潮——观察不追</td></tr><tr><td style="white-space:nowrap"><b>中国铝业 601600 / 宝丰能源 600989（候选）</b></td><td><span class="pill ok">通过</span></td><td>中铝 H1 归母 +67.9%/PE 9.7、宝丰 H1 +70.1%/PE 11.8 均为优质低估资源票——铝链取弹性更大的云铝、煤化工已有观察位，二者列资源线备选观察</td></tr><tr><td style="white-space:nowrap"><b>大连重工 002204（候选）</b></td><td><span class="pill bad">剔除</span></td><td>今日 +10.09% 涨停放量，但 H1 ROE 仅 4.7%、归母 +18.8% 属温和增长——涨停日追高风险大于基本面吸引力，观察</td></tr><tr><td style="white-space:nowrap"><b>农业种业方向（整体剔除）</b></td><td><span class="pill bad">剔除</span></td><td>敦煌种业 20日 +88.3%/60日 +125.8%、红棉股份 20日 +51.7% 已妖股化（PE 44/67）；种植业今日 -3.50% 领跌、三周霸榜终结——方向整体高位退潮，不参与</td></tr><tr><td style="white-space:nowrap"><b>上汽集团 600104 / 盾安环境 002011（基本面否决）</b></td><td><span class="pill bad">剔除</span></td><td>上汽 H1 归母 -14.4%（PB 0.43 低但成长性缺失）、盾安 H1 归母 -12.8%——基本面维度直接否决，估值低不构成买入理由</td></tr><tr><td style="white-space:nowrap"><b>北大荒 600598 / 三孚股份 603938（09-09 观察·维持）</b></td><td><span class="pill ok">通过</span></td><td>北大荒今日 -3.38%（农业链退潮）维持观察，一次性补税出清逻辑未变；三孚今日 -4.37% 且量比 2.13 放量杀跌、PE 107 高位风险大——均维持观察不动</td></tr></table>
+
+<h2><span class="no">04</span>操作纪律（短中线口径 · 源自能力 #1 回测实证）<span class="hint">11 策略 2025-08-22~2026-08-21 实测</span></h2>
+<table>
+<tr><th>纪律</th><th>回测证据 / 依据</th><th>本次应用</th></tr>
+<tr><td><b>短中线持有，不做长线</b></td><td>本报告全部为当日新触发的短线信号（W底突破/放量新高/涨停回踩），信号有效期即 3~10 个交易日；回测引擎按"信号触发→持有至卖点"统计，无长线维度</td><td>每卡给出入场技术位/止损位/短线目标；<b>破位即走，不因"基本面好"而扛单或转长线</b></td></tr>
+<tr><td><b>只做右侧突破，不左侧抄底</b></td><td>W底 +76.3%（回撤-23.1% 最优）& 海龟 +79.0% 唯二正收益；60日新低 -54.3%、RSI 抄底 -1.7% 全灭</td><td>推荐全部是「当日突破/涨停新触发」的右侧信号，无左侧接刀</td></tr>
+<tr><td><b>跌回颈线即跑（假突破离场）</b></td><td>W底假突破 10/21 笔靠此控制损失（平均 -3.5%）</td><td>W底标的跌破颈线/右底即离场；其余标的跌破启动位同理</td></tr>
+<tr><td><b>连板越高越差，禁止追板</b></td><td>二连板接力 -18.8%、三连板 -83.57%</td><td>连板标的均「不追下一板」，等分歧回踩</td></tr>
+<tr><td><b>盈亏比 > 胜率</b></td><td>RSI 胜率 58% 打平 vs 海龟 28% 大赚</td><td>单笔止损纪律严于胜率追求，回踩位参与、破位即走</td></tr>
+</table>
+
+<h2><span class="no">05</span>口径与免责</h2>
+<footer>数据来源：hithink-finance CLI 实测（涨停/跌停/炸板池 09-10、龙虎榜普通+机构榜、板块指数 881xxx.TI、本地前复权 v_daily_qfq 全市场 W底/60日新高扫描、market/valuation snapshot、financials indicators 2026 中报、短线技术指标由本地前复权日K自算），数据截至 2026-09-10 收盘；产业逻辑/涨价/风格切换为 WebSearch 公开披露（已显式标注：银行=上证报/证券时报 09-10 报道·上半年营收 +7.42%/17 家息差回升/PE 7.26·PB 0.69·股息率 4.33%；覆铜板=建滔年内第七次提价·FR-4 年内累计涨幅超 100%·生益 M9 进英伟达 Rubin 供应链；旭创一致预期 49 家机构）。本版按能力 #12 v1.2 流程：四能力（轮动#7×情绪#6×龙虎榜#11×策略#1）交叉取证 → 逐只 #8 全面分析验证 → 不值得买剔除（农业种业妖股化、基本面下滑票否决）→ 风格切换方向补位宁波银行；每卡附短线技术指标（均线/RSI/MACD/量比/布林/关键位）。<b>定位为短中线（持有 3~10 个交易日），非长线推荐</b>：基本面对本策略仅作「不做接刀」的安全垫，破位即走、不因基本面转长线。回测结论引用能力 #1 引擎 2025-08-22~2026-08-21 实测：W底双底突破 +76.3%（回撤-23.1% 全场最优）、海龟唐奇安 +79.0%、二连板接力 -18.8%、三连板 -83.57%——「等突破确认右侧买 + 跌回颈线即跑」是唯一正收益范式。当日为深度普跌日（下跌 4512 家、中位 -1.49%），组合以「回踩/企稳分批」为操作前提，非追高推荐。本报告为研究参考，不构成个人投资建议。</footer>
+
+</div></body></html>

@@ -1,0 +1,26 @@
+{
+  "note": "自定义回测策略·五要素模板。复制本文件内容到 strategies.json 的 strategies 数组追加一条，五要素缺一不可（回测前向用户确认，缺项提示补充）。",
+  "id": "my_strategy",
+  "name": "我的策略名",
+  "family": "策略流派（趋势跟随/超跌反转/动量追涨/打板博弈/自定义）",
+  "buy_signal": "内置信号ID 或 新增信号函数（见 bt_backtest.py is_buy）",
+  "sell_signal": "内置信号ID 或 新增信号函数（见 bt_backtest.py check_sell）",
+  "desc": "策略一句话说明",
+  "buy_note": "买入时机：何时买（选股条件+买入触发）",
+  "sell_note": "卖出时机：何时卖（止盈/止损/持有天数规则）",
+  "params": {
+    "stop_single": -0.07,
+    "stop_consec_sum": -0.10,
+    "take_profit": null,
+    "max_hold": null,
+    "market_strong": false,
+    "bull_required": false
+  },
+  "five_elements_check": {
+    "1_买入时机": "填 buy_note：如'次日开盘≥昨收-3%买入'",
+    "2_买入仓位": "满仓/半仓/分批？单笔比例？",
+    "3_卖出时机": "填 sell_note：如'单日跌超7%止损、+8%止盈、持有10天'",
+    "4_卖出仓位": "清仓/分批卖出？",
+    "5_选股条件": "买什么：连板数/均线形态/板块强势/热度/财务过滤等"
+  }
+}

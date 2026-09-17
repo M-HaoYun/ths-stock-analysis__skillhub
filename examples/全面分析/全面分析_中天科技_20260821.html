@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全面分析中天科技</title>
+<style>
+  :root{ --brand:#1f3a93; --brand-soft:#eef2fb; --gold:#c9a227; --gold-soft:#fdf9ec;
+    --red:#e5484d; --green:#2fa36b; --ink:#1d2433; --ink-2:#5b6470; --ink-3:#9aa1ad;
+    --border:#e8eaee; --bg:#f4f5f7; --shadow-sm:0 1px 3px rgba(16,24,40,.06); --shadow-md:0 4px 14px rgba(16,24,40,.08); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;padding:28px 20px 40px}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  .wrap{max-width:980px;margin:0 auto}
+  .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow-sm);transition:box-shadow .18s,transform .18s}
+  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid-2{grid-template-columns:1fr}}
+  .sec{display:flex;align-items:baseline;gap:10px;margin:26px 0 12px;flex-wrap:wrap}
+  .sec h2{font-size:17px;color:var(--ink);font-weight:800}
+  .sec .no{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:22px;padding:0 6px;border-radius:6px;background:linear-gradient(135deg,#e8b83a,#c9a227);color:#fff;font-size:12px;font-weight:800}
+  .sec .hint{font-size:11.5px;color:var(--ink-3);font-weight:400}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{background:#f7f8fa;color:var(--ink-2);font-weight:600;font-size:11px;padding:7px 8px;text-align:left;border-bottom:1px solid var(--border)}
+  td{padding:7px 8px;border-bottom:1px dashed #f0f1f4}
+  tbody tr:hover{background:#f7f9fd}
+  .vbadge{display:inline-block;font-size:15px;font-weight:800;padding:4px 18px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#2fa36b,#27905f);border:1px solid #27905f;box-shadow:0 2px 8px rgba(47,163,107,.25)}
+  .vbadge.gd{background:linear-gradient(135deg,#e5484d,#c0392b);border-color:#c0392b;box-shadow:0 2px 8px rgba(229,72,77,.25)}
+  .hero{background:linear-gradient(135deg,#1f3a93 0%,#2a4db8 60%,#3358c9 100%);border-radius:16px;padding:22px 24px;color:#fff;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.35),transparent 70%)}
+  .hero .title{font-size:22px;font-weight:800;letter-spacing:.5px}
+  .hero .tcode{font-size:13px;color:rgba(255,255,255,.65);font-weight:600;margin-left:8px}
+  .hero .sub{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .pill.gold{background:rgba(201,162,39,.2);color:#f5d47a;border:1px solid rgba(201,162,39,.4)}
+  .pill.brand{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}
+  .insight{margin-top:12px;padding:10px 14px;border-radius:10px;background:linear-gradient(120deg,#fdf9ec,#faf3d8);border:1px solid #eddcab;font-size:12.5px;font-weight:600;color:#8a6d12;line-height:1.7}
+  .kv{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px}
+  .sum-row{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dashed #f0f1f4;font-size:13px;flex-wrap:wrap}
+  .sum-row:last-child{border-bottom:none}
+  .sum-tag{flex-shrink:0;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(180deg,var(--gold),#a8871d);border-radius:5px;padding:2px 9px;white-space:nowrap}
+  .sum-tag2{flex-shrink:0;font-size:11px;font-weight:800;color:var(--brand);background:var(--brand-soft);border:1px solid #d5def5;border-radius:5px;padding:2px 9px;white-space:nowrap}
+  .note{font-size:11px;color:var(--ink-3);margin-top:14px;line-height:1.7}
+  @media print{body{background:#fff}.card{box-shadow:none;border-color:#ddd}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="title">中天科技 <span class="tcode">股票全面分析 · 全维透视 · 单股研究</span></div>
+    <div class="sub">
+      <span class="pill gold">20260821</span>
+      <span class="pill brand">中天科技 · 600522.SH</span>
+      <span class="pill brand">通信设备·光通信/海缆</span>
+    </div>
+  </div>
+
+  <div class="sec"><h2><span class="no">01</span>总览</h2><span class="hint">多能力整合 · 模型输出 [MODEL]</span></div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px">
+      <span class="vbadge">高景气 · 估值消化中</span>
+      <span style="font-size:13px;color:var(--ink);font-weight:700">中天科技 <span style="color:var(--ink-2);font-weight:400">现价 32.00（-4.28%）</span></span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-2);line-height:1.8">中天科技是「光通信（光纤光缆+算力光互联）+ 海洋（海缆）+ 新能源」龙头：2026Q1 营收 131.4 亿（+34.7%）、归母 9.19 亿（+46.4%），AI 算力带动特种光纤价格暴涨（G.657.A2 光纤 32→240 元/芯公里，+650%）+ 海缆在手订单 308 亿（海洋 121 亿）双轮驱动。PE(TTM) 34.2 倍看似不低，但 2026E 一致预期归母 70 亿（+142%）→ forward PE 仅 15 倍——'利润高增消化估值'逻辑；机构综合目标价 56.32 元（+68%）。风险：光纤涨价持续性、海缆订单交付节奏、当日大跌 -4.3% 需关注资金面。</div>
+  </div>
+
+  <div class="sec"><h2><span class="no">02</span>公司速览</h2><span class="hint">行情快照 · 主营构成 · 简介</span></div>
+  <div class="grid-2">
+    <div class="card"><h3 style="font-size:14px;margin-bottom:8px">行情快照</h3><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">开盘</span><b>33.42</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">最高</span><b>33.43</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">最低</span><b>31.88</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">昨收</span><b>33.43</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">成交额</span><b>34.5亿</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">总市值</span><b>1078亿</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">PE(TTM)</span><b>34.2</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">PB(MRQ)</span><b>2.87</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">PS(TTM)</span><b>1.95</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">PCF(TTM)</span><b>27.73</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">近1年涨跌</span><b style="color:var(--red);font-weight:800">+120%</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">52周区间</span><b>15.0~67.7</b></div></div>
+    <div class="card">
+      <h3 style="font-size:14px;margin-bottom:8px">主营构成</h3>
+      <div style="font-size:13px;font-weight:700;color:var(--brand)">电网建设 42.4% · 光通信 14% · 海缆（海洋）12% · 铜产品 18%</div>
+      <div style="font-size:12.5px;color:var(--ink-2);line-height:1.8;margin-top:8px">中天科技集团有限公司旗下上市公司，业务矩阵「光通信+海洋+新能源」：光纤光缆/算力光互联（空芯光纤规模化、多芯光纤单纤容量×7）、海底电缆（±500kV 柔直中标五大标志性项目）、电力电缆与电网建设（占比 42%）、铜产品。2025 营收 525 亿（+9.3%）、归母 29 亿；2026Q1 受益 AI 光纤涨价营收 +34.7%/归母 +46.4%。</div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--brand-soft);color:var(--brand);border:1px solid #d5def5">光纤涨价受益</span><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--brand-soft);color:var(--brand);border:1px solid #d5def5">海缆龙头</span><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--brand-soft);color:var(--brand);border:1px solid #d5def5">AI算力光互联</span><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--brand-soft);color:var(--brand);border:1px solid #d5def5">在手订单308亿</span></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2><span class="no">03</span>财务分析</h2><span class="hint">近5年营收/归母 · 最新季度亮点</span></div>
+  <div class="card"><svg viewBox="0 0 880 260" width="100%" role="img" aria-label="近五年营收与归母净利润"><rect x="102.0" y="80.4" width="28" height="139.6" rx="4" fill="#1f3a93" opacity="0.85"/><text x="116.0" y="76.4" text-anchor="middle" font-size="10" font-weight="700" fill="#1f3a93">463</text><rect x="142.0" y="219.5" width="28" height="2.0" rx="4" fill="#e5484d" opacity="0.85"/><text x="156.0" y="215.5" text-anchor="middle" font-size="10" font-weight="700" fill="#e5484d">1.8</text><text x="136.0" y="244" text-anchor="middle" font-size="11.5" fill="#6b7280">2021</text><rect x="254.0" y="98.5" width="28" height="121.5" rx="4" fill="#1f3a93" opacity="0.85"/><text x="268.0" y="94.5" text-anchor="middle" font-size="10" font-weight="700" fill="#1f3a93">403</text><rect x="294.0" y="210.3" width="28" height="9.7" rx="4" fill="#e5484d" opacity="0.85"/><text x="308.0" y="206.3" text-anchor="middle" font-size="10" font-weight="700" fill="#e5484d">32.1</text><text x="288.0" y="244" text-anchor="middle" font-size="11.5" fill="#6b7280">2022</text><rect x="406.0" y="84.0" width="28" height="136.0" rx="4" fill="#1f3a93" opacity="0.85"/><text x="420.0" y="80.0" text-anchor="middle" font-size="10" font-weight="700" fill="#1f3a93">451</text><rect x="446.0" y="210.6" width="28" height="9.4" rx="4" fill="#e5484d" opacity="0.85"/><text x="460.0" y="206.6" text-anchor="middle" font-size="10" font-weight="700" fill="#e5484d">31.2</text><text x="440.0" y="244" text-anchor="middle" font-size="11.5" fill="#6b7280">2023</text><rect x="558.0" y="74.9" width="28" height="145.1" rx="4" fill="#1f3a93" opacity="0.85"/><text x="572.0" y="70.9" text-anchor="middle" font-size="10" font-weight="700" fill="#1f3a93">481</text><rect x="598.0" y="211.4" width="28" height="8.6" rx="4" fill="#e5484d" opacity="0.85"/><text x="612.0" y="207.4" text-anchor="middle" font-size="10" font-weight="700" fill="#e5484d">28.4</text><text x="592.0" y="244" text-anchor="middle" font-size="11.5" fill="#6b7280">2024</text><rect x="710.0" y="61.7" width="28" height="158.3" rx="4" fill="#1f3a93" opacity="0.85"/><text x="724.0" y="57.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1f3a93">525</text><rect x="750.0" y="211.3" width="28" height="8.7" rx="4" fill="#e5484d" opacity="0.85"/><text x="764.0" y="207.3" text-anchor="middle" font-size="10" font-weight="700" fill="#e5484d">29.0</text><text x="744.0" y="244" text-anchor="middle" font-size="11.5" fill="#6b7280">2025</text><text x="68" y="16" font-size="11.5" font-weight="700" fill="#1f3a93">营收（亿）</text><text x="150" y="16" font-size="11.5" font-weight="700" fill="#e5484d">归母净利（亿）</text></svg>
+    <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px 12px">
+        <div style="font-size:11px;color:var(--ink-3)">最新季度营收 / 同比</div>
+        <div style="font-size:17px;font-weight:800;color:var(--brand)">131.4 <span style="font-size:12px;color:var(--red)">+34.7%</span></div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px 12px">
+        <div style="font-size:11px;color:var(--ink-3)">最新季度归母 / 同比</div>
+        <div style="font-size:17px;font-weight:800;color:var(--red)">9.2 <span style="font-size:12px;color:var(--red)">+46.4%</span></div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px 12px">
+        <div style="font-size:11px;color:var(--ink-3)">毛利率 / ROE</div>
+        <div style="font-size:17px;font-weight:800;color:var(--ink)">15.6% <span style="font-size:12px;color:var(--ink-2)">/ 2.4%</span></div>
+      </div>
+    </div>
+    <div class="insight">💡 2026Q1 营收 131.4 亿（+34.7%）、归母 9.19 亿（+46.4%）——AI 算力光纤量价齐升+海缆交付放量；毛利率 15.6%（光纤涨价带动光通信毛利率回升）；经营现金流 -19.5 亿（海缆项目垫资+备货，Q1 季节性）</div>
+  </div>
+
+  <div class="sec"><h2><span class="no">04</span>估值分析</h2><span class="hint">当前估值 vs 同行 · forward PE</span></div>
+  <div class="grid-2">
+    <div class="card"><h3 style="font-size:14px;margin-bottom:8px">估值指标</h3><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 110px">PE(TTM)</span><b>34.2</b> <span style="color:var(--ink-3);font-size:11px">vs 同行中位 45.8</span></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 110px">PB(MRQ)</span><b>2.87</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 110px">PS(TTM)</span><b>1.95</b></div><div class="kv" style="padding:5px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 110px">2026E forward PE</span><b style="color:var(--red)">15.4</b></div>
+      <div class="insight">💡 PE(TTM) 34.2 低于光通信同行中位（亨通 45.8/长飞 88.2/烽火 123.2，东方电缆 20.8 除外）；2026E 一致预期 70.19 亿 → forward PE 15.4 倍——高增长消化估值的典型形态，若 2026 利润兑现估值显著摊薄</div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;margin-bottom:8px">光通信/海缆同行对比</h3>
+      <table><tr><th>公司</th><th>PE(TTM)</th><th>PB</th></tr><tr style="background:#fdf9ec"><td><b>中天科技</b></td><td class="num">34.2</td><td class="num">2.87</td></tr><tr><td><b>亨通光电</b></td><td class="num">45.8</td><td class="num">4.56</td></tr><tr><td><b>长飞光纤</b></td><td class="num">88.2</td><td class="num">18.55</td></tr><tr><td><b>烽火通信</b></td><td class="num">123.2</td><td class="num">2.94</td></tr><tr><td><b>东方电缆</b></td><td class="num">20.8</td><td class="num">3.35</td></tr></table>
+    </div>
+  </div>
+
+  <div class="sec"><h2><span class="no">05</span>成长预测</h2><span class="hint">券商一致预期 · 三情景 · WebSearch 公开披露</span></div>
+  <div class="card">
+    <div style="display:flex;gap:14px;margin-bottom:10px;flex-wrap:wrap">
+      <div style="flex:1;min-width:150px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:11px;color:var(--ink-3)">2026E 归母</div><div style="font-size:18px;font-weight:800;color:var(--red)">70.19亿</div></div>
+      <div style="flex:1;min-width:150px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:11px;color:var(--ink-3)">2027E / 2028E</div><div style="font-size:18px;font-weight:800;color:var(--ink)">82.91 / 102.9亿</div></div>
+      <div style="flex:1;min-width:150px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:11px;color:var(--ink-3)">2026E forward PE</div><div style="font-size:18px;font-weight:800;color:var(--brand)">15.4倍</div></div>
+      <div style="flex:1;min-width:150px;background:#fbfcfe;border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:11px;color:var(--ink-3)">机构目标价</div><div style="font-size:18px;font-weight:800;color:var(--gold)">56.32元</div></div>
+    </div>
+    <table><tr><th>情景</th><th>2026E 归母</th><th>假设</th></tr><tr><td><span class="sum-tag">乐观</span></td><td class="num" style="font-weight:700">80亿</td><td style="font-size:11px;color:var(--ink-2)">光纤价格维持高位+海缆大规模交付（西南/长江证券口径）</td></tr><tr><td><span class="sum-tag2">中性</span></td><td class="num" style="font-weight:700">70亿</td><td style="font-size:11px;color:var(--ink-2)">贴近一致预期 70.19 亿：光纤量价齐升+海缆稳步交付</td></tr><tr><td><span class="sum-tag2">悲观</span></td><td class="num" style="font-weight:700">55亿</td><td style="font-size:11px;color:var(--ink-2)">光纤涨价回落+海缆交付延迟（原料成本上行风险）</td></tr></table>
+    <div class="insight">💡 33 家机构一致预期 2026E 归母 70.19 亿（+142%）、2027E 82.9 亿、2028E 102.9 亿——光纤涨价（G.657.A2 +650%）与海缆订单（308 亿在手）为核心假设；西部证券 2026-2028 归母 63.8/70.5/75.5 亿（相对保守）；机构目标价 56.32 元（+68%）[WebSearch 公开披露]</div>
+  </div>
+
+  <div class="sec"><h2><span class="no">06</span>业绩前瞻与催化剂</h2><span class="hint">披露/订单/事件跟踪</span></div>
+  <div class="card">
+    <table><tr><th>催化剂</th><th>时点</th><th>说明</th></tr><tr><td style="font-weight:600">2026 中报披露</td><td class="num" style="color:var(--ink-2);white-space:nowrap">2026-08 下旬</td><td style="font-size:11.5px;color:var(--ink-2)">验证 Q2 光纤涨价持续性与海缆交付节奏——Q1 已 +46%，若中报超预期是重要催化</td></tr><tr><td style="font-weight:600">海缆大单落地</td><td class="num" style="color:var(--ink-2);white-space:nowrap">持续</td><td style="font-size:11.5px;color:var(--ink-2)">能源网络在手订单 308 亿（海洋 121 亿），±500kV 柔直项目交付进展</td></tr><tr><td style="font-weight:600">空芯光纤商用</td><td class="num" style="color:var(--ink-2);white-space:nowrap">2026H2</td><td style="font-size:11.5px;color:var(--ink-2)">空芯光纤规模化生产+商用试点交付，AI 算力互联新增长点</td></tr><tr><td style="font-weight:600">AI 数据中心招标</td><td class="num" style="color:var(--ink-2);white-space:nowrap">季度性</td><td style="font-size:11.5px;color:var(--ink-2)">北美/国内算力光互联供应链放量（已切入头部互联网大厂）</td></tr></table>
+  </div>
+
+  <div class="sec"><h2><span class="no">07</span>市场环境</h2><span class="hint">板块位置 · 市场情绪</span></div>
+  <div class="card"><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">板块位置</span><b>光通信/海缆处景气上行周期（量价共振）</b></div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12px;color:var(--ink-2)">华泰证券：2025Q4 起全球光纤光缆'量价共振'；AI 算力传输高度依赖光通信，G.657.A2 特种光纤 +650%——行业 Beta 向上，中天为全产业链（棒-纤-缆）龙头</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">市场情绪</span><b>市场情绪中性偏弱（2026-08-21 涨停 54 家/封板率 75%）</b></div><div class="kv" style="padding:6px 0;font-size:12px;color:var(--ink-2)">8-21 市场情绪中性：涨停 54/炸板 18/封板率 75%，连板梯队 2 板×4~7 板——结构性行情，题材轮动快，高位股分歧加大（当日中天 -4.3% 属放量回调）[ASSUMED 情绪数据为 8-21 口径]</div></div>
+
+  <div class="sec"><h2><span class="no">08</span>机构与资金</h2><span class="hint">基金/北向/龙虎榜 · WebSearch 公开披露</span></div>
+  <div class="card"><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px"><span style="color:var(--ink-2);flex:0 0 76px">基金持股</span><b>2.63%</b></div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12px;color:var(--ink-2)">主动偏股基金 75 只重仓、持股比例 2.63%（环比 -5.15pct，机构 Q1 减持）[WebSearch 公开披露]</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12px;color:var(--ink-2)">北向/陆股通持仓未在公开口径显著披露，标注 [MISSING]</div><div class="kv" style="padding:6px 0;font-size:12px;color:var(--ink-2)">中天科技近期未上龙虎榜（成交未触发上榜条件）[ASSUMED]；当日 -4.3% 放量成交 34.5 亿需关注大资金动向</div></div>
+
+  <div class="sec"><h2><span class="no">09</span>风险清单</h2><span class="hint">模型输出 [MODEL]</span></div>
+  <div class="card"><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px;color:var(--ink-2)">⚠️ 光纤涨价持续性：G.657.A2 从 32→240 元/芯公里（+650%）后若供给释放价格回落，利润弹性收窄</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px;color:var(--ink-2)">⚠️ 海缆订单交付节奏：308 亿在手订单确认收入依赖项目进度，交付延迟影响当期利润</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px;color:var(--ink-2)">⚠️ 2026Q1 经营现金流 -19.5 亿（垫资备货），应收/存货占用资金，需跟踪现金流改善</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px;color:var(--ink-2)">⚠️ 机构持仓环比下降（基金 -5.15pct），当日放量 -4.3% 回调，短期资金面偏弱</div><div class="kv" style="padding:6px 0;border-bottom:1px dashed #f0f1f4;font-size:12.5px;color:var(--ink-2)">⚠️ 铜产品（18% 营收）受铜价波动影响；原材料成本上行风险（券商提示）</div></div>
+
+  <div class="sec"><h2><span class="no">10</span>投资指导</h2><span class="hint">综合结论 · 仅供研究参考</span></div>
+  <div class="card"><div class="sum-row"><span class="sum-tag">结论</span><span style="color:var(--ink-2)">—— 中天科技是高景气成长股：AI 光纤涨价（+650%）+海缆订单（308 亿）双轮驱动，2026E 一致预期归母 70 亿（+142%）→ forward PE 15 倍，'利润高增消化估值'逻辑成立；机构目标价 56.32 元（+68%），当前 32 元回调后性价比改善。</span></div><div class="sum-row"><span class="sum-tag2">数据含义</span><span style="color:var(--ink-2)">—— PE(TTM) 34.2 倍是'过去 12 个月利润（29 亿）'算的，2026 利润若兑现 70 亿则 forward 仅 15 倍——估值高低的判断取决于光纤涨价/海缆交付能否兑现；2026Q1 营收 +34.7%/归母 +46.4% 已在兑现路径上。</span></div><div class="sum-row"><span class="sum-tag2">情景</span><span style="color:var(--ink-2)">—— 乐观（光纤价格维持+海缆放量）：2026E 归母 80 亿 → 现价对应 13.5 倍，严重低估；中性 70 亿 → 15 倍，合理偏低；悲观（涨价回落）55 亿 → 19.6 倍，估值偏贵但行业 Beta 仍在。</span></div><div class="sum-row"><span class="sum-tag2">操作</span><span style="color:var(--ink-2)">—— 趋势持有/回调分批：32 元下方（-10% 区间）分批建仓，目标价参考机构一致 56.32 元（+68%）；止损参考 52 周低点或 -20% 纪律线；仓位建议 ≤15%（高波动成长股）。</span></div><div class="sum-row"><span class="sum-tag2">跟踪</span><span style="color:var(--ink-2)">—— ①2026 中报（8 月下旬）验证 Q2 光纤价格与海缆交付 ②海缆大单落地公告 ③空芯光纤商用进展 ④光纤价格指数（央视财经口径）——任一超预期是加仓信号，光纤价格回落/订单延期是减仓信号。</span></div></div>
+
+  <div class="note">数据来源：同花顺金融数据（hithink-finance v0.1.5，market snapshot/valuation snapshot/financials income/market history）；主营构成/券商一致预期/机构持仓/订单数据为 WebSearch 公开披露（证券时报/长江证券/西部证券研报，2026-08 时点）[ASSUMED]；市值=股价×股本(约33.7亿股)估算；市场情绪为 2026-08-21 口径 [ASSUMED]；目标价 56.32 元为机构综合预测 [MODEL]。本报告为多能力整合的综合研判 [MODEL]，仅供研究参考，不构成个人投资建议。</div>
+</div>
+</body>
+</html>

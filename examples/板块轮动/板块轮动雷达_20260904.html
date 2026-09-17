@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>板块轮动雷达_20260904</title>
+<style>
+  :root {
+    --brand:#1f3a93; --brand-2:#2f56c9; --brand-soft:#eef1fa;
+    --gold:#c9a227; --gold-soft:#faf5e3;
+    --red:#e5484d; --green:#2fa36b;
+    --bg:#f4f5f7; --surface:#ffffff; --border:#e8eaee;
+    --ink:#18202f; --ink-2:#5b6470; --ink-3:#9aa1ad;
+    --radius:14px;
+    --shadow-sm:0 1px 3px rgba(24,32,47,.06);
+    --shadow-md:0 6px 20px rgba(24,32,47,.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; font-size:14px; line-height:1.6; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 20px 60px; }
+  .num { font-variant-numeric:tabular-nums; font-feature-settings:"tnum"; }
+  .pill { display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+  .pill.brand { background:var(--brand-soft); color:var(--brand); border:1px solid #d5def5; }
+  .pill.gold { background:var(--gold-soft); color:#8a6d12; border:1px solid #eddcab; }
+  .vbadge { display:inline-block; font-size:15px; font-weight:800; padding:4px 18px; border-radius:24px; border:1px solid; color:var(--red); background:#fdeeee; border-color:#e5484d33; }
+  .sig-tag { flex:0 0 132px; text-align:center; font-size:10.5px; font-weight:700; color:var(--brand); background:var(--brand-soft); border:1px solid #d5def5; border-radius:4px; padding:1px 8px; }
+  .hero { background:linear-gradient(150deg,#ffffff 30%,#fbfcfe 100%); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow-md); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; right:-70px; top:-70px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(201,162,39,.12),transparent 65%); }
+  .hero::after { content:""; position:absolute; left:-50px; bottom:-90px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle,rgba(31,58,147,.06),transparent 70%); }
+  .hero .big { position:relative; z-index:1; }
+  .hero .title { font-size:24px; font-weight:800; letter-spacing:-.5px; }
+  .hero .tcode { font-size:14px; color:var(--ink-3); font-weight:600; letter-spacing:.5px; margin-left:8px; vertical-align:3px; }
+  .hero .sub { margin-top:8px; font-size:12.5px; color:var(--ink-3); }
+  .hero .sub .pill { margin-right:6px; }
+  .hero .kpis { display:flex; gap:24px; position:relative; z-index:1; flex-wrap:wrap; }
+  .hero .kpi { text-align:right; }
+  .hero .kpi .v { font-size:17px; font-weight:800; }
+  .hero .kpi .v.up { color:var(--red); } .hero .kpi .v.dn { color:var(--green); } .hero .kpi .v.gd { color:var(--gold); }
+  .hero .kpi .k { font-size:11.5px; color:var(--ink-3); margin-top:2px; }
+  .sec { display:flex; align-items:center; justify-content:space-between; margin:30px 2px 12px; }
+  .sec h2 { font-size:15px; font-weight:700; letter-spacing:.2px; display:flex; align-items:center; gap:9px; }
+  .sec h2 .no { font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 6px; letter-spacing:0; }
+  .sec h2::after { content:""; width:4px; height:16px; border-radius:2px; background:linear-gradient(180deg,var(--gold),var(--brand)); }
+  .sec .hint { font-size:12px; color:var(--ink-3); font-weight:400; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-sm); }
+  .card h3 { font-size:13.5px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .card h3 .unit { font-size:11px; color:var(--ink-3); font-weight:400; }
+  .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; font-size:11.5px; color:var(--ink-3); font-weight:600; padding:6px 8px; border-bottom:2px solid var(--border); white-space:nowrap; }
+  td { padding:7px 8px; border-bottom:1px dashed #f0f1f4; vertical-align:middle; }
+  tbody tr:nth-child(even) { background:#fafbfc; }
+  tbody tr:hover { background:var(--brand-soft); }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:7px 0; font-size:13.5px; border-bottom:1px dashed #f0f1f4; }
+  .kv:last-child { border-bottom:none; }
+  .kv .k { color:var(--ink); font-weight:600; }
+  .insight { margin-top:12px; padding:10px 14px; border-radius:10px; background:linear-gradient(120deg,#fdf9ec,#faf3d8); border:1px solid #eddcab; font-size:12.5px; font-weight:600; color:#8a6d12; line-height:1.7; }
+  .sum-row { display:flex; align-items:baseline; gap:8px; padding:9px 0; border-bottom:1px dashed #f0f1f4; font-size:13px; flex-wrap:wrap; }
+  .sum-row:last-child { border-bottom:none; }
+  .sum-tag { flex-shrink:0; font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 9px; }
+  .sum-tag2 { flex-shrink:0; font-size:11px; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid #d5def5; border-radius:5px; padding:2px 9px; }
+  .note { font-size:11px; color:var(--ink-3); margin-top:16px; line-height:1.8; border-top:1px dashed var(--border); padding-top:12px; }
+  @media print { body{background:#fff} .card{box-shadow:none} }
+  @media (max-width:760px) { .hero{flex-direction:column;align-items:flex-start} .hero .kpis{width:100%;justify-content:space-between} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="big">
+      <div class="title">板块轮动雷达</div>
+      <div class="sub">
+        <span class="pill gold">钱在流向哪个板块？</span>
+        <span class="pill brand">2026-09-04</span>
+        <span class="pill brand">26 个行业板块 · 2026-06-01~09-04（65 交易日）</span>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v num up">+22.4%</div><div class="k">最强板块(种植 20日)</div></div>
+      <div class="kpi"><div class="v num up">20 个</div><div class="k">20日正收益板块</div></div>
+      <div class="kpi"><div class="v num gd">2156 亿</div><div class="k">最大资金池(半导体)</div></div>
+      <div class="kpi"><div class="v num">农业链独强 · 大金融接力 · 高位退潮</div><div class="k">轮动判定</div></div>
+    </div>
+  </div>
+
+  <!-- 01 轮动综述 -->
+  <div class="sec"><h2><span class="no">01</span>轮动综述</h2><span class="hint">五维总结 · 模型输出</span></div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px">
+      <span class="vbadge">农业链独强 · 大金融接力 · 高位退潮</span>
+      <span style="font-size:12.5px;color:var(--ink-2)">钱在流向：农业链（种植/养殖，猪周期反转+全场最高量比）与大金融（保险/银行，防御放量接力），传媒低位放量启动；贵金属高位缩量回调、半导体/军工/小金属显著退潮。市场处退潮降温期（封板率 44%、跌家 61%），资金"从高位切低位、从科技切农业金融"。</span>
+    </div>
+    <div class="sum-row"><span class="sum-tag">结论</span><span style="color:var(--ink-2)">—— 钱流向=农业链（种植+22.4%/养殖+11.2% 加速放量）→ 大金融（保险/银行 5日放量接力）→ 传媒（低位放量 1.57）；贵金属高位缩量回调、半导体/军工/小金属退潮——退潮期"从高位切低位"特征明显。</span></div><div class="sum-row"><span class="sum-tag2">最强</span><span style="color:var(--ink-2)">—— 种植业与林业 20日+22.4% 断层第一、量比 1.45 全场最高——猪周期反转预期+农业政策双催化，农业链（含养殖 +11.2%）是最强主线。</span></div><div class="sum-row"><span class="sum-tag2">接力</span><span style="color:var(--ink-2)">—— 保险 5日+6.0%/银行 5日+3.7% 双双放量（1.29/1.24）——市场降温期（封板率仅 44%）防御资金回流低估值大金融，与龙虎榜机构减仓 AI 算力呼应。</span></div><div class="sum-row"><span class="sum-tag2">新题材</span><span style="color:var(--ink-2)">—— 文化传媒 5日+6.8%、量比 1.57 次高——低位板块获增量资金抢筹；游戏 5日+5.7% 同向，传媒/游戏是本轮唯一新启动的低位成长方向。</span></div><div class="sum-row"><span class="sum-tag2">退潮</span><span style="color:var(--ink-2)">—— 贵金属 60日+31.3% 最强但 5日-4.3% 缩量；半导体/小金属/航天装备 20日为负且量比 <0.75——高位方向资金流出，涨停端封板率 44% 同步退潮，禁止追高。</span></div>
+  </div>
+
+  <!-- 02 板块轮动表 -->
+  <div class="sec"><h2><span class="no">02</span>板块轮动表</h2><span class="hint">26 板块 × 多窗口动量矩阵 · 红强绿弱 · 上证基准 20日-0.2%</span></div>
+  <div class="card" style="overflow-x:auto">
+    <table>
+      <tr><th>#</th><th>板块</th><th>60日</th><th>20日</th><th>5日</th><th>1日</th><th>成交(亿)</th><th>量比</th><th>超额20日</th></tr>
+      <tr style="background:#fdf9ec"><td class="num" style="color:var(--ink-3);width:26px">1</td><td><b>种植业与林业</b></td><td class="num" style="color:#e5484d;font-weight:800">+19.7%</td><td class="num" style="color:#e5484d;font-weight:800">+22.4%</td><td class="num" style="color:#b04a30">+2.6%</td><td class="num" style="color:#b04a30">+2.5%</td><td class="num" style="color:var(--ink-2)">178</td><td class="num" style="color:var(--red);font-weight:700">1.45</td><td class="num" style="color:var(--ink-2)">+22.6%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">2</td><td><b>养殖业</b></td><td class="num" style="color:#e5484d;font-weight:800">+15.3%</td><td class="num" style="color:#e5484d;font-weight:800">+11.2%</td><td class="num" style="color:#b04a30">+2.9%</td><td class="num" style="color:#b04a30">+4.4%</td><td class="num" style="color:var(--ink-2)">138</td><td class="num" style="color:var(--red);font-weight:700">1.11</td><td class="num" style="color:var(--ink-2)">+11.4%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">3</td><td><b>石油加工贸易</b></td><td class="num" style="color:#e5484d">+5.9%</td><td class="num" style="color:#e5484d">+8.8%</td><td class="num" style="color:#b04a30">+0.6%</td><td class="num" style="color:#b04a30">+0.4%</td><td class="num" style="color:var(--ink-2)">70</td><td class="num" style="color:var(--red);font-weight:700">1.18</td><td class="num" style="color:var(--ink-2)">+9.1%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">4</td><td><b>保险</b></td><td class="num" style="color:#e5484d;font-weight:800">+13.6%</td><td class="num" style="color:#e5484d">+6.9%</td><td class="num" style="color:#e5484d">+6.0%</td><td class="num" style="color:#b04a30">+0.1%</td><td class="num" style="color:var(--ink-2)">99</td><td class="num" style="color:var(--red);font-weight:700">1.29</td><td class="num" style="color:var(--ink-2)">+7.2%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">5</td><td><b>贵金属</b></td><td class="num" style="color:#e5484d;font-weight:800">+31.3%</td><td class="num" style="color:#e5484d">+6.7%</td><td class="num" style="color:#2fa36b">-4.2%</td><td class="num" style="color:#2fa36b">-1.8%</td><td class="num" style="color:var(--ink-2)">283</td><td class="num" style="color:var(--ink-2);font-weight:700">0.88</td><td class="num" style="color:var(--ink-2)">+6.9%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">6</td><td><b>银行</b></td><td class="num" style="color:#e5484d">+5.4%</td><td class="num" style="color:#e5484d">+6.1%</td><td class="num" style="color:#b04a30">+3.7%</td><td class="num" style="color:#b04a30">+0.7%</td><td class="num" style="color:var(--ink-2)">281</td><td class="num" style="color:var(--red);font-weight:700">1.24</td><td class="num" style="color:var(--ink-2)">+6.3%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">7</td><td><b>化学原料</b></td><td class="num" style="color:#b04a30">+2.8%</td><td class="num" style="color:#e5484d">+5.7%</td><td class="num" style="color:#2fa36b">-2.1%</td><td class="num" style="color:#2fa36b">-0.8%</td><td class="num" style="color:var(--ink-2)">204</td><td class="num" style="color:var(--red);font-weight:700">1.19</td><td class="num" style="color:var(--ink-2)">+6.0%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">8</td><td><b>煤炭开采加工</b></td><td class="num" style="color:#b04a30">+2.2%</td><td class="num" style="color:#e5484d">+5.7%</td><td class="num" style="color:#2fa36b">-3.5%</td><td class="num" style="color:#2fa36b">-0.6%</td><td class="num" style="color:var(--ink-2)">133</td><td class="num" style="color:var(--red);font-weight:700">1.21</td><td class="num" style="color:var(--ink-2)">+5.9%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">9</td><td><b>饮料制造</b></td><td class="num" style="color:#e5484d">+7.6%</td><td class="num" style="color:#e5484d">+5.3%</td><td class="num" style="color:#b04a30">+1.0%</td><td class="num" style="color:#b04a30">+2.2%</td><td class="num" style="color:var(--ink-2)">94</td><td class="num" style="color:var(--ink-2);font-weight:700">0.90</td><td class="num" style="color:var(--ink-2)">+5.6%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">10</td><td><b>食品加工制造</b></td><td class="num" style="color:#b04a30">+3.4%</td><td class="num" style="color:#e5484d">+5.2%</td><td class="num" style="color:#b04a30">+0.9%</td><td class="num" style="color:#b04a30">+1.9%</td><td class="num" style="color:var(--ink-2)">118</td><td class="num" style="color:var(--ink-2);font-weight:700">0.97</td><td class="num" style="color:var(--ink-2)">+5.5%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">11</td><td><b>油气开采</b></td><td class="num" style="color:#b04a30">+3.8%</td><td class="num" style="color:#e5484d">+5.2%</td><td class="num" style="color:#2fa36b">-1.6%</td><td class="num" style="color:#b04a30">+0.4%</td><td class="num" style="color:var(--ink-2)">33</td><td class="num" style="color:var(--gold);font-weight:700">1.01</td><td class="num" style="color:var(--ink-2)">+5.5%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">12</td><td><b>房地产</b></td><td class="num" style="color:#b04a30">+1.3%</td><td class="num" style="color:#b04a30">+5.0%</td><td class="num" style="color:#2fa36b">-0.5%</td><td class="num" style="color:#b04a30">+1.2%</td><td class="num" style="color:var(--ink-2)">203</td><td class="num" style="color:var(--red);font-weight:700">1.31</td><td class="num" style="color:var(--ink-2)">+5.2%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">13</td><td><b>文化传媒</b></td><td class="num" style="color:#e5484d">+5.8%</td><td class="num" style="color:#b04a30">+3.7%</td><td class="num" style="color:#e5484d">+6.8%</td><td class="num" style="color:#b04a30">+2.4%</td><td class="num" style="color:var(--ink-2)">565</td><td class="num" style="color:var(--red);font-weight:700">1.57</td><td class="num" style="color:var(--ink-2)">+3.9%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">14</td><td><b>通信设备</b></td><td class="num" style="color:#2fa36b;font-weight:800">-5.9%</td><td class="num" style="color:#b04a30">+3.4%</td><td class="num" style="color:#2fa36b">-2.1%</td><td class="num" style="color:#2fa36b">-1.6%</td><td class="num" style="color:var(--ink-2)">1312</td><td class="num" style="color:var(--ink-2);font-weight:700">0.80</td><td class="num" style="color:var(--ink-2)">+3.6%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">15</td><td><b>证券</b></td><td class="num" style="color:#e5484d;font-weight:800">+12.8%</td><td class="num" style="color:#b04a30">+3.3%</td><td class="num" style="color:#b04a30">+0.8%</td><td class="num" style="color:#b04a30">+0.7%</td><td class="num" style="color:var(--ink-2)">360</td><td class="num" style="color:var(--red);font-weight:700">1.22</td><td class="num" style="color:var(--ink-2)">+3.5%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">16</td><td><b>消费电子</b></td><td class="num" style="color:#2fa36b">-4.2%</td><td class="num" style="color:#b04a30">+3.2%</td><td class="num" style="color:#b04a30">+0.5%</td><td class="num" style="color:#2fa36b">-2.1%</td><td class="num" style="color:var(--ink-2)">556</td><td class="num" style="color:var(--ink-2);font-weight:700">0.93</td><td class="num" style="color:var(--ink-2)">+3.5%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">17</td><td><b>工业金属</b></td><td class="num" style="color:#b04a30">+3.6%</td><td class="num" style="color:#b04a30">+1.5%</td><td class="num" style="color:#2fa36b">-2.9%</td><td class="num" style="color:#2fa36b">-1.5%</td><td class="num" style="color:var(--ink-2)">353</td><td class="num" style="color:var(--ink-2);font-weight:700">0.89</td><td class="num" style="color:var(--ink-2)">+1.8%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">18</td><td><b>游戏</b></td><td class="num" style="color:#e5484d">+8.8%</td><td class="num" style="color:#b04a30">+0.8%</td><td class="num" style="color:#e5484d">+5.7%</td><td class="num" style="color:#b04a30">+1.8%</td><td class="num" style="color:var(--ink-2)">177</td><td class="num" style="color:var(--red);font-weight:700">1.05</td><td class="num" style="color:var(--ink-2)">+1.1%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">19</td><td><b>白酒</b></td><td class="num" style="color:#e5484d">+6.4%</td><td class="num" style="color:#b04a30">+0.7%</td><td class="num" style="color:#b04a30">+2.5%</td><td class="num" style="color:#b04a30">+2.9%</td><td class="num" style="color:var(--ink-2)">164</td><td class="num" style="color:var(--ink-2);font-weight:700">0.93</td><td class="num" style="color:var(--ink-2)">+1.0%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">20</td><td><b>软件开发</b></td><td class="num" style="color:#b04a30">+3.2%</td><td class="num" style="color:#b04a30">+0.2%</td><td class="num" style="color:#b04a30">+2.4%</td><td class="num" style="color:#b04a30">+1.3%</td><td class="num" style="color:var(--ink-2)">543</td><td class="num" style="color:var(--gold);font-weight:700">1.04</td><td class="num" style="color:var(--ink-2)">+0.5%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">21</td><td><b>化学制药</b></td><td class="num" style="color:#e5484d;font-weight:800">+10.7%</td><td class="num" style="color:#2fa36b">-1.4%</td><td class="num" style="color:#2fa36b">-2.5%</td><td class="num" style="color:#2fa36b">-0.6%</td><td class="num" style="color:var(--ink-2)">361</td><td class="num" style="color:var(--ink-2);font-weight:700">0.69</td><td class="num" style="color:var(--ink-2)">-1.2%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">22</td><td><b>电池</b></td><td class="num" style="color:#2fa36b;font-weight:800">-14.1%</td><td class="num" style="color:#2fa36b">-3.6%</td><td class="num" style="color:#2fa36b">-3.3%</td><td class="num" style="color:#2fa36b">-1.3%</td><td class="num" style="color:var(--ink-2)">447</td><td class="num" style="color:var(--ink-2);font-weight:700">0.86</td><td class="num" style="color:var(--ink-2)">-3.3%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">23</td><td><b>半导体</b></td><td class="num" style="color:#2fa36b;font-weight:800">-8.2%</td><td class="num" style="color:#2fa36b">-4.2%</td><td class="num" style="color:#2fa36b">-4.7%</td><td class="num" style="color:#2fa36b">-2.8%</td><td class="num" style="color:var(--ink-2)">2156</td><td class="num" style="color:var(--ink-2);font-weight:700">0.75</td><td class="num" style="color:var(--ink-2)">-3.9%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">24</td><td><b>光伏电池组件</b></td><td class="num" style="color:#2fa36b;font-weight:800">-15.5%</td><td class="num" style="color:#2fa36b;font-weight:800">-5.3%</td><td class="num" style="color:#2fa36b">-3.8%</td><td class="num" style="color:#b04a30">+0.1%</td><td class="num" style="color:var(--ink-2)">59</td><td class="num" style="color:var(--ink-2);font-weight:700">0.98</td><td class="num" style="color:var(--ink-2)">-5.0%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">25</td><td><b>小金属</b></td><td class="num" style="color:#2fa36b;font-weight:800">-9.8%</td><td class="num" style="color:#2fa36b;font-weight:800">-7.2%</td><td class="num" style="color:#2fa36b;font-weight:800">-6.5%</td><td class="num" style="color:#2fa36b">-1.7%</td><td class="num" style="color:var(--ink-2)">247</td><td class="num" style="color:var(--ink-2);font-weight:700">0.64</td><td class="num" style="color:var(--ink-2)">-6.9%</td></tr><tr><td class="num" style="color:var(--ink-3);width:26px">26</td><td><b>航天装备</b></td><td class="num" style="color:#2fa36b;font-weight:800">-18.3%</td><td class="num" style="color:#2fa36b;font-weight:800">-9.2%</td><td class="num" style="color:#b04a30">+0.3%</td><td class="num" style="color:#2fa36b">-0.1%</td><td class="num" style="color:var(--ink-2)">34</td><td class="num" style="color:var(--ink-2);font-weight:700">0.66</td><td class="num" style="color:var(--ink-2)">-8.9%</td></tr>
+    </table>
+    <div class="insight">💡 种植业与林业断层第一（20日+22.4%、量比 1.45 双第一）；大金融 5 日放量接力（保险 1.29/银行 1.24）；退潮端集中在半导体/小金属/航天（20日负+量比<0.75）——钱从高位科技资源切向低位农业+金融。</div>
+  </div>
+
+  <!-- 03 轮动信号 -->
+  <div class="sec"><h2><span class="no">03</span>轮动信号</h2><span class="hint">动量切换 · 5日 vs 20日</span></div>
+  <div class="card"><div class="kv"><span class="k" style="flex:0 0 150px">种植业与林业</span><span class="sig-tag">加速 · 放量</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">20日+22.4% 断层第一、5日+2.6% 仍强，量比 1.45 全场最高——猪周期反转+农业政策主线资金加速流入，最强轮动信号</span></div><div class="kv"><span class="k" style="flex:0 0 150px">养殖业</span><span class="sig-tag">主升 · 放量</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">20日+11.2%/1日+4.4%，量比 1.11——能繁母猪去化临近红线、行业亏损 11 个月周期底，与种植业共振成农业链主线</span></div><div class="kv"><span class="k" style="flex:0 0 150px">文化传媒</span><span class="sig-tag">低位放量启动</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">20日仅+3.7% 但 5日+6.8%、量比 1.57 全场次高——资金低位抢筹新题材，游戏 5日+5.7% 同向确认</span></div><div class="kv"><span class="k" style="flex:0 0 150px">保险/银行</span><span class="sig-tag">大金融接力</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">保险 5日+6.0%（量比 1.29）、银行 5日+3.7%（1.24）——退潮降温期防御资金回流低估值大金融</span></div><div class="kv"><span class="k" style="flex:0 0 150px">贵金属</span><span class="sig-tag">中期强 · 短期回调</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">60日+31.3% 全场最高但 5日-4.2%、量比 0.88 缩量——金价新高后获利回吐，中期趋势未破</span></div><div class="kv"><span class="k" style="flex:0 0 150px">航天装备/小金属/半导体</span><span class="sig-tag">垫底退潮</span><span class="v" style="color:var(--ink-2);font-size:12px;flex:1;text-align:right">20日 -4.2~-9.2%、量比 0.64~0.75 显著缩量——高位科技军工资金撤离，回避</span></div>
+    <div class="insight">💡 核心轮动信号：农业链（加速+放量）→ 大金融（接力防御）→ 传媒（低位抢筹 1.57）；贵金属缩量回调但 60日+31.3% 趋势未破，若企稳可关注二次上攻——退潮期总仓位宜压低，只做右侧回踩。</div>
+  </div>
+
+  <!-- 04 资金流向 -->
+  <div class="sec"><h2><span class="no">04</span>资金流向</h2><span class="hint">成交额池 + 量比 · 亿</span></div>
+  <div class="card">
+    <table>
+      <tr><th>板块</th><th>当日成交</th><th>量比</th><th>资金状态</th></tr>
+      <tr><td><b>半导体</b></td><td class="num" style="font-weight:700">2156亿</td><td class="num" style="color:var(--gold);font-weight:700">0.75</td><td style="color:var(--ink-2);font-size:12px">缩量流出</td></tr><tr><td><b>通信设备</b></td><td class="num" style="font-weight:700">1312亿</td><td class="num" style="color:var(--gold);font-weight:700">0.80</td><td style="color:var(--ink-2);font-size:12px">缩量流出</td></tr><tr><td><b>文化传媒</b></td><td class="num" style="font-weight:700">565亿</td><td class="num" style="color:var(--red);font-weight:700">1.57</td><td style="color:var(--ink-2);font-size:12px">显著放量流入</td></tr><tr><td><b>消费电子</b></td><td class="num" style="font-weight:700">556亿</td><td class="num" style="color:var(--gold);font-weight:700">0.93</td><td style="color:var(--ink-2);font-size:12px">缩量流出</td></tr><tr><td><b>软件开发</b></td><td class="num" style="font-weight:700">543亿</td><td class="num" style="color:var(--gold);font-weight:700">1.04</td><td style="color:var(--ink-2);font-size:12px">平量</td></tr><tr><td><b>电池</b></td><td class="num" style="font-weight:700">447亿</td><td class="num" style="color:var(--gold);font-weight:700">0.86</td><td style="color:var(--ink-2);font-size:12px">缩量流出</td></tr>
+    </table>
+    <div class="insight">💡 资金池与量比结构：增量资金明确流向农业（种植 1.45）、传媒（1.57）、大金融（1.24-1.29）；半导体/通信存量缩量——"增量低位 + 存量高位"的退潮期典型结构。</div>
+  </div>
+
+  <div class="note">数据来源：同花顺金融数据（hithink-finance CLI，index catalog/history 行业指数 881xxx.TI + 上证 000001.SH 基准，本地库已更新至 2026-09-04 收盘）；动量=板块指数收盘价涨跌幅（1/5/20/60 交易日）；量比=5日均成交额/20日均成交额（>1 放量）；超额=板块 20 日涨幅-上证同期；轮动信号为模型综合判断（模型输出）。仅供研究参考，不构成个人投资建议。</div>
+</div>
+</body>
+</html>

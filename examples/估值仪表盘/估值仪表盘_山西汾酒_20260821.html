@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>估值仪表盘_山西汾酒_20260821</title>
+<style>
+  :root {
+    --brand:#1f3a93; --brand-2:#2f56c9; --brand-soft:#eef1fa;
+    --gold:#c9a227; --gold-soft:#faf5e3;
+    --red:#e5484d; --green:#2fa36b;
+    --bg:#f4f5f7; --surface:#ffffff; --border:#e8eaee;
+    --ink:#18202f; --ink-2:#5b6470; --ink-3:#9aa1ad;
+    --radius:14px;
+    --shadow-sm:0 1px 3px rgba(24,32,47,.06);
+    --shadow-md:0 6px 20px rgba(24,32,47,.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; font-size:14px; line-height:1.6; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 20px 60px; }
+  .num { font-variant-numeric:tabular-nums; font-feature-settings:"tnum"; }
+  .code-mini { font-size:11px; color:var(--ink-3); font-weight:400; }
+  .pill { display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+  .pill.brand { background:var(--brand-soft); color:var(--brand); border:1px solid #d5def5; }
+  .pill.gold { background:var(--gold-soft); color:#8a6d12; border:1px solid #eddcab; }
+  .vbadge { display:inline-block; font-size:15px; font-weight:800; padding:4px 18px; border-radius:24px; border:1px solid; }
+  .tcode { font-size:14px; color:var(--ink-3); font-weight:600; letter-spacing:.5px; margin-left:8px; vertical-align:3px; }
+  .hero { background:linear-gradient(150deg,#ffffff 30%,#fbfcfe 100%); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow-md); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; right:-70px; top:-70px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(201,162,39,.12),transparent 65%); }
+  .hero::after { content:""; position:absolute; left:-50px; bottom:-90px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle,rgba(31,58,147,.06),transparent 70%); }
+  .hero .big { position:relative; z-index:1; }
+  .hero .title { font-size:24px; font-weight:800; letter-spacing:-.5px; }
+  .hero .sub { margin-top:8px; font-size:12.5px; color:var(--ink-3); }
+  .hero .sub .pill { margin-right:6px; }
+  .hero .kpis { display:flex; gap:24px; position:relative; z-index:1; flex-wrap:wrap; }
+  .hero .kpi { text-align:right; }
+  .hero .kpi .v { font-size:17px; font-weight:800; }
+  .hero .kpi .v.up { color:var(--red); } .hero .kpi .v.dn { color:var(--green); } .hero .kpi .v.gd { color:var(--gold); }
+  .hero .kpi .k { font-size:11.5px; color:var(--ink-3); margin-top:2px; }
+  .sec { display:flex; align-items:center; justify-content:space-between; margin:30px 2px 12px; }
+  .sec h2 { font-size:15px; font-weight:700; letter-spacing:.2px; display:flex; align-items:center; gap:9px; }
+  .sec h2 .no { font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 6px; letter-spacing:0; }
+  .sec h2::after { content:""; width:4px; height:16px; border-radius:2px; background:linear-gradient(180deg,var(--gold),var(--brand)); }
+  .sec .hint { font-size:12px; color:var(--ink-3); font-weight:400; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-sm); }
+  .card h3 { font-size:13.5px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .card h3 .unit { font-size:11px; color:var(--ink-3); font-weight:400; }
+  .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; font-size:11.5px; color:var(--ink-3); font-weight:600; padding:6px 8px; border-bottom:2px solid var(--border); }
+  td { padding:8px; border-bottom:1px dashed #f0f1f4; vertical-align:middle; }
+  tbody tr:nth-child(even) { background:#fafbfc; }
+  tbody tr:hover { background:var(--brand-soft); }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; font-size:13.5px; border-bottom:1px dashed #f0f1f4; }
+  .kv:last-child { border-bottom:none; }
+  .kv .k { color:var(--ink-2); }
+  .insight { margin-top:12px; padding:10px 14px; border-radius:10px; background:linear-gradient(120deg,#fdf9ec,#faf3d8); border:1px solid #eddcab; font-size:12.5px; font-weight:600; color:#8a6d12; line-height:1.7; }
+  .sum-row { display:flex; align-items:baseline; gap:8px; padding:9px 0; border-bottom:1px dashed #f0f1f4; font-size:13px; flex-wrap:wrap; }
+  .sum-row:last-child { border-bottom:none; }
+  .sum-tag { flex-shrink:0; font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 9px; }
+  .sum-tag2 { flex-shrink:0; font-size:11px; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid #d5def5; border-radius:5px; padding:2px 9px; }
+  .note { font-size:11px; color:var(--ink-3); margin-top:16px; line-height:1.8; border-top:1px dashed var(--border); padding-top:12px; }
+  @media print { body{background:#fff} .card{box-shadow:none} }
+  @media (max-width:760px) { .hero{flex-direction:column;align-items:flex-start} .hero .kpis{width:100%;justify-content:space-between} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="big">
+      <div class="title">山西汾酒 <span class="tcode">600809.SH</span></div>
+      <div class="sub">
+        <span class="pill brand">周五 · 2026-08-21</span>
+        <span class="pill brand">🍶 白酒·清香型</span>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v num up">¥118.46</div><div class="k">最新价 (+1.64%)</div></div>
+      <div class="kpi"><div class="v num gd">13.2</div><div class="k">PE_TTM</div></div>
+      <div class="kpi"><div class="v num gd">3.21</div><div class="k">PB_MRQ</div></div>
+      <div class="kpi"><div class="v num">偏便宜（行业最低档）</div><div class="k">5年3%分位</div></div>
+    </div>
+  </div>
+
+  <!-- 01 判定总览 -->
+  <div class="sec"><h2><span class="no">01</span>估值判定</h2><span class="hint">历史分位 + 行业对比 + 动态视角</span></div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px">
+      <span class="vbadge" style="color:#c9a227;background:#faf5e3;border-color:#c9a22733">低</span>
+      <b style="font-size:15px">偏便宜（行业最低档）</b>
+      <span style="font-size:12.5px;color:var(--ink-2)">三视角综合：①历史分位——5 年 PE 3% 分位、PB 3% 分位，处于自身中低位（白酒 2021 泡沫消退后估值中枢下移）；②行业对比——PE 13.16 为白酒龙头最低档（同行中位 20.13 的 6 成 5），PB 3.21 高于同行中位（2.17）反映品牌资产溢价；③动态估值——2026E 一致预期 118 亿（小幅下滑），forward PE 12.2 倍，机构综合目标价 203.5 元（+74%）。估值不贵，但 2026 盈利下滑预期压制短期弹性——'便宜'与'弱复苏'并存。</span>
+    </div>
+    <div class="sum-row"><span class="sum-tag">结论</span><span style="color:var(--ink-2)">—— 山西汾酒当前 PE 13.16 倍为白酒龙头最低档（同行中位 20.13 的 65%），5 年分位 PE 处于中低位，forward PE 12.2 倍——估值端不贵；但 2026 年白酒去库存、盈利一致预期小幅下滑，'便宜'与'弱复苏'并存，属左侧布局区间而非右侧进攻区间。</span></div><div class="sum-row"><span class="sum-tag2">数据含义</span><span style="color:var(--ink-2)">—— 5 年 PE 区间 (11.3, 34.4)、均值 23.0、中位 22.91，当前 13.16 处于 3% 分位——2021 白酒泡沫（PE 最高 60+）消退后估值中枢大幅下移，当前估值回到 2022-2023 水平；PB 3.21 高于同行中位 2.17，反映清香龙头品牌资产与 ROE 溢价（25%+）。</span></div><div class="sum-row"><span class="sum-tag2">行业对比</span><span style="color:var(--ink-2)">—— PE 13.16 仅高于泸州老窖 12.81，低于茅台 20.13/五粮液 22.02/古井 17.08/洋河 57.94——白酒中估值最便宜的头部公司之一；但洋河 57.94 倍 PE 是盈利下滑导致的被动高估（EPS 基数低），可比性弱。</span></div><div class="sum-row"><span class="sum-tag2">动态估值</span><span style="color:var(--ink-2)">—— 市值约 1444 亿，2026E/2027E/2028E 一致预期归母 118/126/138 亿 → forward PE 12.2/11.5/10.5 倍；机构综合目标价 203.5 元（+74% 空间），2026-2028 盈利先降后升，估值切换窗口在 2026 下半年。</span></div><div class="sum-row"><span class="sum-tag2">投资指导</span><span style="color:var(--ink-2)">—— 左侧布局逻辑：估值处于自身与行业双重低位+机构 100% 买入评级+全国化成长叙事未变——适合分批建仓、等待去库存出清；右侧信号：2026Q2 财报营收转正加速或高端酒动销回暖。不建议一次性重仓（盈利下滑期可能继续磨底）。</span></div>
+  </div>
+
+  <!-- 02 历史分位 -->
+  <div class="sec"><h2><span class="no">02</span>历史估值分位</h2><span class="hint">回溯法 · 当前TTM口径 [ASSUMED]</span></div>
+  <div class="card">
+    <h3>PE(TTM) 5年走势 <span class="unit">前复权回溯口径 [ASSUMED]</span></h3>
+    <svg viewBox="0 0 880 64" width="100%" role="img" aria-label="PE 历史分位判定条"><rect x="70.0" y="18" width="398.0" height="16" rx="3" fill="#2fa36b" opacity="0.25"/><rect x="468.0" y="18" width="238.8" height="16" rx="3" fill="#c9a227" opacity="0.3"/><rect x="706.8" y="18" width="159.2" height="16" rx="3" fill="#e5484d" opacity="0.3"/><circle cx="93.9" cy="26" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="1.6"/><text x="93.9" y="12" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e5484d">5年 3%</text><circle cx="109.8" cy="26" r="4.5" fill="#c9a227" stroke="#fff" stroke-width="1.6"/><text x="109.8" y="30" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c9a227">3年 5%</text><circle cx="181.4" cy="26" r="4.5" fill="#2f56c9" stroke="#fff" stroke-width="1.6"/><text x="181.4" y="48" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f56c9">1年 14%</text><text x="468.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">便宜 ← 0%</text><text x="866.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">贵 → 100%</text></svg>
+    <svg viewBox="0 0 880 300" width="100%" role="img" aria-label="PE 5年走势">
+      <defs>
+        <linearGradient id="gradpe" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2f56c9" stop-opacity="0.14"/><stop offset="100%" stop-color="#2f56c9" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="70.0" x2="866" y2="70.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="120.0" x2="866" y2="120.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="170.0" x2="866" y2="170.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="220.0" x2="866" y2="220.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="244.6" x2="866" y2="244.6" stroke="#e5484d" stroke-width="1.6" stroke-dasharray="6 4"/><line x1="46" y1="122.5" x2="866" y2="122.5" stroke="#c9a227" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="46" y1="123.6" x2="866" y2="123.6" stroke="#2f56c9" stroke-width="1" stroke-dasharray="3 4" opacity="0.7"/><polygon points="46,270 46.0,78.0 52.8,84.0 59.6,23.7 66.3,21.1 73.1,20.0 79.9,41.7 86.7,34.2 93.4,21.4 100.2,39.5 107.0,38.0 113.8,71.1 120.5,79.3 127.3,50.4 134.1,75.7 140.9,78.7 147.7,107.8 154.4,91.3 161.2,96.5 168.0,106.8 174.8,64.3 181.5,43.8 188.3,42.5 195.1,54.0 201.9,74.0 208.6,82.8 215.4,51.1 222.2,54.9 229.0,38.5 235.8,82.9 242.5,91.0 249.3,86.9 256.1,88.4 262.9,58.1 269.6,60.4 276.4,27.5 283.2,64.8 290.0,44.7 296.7,73.4 303.5,83.2 310.3,81.3 317.1,108.1 323.9,114.7 330.6,124.6 337.4,144.3 344.2,139.6 351.0,158.4 357.7,145.8 364.5,119.7 371.3,130.2 378.1,106.9 384.8,92.4 391.6,106.3 398.4,120.1 405.2,96.7 412.0,107.2 418.7,114.1 425.5,132.7 432.3,128.3 439.1,144.0 445.8,154.6 452.6,128.7 459.4,114.1 466.2,95.6 472.9,104.1 479.7,100.7 486.5,82.7 493.3,80.9 500.0,108.7 506.8,118.7 513.6,151.2 520.4,159.6 527.2,181.5 533.9,165.5 540.7,185.2 547.5,205.2 554.3,199.5 561.0,166.5 567.8,158.1 574.6,125.3 581.4,151.4 588.1,148.3 594.9,168.5 601.7,188.5 608.5,183.5 615.3,163.6 622.0,146.1 628.8,121.5 635.6,128.8 642.4,130.7 649.1,138.7 655.9,138.7 662.7,166.6 669.5,188.0 676.2,181.1 683.0,175.0 689.8,164.4 696.6,172.9 703.4,150.0 710.1,145.5 716.9,145.5 723.7,162.6 730.5,165.4 737.2,146.8 744.0,155.5 750.8,171.5 757.6,174.2 764.3,175.0 771.1,188.8 777.9,171.0 784.7,196.2 791.5,200.9 798.2,214.0 805.0,225.7 811.8,221.6 818.6,232.3 825.3,239.1 832.1,252.0 838.9,263.4 845.7,270.0 852.4,246.5 859.2,243.0 866.0,244.5 866,270" fill="url(#gradpe)"/><polyline points="46.0,78.0 52.8,84.0 59.6,23.7 66.3,21.1 73.1,20.0 79.9,41.7 86.7,34.2 93.4,21.4 100.2,39.5 107.0,38.0 113.8,71.1 120.5,79.3 127.3,50.4 134.1,75.7 140.9,78.7 147.7,107.8 154.4,91.3 161.2,96.5 168.0,106.8 174.8,64.3 181.5,43.8 188.3,42.5 195.1,54.0 201.9,74.0 208.6,82.8 215.4,51.1 222.2,54.9 229.0,38.5 235.8,82.9 242.5,91.0 249.3,86.9 256.1,88.4 262.9,58.1 269.6,60.4 276.4,27.5 283.2,64.8 290.0,44.7 296.7,73.4 303.5,83.2 310.3,81.3 317.1,108.1 323.9,114.7 330.6,124.6 337.4,144.3 344.2,139.6 351.0,158.4 357.7,145.8 364.5,119.7 371.3,130.2 378.1,106.9 384.8,92.4 391.6,106.3 398.4,120.1 405.2,96.7 412.0,107.2 418.7,114.1 425.5,132.7 432.3,128.3 439.1,144.0 445.8,154.6 452.6,128.7 459.4,114.1 466.2,95.6 472.9,104.1 479.7,100.7 486.5,82.7 493.3,80.9 500.0,108.7 506.8,118.7 513.6,151.2 520.4,159.6 527.2,181.5 533.9,165.5 540.7,185.2 547.5,205.2 554.3,199.5 561.0,166.5 567.8,158.1 574.6,125.3 581.4,151.4 588.1,148.3 594.9,168.5 601.7,188.5 608.5,183.5 615.3,163.6 622.0,146.1 628.8,121.5 635.6,128.8 642.4,130.7 649.1,138.7 655.9,138.7 662.7,166.6 669.5,188.0 676.2,181.1 683.0,175.0 689.8,164.4 696.6,172.9 703.4,150.0 710.1,145.5 716.9,145.5 723.7,162.6 730.5,165.4 737.2,146.8 744.0,155.5 750.8,171.5 757.6,174.2 764.3,175.0 771.1,188.8 777.9,171.0 784.7,196.2 791.5,200.9 798.2,214.0 805.0,225.7 811.8,221.6 818.6,232.3 825.3,239.1 832.1,252.0 838.9,263.4 845.7,270.0 852.4,246.5 859.2,243.0 866.0,244.5" fill="none" stroke="#2f56c9" stroke-width="1.8"/><circle cx="866.0" cy="244.6" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="2"/><text x="46" y="14" font-size="12" font-weight="700" fill="#e5484d">当前 13.2（5年分位 3%）</text><text x="236" y="14" font-size="11" fill="#c9a227">均值 23.0</text><text x="326" y="14" font-size="11" fill="#2f56c9">中位 22.9</text><text x="406" y="14" font-size="11" fill="#9aa1ad">5年区间 11.1 ~ 31.3</text><text x="46.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2021-08</text><text x="459.4" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2024-03</text><text x="866.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2026-08</text>
+    </svg>
+    <div class="insight">PE 分位=当前 PE 13.16 在回溯法历史序列中的百分位（5年区间）</div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>PB(MRQ) 5年走势 <span class="unit">前复权回溯口径 [ASSUMED]</span></h3>
+    <svg viewBox="0 0 880 64" width="100%" role="img" aria-label="PB 历史分位判定条"><rect x="70.0" y="18" width="398.0" height="16" rx="3" fill="#2fa36b" opacity="0.25"/><rect x="468.0" y="18" width="238.8" height="16" rx="3" fill="#c9a227" opacity="0.3"/><rect x="706.8" y="18" width="159.2" height="16" rx="3" fill="#e5484d" opacity="0.3"/><circle cx="93.9" cy="26" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="1.6"/><text x="93.9" y="12" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e5484d">5年 3%</text><circle cx="109.8" cy="26" r="4.5" fill="#c9a227" stroke="#fff" stroke-width="1.6"/><text x="109.8" y="30" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c9a227">3年 5%</text><circle cx="181.4" cy="26" r="4.5" fill="#2f56c9" stroke="#fff" stroke-width="1.6"/><text x="181.4" y="48" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f56c9">1年 14%</text><text x="468.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">便宜 ← 0%</text><text x="866.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">贵 → 100%</text></svg>
+    <svg viewBox="0 0 880 300" width="100%" role="img" aria-label="PB 5年走势">
+      <defs>
+        <linearGradient id="gradpb" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1f3a93" stop-opacity="0.14"/><stop offset="100%" stop-color="#1f3a93" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="70.0" x2="866" y2="70.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="120.0" x2="866" y2="120.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="170.0" x2="866" y2="170.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="220.0" x2="866" y2="220.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="244.6" x2="866" y2="244.6" stroke="#e5484d" stroke-width="1.6" stroke-dasharray="6 4"/><line x1="46" y1="122.5" x2="866" y2="122.5" stroke="#c9a227" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="46" y1="123.5" x2="866" y2="123.5" stroke="#2f56c9" stroke-width="1" stroke-dasharray="3 4" opacity="0.7"/><polygon points="46,270 46.0,78.0 52.8,84.0 59.6,23.7 66.3,21.1 73.1,20.0 79.9,41.7 86.7,34.2 93.4,21.4 100.2,39.5 107.0,38.0 113.8,71.1 120.5,79.3 127.3,50.4 134.1,75.7 140.9,78.7 147.7,107.8 154.4,91.3 161.2,96.5 168.0,106.8 174.8,64.3 181.5,43.8 188.3,42.5 195.1,54.0 201.9,74.0 208.6,82.8 215.4,51.1 222.2,54.9 229.0,38.5 235.8,82.9 242.5,91.0 249.3,86.9 256.1,88.4 262.9,58.1 269.6,60.4 276.4,27.5 283.2,64.8 290.0,44.7 296.7,73.4 303.5,83.2 310.3,81.3 317.1,108.1 323.9,114.7 330.6,124.6 337.4,144.3 344.2,139.6 351.0,158.4 357.7,145.8 364.5,119.7 371.3,130.2 378.1,106.9 384.8,92.4 391.6,106.3 398.4,120.1 405.2,96.7 412.0,107.2 418.7,114.1 425.5,132.7 432.3,128.3 439.1,144.0 445.8,154.6 452.6,128.7 459.4,114.1 466.2,95.6 472.9,104.1 479.7,100.7 486.5,82.7 493.3,80.9 500.0,108.7 506.8,118.7 513.6,151.2 520.4,159.6 527.2,181.5 533.9,165.5 540.7,185.2 547.5,205.2 554.3,199.5 561.0,166.5 567.8,158.1 574.6,125.3 581.4,151.4 588.1,148.3 594.9,168.5 601.7,188.5 608.5,183.5 615.3,163.6 622.0,146.1 628.8,121.5 635.6,128.8 642.4,130.7 649.1,138.7 655.9,138.7 662.7,166.6 669.5,188.0 676.2,181.1 683.0,175.0 689.8,164.4 696.6,172.9 703.4,150.0 710.1,145.5 716.9,145.5 723.7,162.6 730.5,165.4 737.2,146.8 744.0,155.5 750.8,171.5 757.6,174.2 764.3,175.0 771.1,188.8 777.9,171.0 784.7,196.2 791.5,200.9 798.2,214.0 805.0,225.7 811.8,221.6 818.6,232.3 825.3,239.1 832.1,252.0 838.9,263.4 845.7,270.0 852.4,246.5 859.2,243.0 866.0,244.5 866,270" fill="url(#gradpb)"/><polyline points="46.0,78.0 52.8,84.0 59.6,23.7 66.3,21.1 73.1,20.0 79.9,41.7 86.7,34.2 93.4,21.4 100.2,39.5 107.0,38.0 113.8,71.1 120.5,79.3 127.3,50.4 134.1,75.7 140.9,78.7 147.7,107.8 154.4,91.3 161.2,96.5 168.0,106.8 174.8,64.3 181.5,43.8 188.3,42.5 195.1,54.0 201.9,74.0 208.6,82.8 215.4,51.1 222.2,54.9 229.0,38.5 235.8,82.9 242.5,91.0 249.3,86.9 256.1,88.4 262.9,58.1 269.6,60.4 276.4,27.5 283.2,64.8 290.0,44.7 296.7,73.4 303.5,83.2 310.3,81.3 317.1,108.1 323.9,114.7 330.6,124.6 337.4,144.3 344.2,139.6 351.0,158.4 357.7,145.8 364.5,119.7 371.3,130.2 378.1,106.9 384.8,92.4 391.6,106.3 398.4,120.1 405.2,96.7 412.0,107.2 418.7,114.1 425.5,132.7 432.3,128.3 439.1,144.0 445.8,154.6 452.6,128.7 459.4,114.1 466.2,95.6 472.9,104.1 479.7,100.7 486.5,82.7 493.3,80.9 500.0,108.7 506.8,118.7 513.6,151.2 520.4,159.6 527.2,181.5 533.9,165.5 540.7,185.2 547.5,205.2 554.3,199.5 561.0,166.5 567.8,158.1 574.6,125.3 581.4,151.4 588.1,148.3 594.9,168.5 601.7,188.5 608.5,183.5 615.3,163.6 622.0,146.1 628.8,121.5 635.6,128.8 642.4,130.7 649.1,138.7 655.9,138.7 662.7,166.6 669.5,188.0 676.2,181.1 683.0,175.0 689.8,164.4 696.6,172.9 703.4,150.0 710.1,145.5 716.9,145.5 723.7,162.6 730.5,165.4 737.2,146.8 744.0,155.5 750.8,171.5 757.6,174.2 764.3,175.0 771.1,188.8 777.9,171.0 784.7,196.2 791.5,200.9 798.2,214.0 805.0,225.7 811.8,221.6 818.6,232.3 825.3,239.1 832.1,252.0 838.9,263.4 845.7,270.0 852.4,246.5 859.2,243.0 866.0,244.5" fill="none" stroke="#1f3a93" stroke-width="1.8"/><circle cx="866.0" cy="244.6" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="2"/><text x="46" y="14" font-size="12" font-weight="700" fill="#e5484d">当前 3.21（5年分位 3%）</text><text x="236" y="14" font-size="11" fill="#c9a227">均值 5.61</text><text x="326" y="14" font-size="11" fill="#2f56c9">中位 5.59</text><text x="406" y="14" font-size="11" fill="#9aa1ad">5年区间 2.71 ~ 7.63</text><text x="46.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2021-08</text><text x="459.4" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2024-03</text><text x="866.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2026-08</text>
+    </svg>
+    <div class="insight">PB 分位=当前 PB 3.21 在回溯法历史序列中的百分位（5年区间）</div>
+  </div>
+
+  <!-- 03 行业对比 -->
+  <div class="sec"><h2><span class="no">03</span>行业对比</h2><span class="hint">电网设备可比公司 · 2026-08-21</span></div>
+  <div class="grid-2">
+    <div class="card"><h3>PE(TTM) 对比 <span class="unit">金色=山西汾酒</span></h3><svg viewBox="0 0 420 320" width="100%" role="img" aria-label="行业PE对比"><text x="80" y="38.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">山西汾酒</text><rect x="88" y="23.0" width="59.5" height="22" rx="5" fill="#2f56c9"/><text x="153.5" y="38.0" font-size="11" font-weight="600" fill="#1f3a93">13.2</text><text x="80" y="76.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">贵州茅台</text><rect x="88" y="61.0" width="91.0" height="22" rx="5" fill="#2f56c9"/><text x="185.0" y="76.0" font-size="11" font-weight="600" fill="#1f3a93">20.1</text><text x="80" y="114.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">五粮液</text><rect x="88" y="99.0" width="99.6" height="22" rx="5" fill="#2f56c9"/><text x="193.6" y="114.0" font-size="11" font-weight="600" fill="#1f3a93">22.0</text><text x="80" y="152.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">泸州老窖</text><rect x="88" y="137.0" width="57.9" height="22" rx="5" fill="#2f56c9"/><text x="151.9" y="152.0" font-size="11" font-weight="600" fill="#1f3a93">12.8</text><text x="80" y="190.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">古井贡酒</text><rect x="88" y="175.0" width="77.2" height="22" rx="5" fill="#2f56c9"/><text x="171.2" y="190.0" font-size="11" font-weight="600" fill="#1f3a93">17.1</text><text x="80" y="228.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">洋河股份</text><rect x="88" y="213.0" width="262.0" height="22" rx="5" fill="#2f56c9"/><text x="356.0" y="228.0" font-size="11" font-weight="600" fill="#1f3a93">57.9</text><line x1="179.0" y1="12" x2="179.0" y2="276" stroke="#9aa1ad" stroke-width="1.4" stroke-dasharray="5 3"/><text x="179.0" y="12" text-anchor="middle" font-size="10" fill="#9aa1ad">行业中位 20.13</text></svg></div>
+    <div class="card"><h3>PB(MRQ) 对比 <span class="unit">金色=山西汾酒</span></h3><svg viewBox="0 0 420 320" width="100%" role="img" aria-label="行业PB对比"><text x="80" y="38.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">山西汾酒</text><rect x="88" y="23.0" width="129.0" height="22" rx="5" fill="#2fa36b"/><text x="223.0" y="38.0" font-size="11" font-weight="600" fill="#1e7a4d">3.2</text><text x="80" y="76.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">贵州茅台</text><rect x="88" y="61.0" width="262.0" height="22" rx="5" fill="#2fa36b"/><text x="356.0" y="76.0" font-size="11" font-weight="600" fill="#1e7a4d">6.5</text><text x="80" y="114.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">五粮液</text><rect x="88" y="99.0" width="87.2" height="22" rx="5" fill="#2fa36b"/><text x="181.2" y="114.0" font-size="11" font-weight="600" fill="#1e7a4d">2.2</text><text x="80" y="152.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">泸州老窖</text><rect x="88" y="137.0" width="99.3" height="22" rx="5" fill="#2fa36b"/><text x="193.3" y="152.0" font-size="11" font-weight="600" fill="#1e7a4d">2.5</text><text x="80" y="190.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">古井贡酒</text><rect x="88" y="175.0" width="74.3" height="22" rx="5" fill="#2fa36b"/><text x="168.3" y="190.0" font-size="11" font-weight="600" fill="#1e7a4d">1.9</text><text x="80" y="228.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">洋河股份</text><rect x="88" y="213.0" width="47.8" height="22" rx="5" fill="#2fa36b"/><text x="141.8" y="228.0" font-size="11" font-weight="600" fill="#1e7a4d">1.2</text><line x1="175.2" y1="12" x2="175.2" y2="276" stroke="#9aa1ad" stroke-width="1.4" stroke-dasharray="5 3"/><text x="175.2" y="12" text-anchor="middle" font-size="10" fill="#9aa1ad">行业中位 2.17</text></svg>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>行业对比解读</h3>
+    <div class="insight">行业对比选白酒龙头（茅台/五粮液/老窖/古井/洋河），中位数法；洋河 PE 因盈利下滑被动虚高</div>
+  </div>
+
+  <!-- 04 估值锚点 -->
+  <div class="sec"><h2><span class="no">04</span>估值锚点</h2><span class="hint">盈利增长能否消化高估值</span></div>
+  <div class="grid-2">
+    <div class="card"><h3>近4年业绩 <span class="unit">营收/归母/亿</span></h3>
+      <table>
+        <tr><th>年份</th><th>营收</th><th>归母净利</th><th>EPS</th></tr>
+        <tr><td class="num" style="color:var(--ink-3)">2022</td><td class="num">262.14</td><td class="num" style="font-weight:700">80.96</td><td class="num" style="color:var(--ink-2)">6.65</td></tr><tr><td class="num" style="color:var(--ink-3)">2023</td><td class="num">319.28</td><td class="num" style="font-weight:700">104.38</td><td class="num" style="color:var(--ink-2)">8.56</td></tr><tr><td class="num" style="color:var(--ink-3)">2024</td><td class="num">360.11</td><td class="num" style="font-weight:700">122.43</td><td class="num" style="color:var(--ink-2)">10.04</td></tr><tr><td class="num" style="color:var(--ink-3)">2025</td><td class="num">387.18</td><td class="num" style="font-weight:700">122.46</td><td class="num" style="color:var(--ink-2)">10.04</td></tr>
+      </table>
+      <div class="kv" style="margin-top:8px"><span class="k">2026H1</span><span class="v" style="font-size:12.5px;color:var(--ink-2)">营收 149.23亿(++5.35%) · 归母 53.83亿(++1.13%) · 毛利率 75.00%</span></div>
+      <div class="insight">2026Q1 营收 149.2 亿（+5.35%）、归母 53.8 亿（+1.13%）——增速放缓但绝对水平稳健；白酒行业处于去库存周期，公司主动控货稳价，报表端短期承压、中长期全国化（省外占比 65%）与青花高端化动能未变</div>
+    </div>
+    <div class="card"><h3>动态估值（券商预测） <span class="unit">forward PE</span></h3>
+      <table>
+        <tr><th>年度</th><th>预测归母净利</th><th>对应PE</th></tr>
+        <tr><td>2026E</td><td class="num" style="font-weight:700">118.22亿</td><td class="num" style="color:var(--red);font-weight:800">12.0倍</td></tr><tr><td>2027E</td><td class="num" style="font-weight:700">126.03亿</td><td class="num" style="color:var(--red);font-weight:800">11.3倍</td></tr><tr><td>2028E</td><td class="num" style="font-weight:700">137.74亿</td><td class="num" style="color:var(--red);font-weight:800">10.3倍</td></tr>
+      </table>
+      <div class="insight">券商一致预期来源：同花顺 iFinD 聚合（36-54 家机构，2026-08 时点）+ 兴业证券点评，WebSearch 公开披露</div>
+    </div>
+  </div>
+
+  <!-- 05 风险提示 -->
+  <div class="sec"><h2><span class="no">05</span>风险提示</h2><span class="hint">高分位下的回撤风险</span></div>
+  <div class="card"><div class="sum-row"><span class="sum-tag2">风险1</span><span style="color:var(--ink-2)">白酒行业进入去库存周期，2026 年一致预期归母 118 亿（同比 -3.5%），盈利下滑可能压制估值</span></div><div class="sum-row"><span class="sum-tag2">风险2</span><span style="color:var(--ink-2)">回溯法分位基于当前 TTM 净利反推历史 PE，若行业盈利中枢下移则历史分位低估当前估值 [ASSUMED]</span></div><div class="sum-row"><span class="sum-tag2">风险3</span><span style="color:var(--ink-2)">消费复苏不及预期/全国化拓展受阻/高端酒动销放缓风险</span></div><div class="sum-row"><span class="sum-tag2">风险4</span><span style="color:var(--ink-2)">估值便宜不等于股价上涨——低估值+弱基本面组合可能长期磨底</span></div></div>
+
+  <div class="note">数据来源：同花顺金融数据（hithink-finance v0.1.5，valuation snapshot + market history 5年前复权）；历史分位为回溯法自建 [ASSUMED]：历史PE_i=当前PE_TTM × (前复权收盘_i/当前收盘)——按当前 TTM 净利回溯，白酒盈利中枢下移时历史分位偏乐观；券商一致预期/目标价为 WebSearch 公开披露（同花顺 iFinD 聚合+兴业证券，2026-08 时点）[ASSUMED]；市值=股价×股本(约12.19亿股)估算；回测口径仅供研究参考，不构成个人投资建议。</div>
+</div>
+</body>
+</html>

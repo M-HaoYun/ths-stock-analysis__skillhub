@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>精选 5 股推荐报告 · 2026-09-11</title>
+<style>
+:root{--navy:#1f3a93;--navy2:#2f56c9;--gold:#c9a227;--ink:#1c2333;--ink2:#5b6478;--line:#e6e9f2;--bg:#f4f6fb;
+--red:#e5484d;--green:#2fa36b;--gold-bg:linear-gradient(135deg,#fdf6e0,#fbecc0);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;padding:20px}
+.wrap{max-width:1060px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums}
+header{background:linear-gradient(135deg,#1f3a93,#2749b3);border-radius:14px;padding:22px 26px;color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+header .logo i{font-style:normal;background:var(--gold);color:#1f3a93;border-radius:6px;padding:2px 8px;font-size:12px}
+header h1{font-size:21px;margin-top:2px}
+header .date{text-align:right;font-size:12px;opacity:.9}
+header .date b{display:block;font-size:15px;opacity:1}
+.banner{background:var(--gold-bg);border:1px solid #eeda9a;border-radius:10px;padding:11px 16px;margin:14px 0;color:#6b5410;font-size:13.5px}
+.banner b{color:#8a6d00}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .v{font-size:24px;font-weight:800}
+.kpi .k{font-size:12px;color:var(--ink2);margin-top:2px}
+.up{color:var(--red)} .dn{color:var(--green)} .hot{color:var(--red)}
+.idx{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 16px}
+.idx span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:12.5px}
+.idx b{margin-left:6px}
+.lines{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.lines .ln{background:#eef1fb;color:var(--navy);border-radius:8px;padding:5px 11px;font-size:12.5px;font-weight:600}
+h2{font-size:16px;color:var(--navy);margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+h2 .no{background:var(--navy);color:#fff;border-radius:6px;padding:1px 8px;font-size:12.5px}
+h2 .hint{font-weight:400;font-size:12px;color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(31,58,147,.05)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.no{display:inline-flex;width:26px;height:26px;border-radius:7px;background:var(--navy);color:#fff;align-items:center;justify-content:center;font-weight:800;margin-right:8px;font-size:14px}
+.nm{font-size:20px;font-weight:800}
+.tcode{font-size:12px;color:var(--ink2);margin-left:7px;background:#f0f2f8;border-radius:5px;padding:1px 7px;font-weight:600}
+.stag{margin-left:8px;border-radius:6px;padding:2px 9px;font-size:11.5px;font-weight:700;color:#fff}
+.stag.a{background:var(--green)} .stag.b{background:#c97818} .stag.c{background:var(--red)} .stag.d{background:var(--navy2)} .stag.e{background:#8a6d9b} .stag.f{background:#0f8a83}
+.px{text-align:right}
+.px b{font-size:26px;font-weight:800}
+.chg{display:block;font-size:14px;font-weight:700}
+.tags{margin:9px 0 4px;display:flex;gap:7px;flex-wrap:wrap}
+.tg{font-size:11px;color:var(--navy);background:#e9edfb;border-radius:20px;padding:1px 10px;font-weight:600}
+.sec-t{font-size:15px;font-weight:800;color:var(--navy);margin:4px 0 6px}
+.why{font-size:13.5px;color:#333c50}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 14px;margin:10px 0;background:#f7f8fc;border-radius:9px;padding:10px 13px}
+.tgrid{background:#f0f4ff;border:1px solid #dbe3f8;border-radius:9px;padding:9px 13px;margin:8px 0}
+.tgrid .tt{font-size:11.5px;color:var(--navy);font-weight:800;margin-bottom:6px}
+.tgrid .grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:5px 14px}
+.tnote{font-size:12px;color:#3b4a6b;margin-top:7px;padding-top:6px;border-top:1px dashed #c9d5f0;line-height:1.55}
+.kv{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px}
+.kv span{color:var(--ink2)} .kv b{font-size:13px}
+.plan,.risk{font-size:13px;margin-top:7px;padding-left:13px;border-left:3px solid var(--gold);}
+.plan b,.risk b{color:#8a6d00;margin-right:6px;font-size:12.5px}
+.risk{border-left-color:#e0a3a6} .risk b{color:#b04548}
+.vchk{margin-top:9px;padding:6px 11px;border-radius:8px;font-size:12.5px;font-weight:700;display:flex;gap:6px;align-items:flex-start;line-height:1.55}
+.vchk.ok{background:#e9f7f0;color:#157a4f;border:1px solid #bfe8d4}
+.vchk.bad{background:#fdeeee;color:#b04548;border:1px solid #f2c6c6}
+.vchk span{font-weight:400}
+.evrow{display:flex;gap:6px;align-items:center;margin-top:9px;flex-wrap:wrap;font-size:11.5px;color:var(--ink2)}
+.evrow b{color:var(--ink2);font-weight:600}
+.ev{background:#eef7f2;color:var(--green);border-radius:5px;padding:1px 7px;font-weight:600}
+.ev.off{background:#f0f1f5;color:#aab}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:13px}
+th{background:#f0f3fb;color:var(--navy);padding:8px 10px;text-align:left;font-size:12.5px}
+td{padding:8px 10px;border-top:1px solid var(--line)}
+.ck{color:var(--green);font-weight:800} .no2{color:#c4c9d6;font-weight:800}
+.pill{display:inline-block;border-radius:5px;padding:1px 8px;font-weight:700;font-size:11.5px;white-space:nowrap}
+.pill.ok{background:#e9f7f0;color:#157a4f} .pill.bad{background:#fdeeee;color:#b04548}
+.audit td{vertical-align:top;font-size:12.5px}
+.insight{background:var(--gold-bg);border:1px solid #eeda9a;border-radius:10px;padding:12px 16px;margin:14px 0;color:#6b5410;font-size:13.5px;font-weight:700}
+.insight::before{content:"💡 "}
+footer{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin:18px 0 8px;font-size:11.5px;color:var(--ink2)}
+</style></head><body><div class="wrap">
+
+<header>
+  <div><div class="logo"><i>THS</i>多能力协同选股<span style="opacity:.7;font-weight:400;font-size:12px">轮动×情绪×龙虎榜×经典策略回测 + 能力#8 验证</span></div>
+  <h1>精选 5 股推荐报告</h1></div>
+  <div class="date">数据截至<b>2026-09-11 收盘</b>周五 · 20:40 生成（短中线技术指标版 v1.2 · 能力#8 验证流程）</div>
+</header>
+
+<div class="banner">💡 <b>核心研判：普跌第三日、跌停骤增但涨停微升、资金高度收敛到 PCB/覆铜板链与军工</b>——涨停 40 家（09-10 的 34 家小幅回升）、跌停 21 家（09-10 仅 11 家、近乎翻倍）、炸板 18 家、封板率 69%；上涨仅 639 家（下跌 4871 家、<b>个股中位 -2.21% 深度普跌</b>），上证 3888.11 -1.18% 且<b>放量至 9582 亿</b>（前日 7797 亿）——放量下跌，承接明显不足。26 个行业板块<b>仅通信设备 +0.42% 收红</b>（成交 1788 亿），其余全绿；种植业 20日 +25.95% 仍第一但今日 -2.95% 续跌，小金属 -2.91%、电池 -2.46%、工业金属 -4.04% 领跌。资金唯一集中的方向= <b>PCB/覆铜板/CPO 链</b>（金安国纪龙虎榜净买 +8.12 亿、机构 +5.90 亿双榜第一；长盈通 +5.21 亿），次线= 军工/商业航天（博云新材 +4.03 亿、内蒙一机/银河电子涨停）。指数跌得不多但个股杀得狠，「指数护盘 + 个股失血」结构下，只做有业绩兑现的资金主线，不做普涨幻想。</div>
+
+<h2><span class="no">01</span>市场环境速写<span class="hint">数据：hithink CLI 实测（涨停/炸板池、龙虎榜、板块指数、本地库涨跌家数）</span></h2>
+<div class="kpis"><div class="kpi"><div class="v num hot">40 家</div><div class="k">涨停（09-10: 34）</div></div><div class="kpi"><div class="v num hot">69%</div><div class="k">封板率（炸板 18）</div></div><div class="kpi"><div class="v num dn">639 / 4871</div><div class="k">上涨 / 下跌家数（中位 -2.21%）</div></div><div class="kpi"><div class="v num dn">21 家</div><div class="k">跌停（09-10: 11）</div></div></div>
+<div class="idx"><span>上证指数<b class="num dn">3888.11 -1.18%</b></span><span>深证成指<b class="num dn">13471.26 -1.08%</b></span><span>创业板指<b class="num dn">3322.04 -0.49%</b></span><span>沪深300<b class="num dn">4510.16 -0.84%</b></span><span>连板梯队<b class="num ">4板×1 · 3板×2 · 2板×4</b></span></div>
+<div class="lines"><span class="ln">🔌 通信设备 +0.42% 全场唯一红盘（成交 1788 亿）· CPO/光纤资金主攻方向</span><span class="ln">🔧 PCB/覆铜板链资金最集中：金安国纪净买 +8.12 亿（机构 +5.90 亿）双榜第一</span><span class="ln">✈️ 军工/商业航天接力：博云新材 +4.03 亿、内蒙一机/银河电子涨停</span><span class="ln">🌾 种植业 20日 +25.95% 仍居首，但今日 -2.95% 续跌（农业链退潮未止）</span><span class="ln">🪙 资源全线回踩：工业金属 -4.04% / 小金属 -2.91% / 贵金属 -3.39%</span><span class="ln">🔋 电池 -2.46% / 半导体 -2.02% / 光伏电池组件 -2.36% 继续垫底</span><span class="ln">📉 上证放量 9582 亿下跌（前日 7797 亿）——承接不足，指数护盘个股失血</span></div>
+<div class="insight">涨停热词（按出现家数）=<b>PCB 6</b> / 机器人 4 / AI算力 3 / 光伏玻璃 3 / 业绩增长 3 / 海上风电 2 / 军工装备 2 / 商业航天 2 / 复合铜箔 2 / 光模块 2 / AI应用 2 / 创新药 2——高标压缩至 4 板（瑞尔特·智能卫浴），3 板 2 家（闽东电力·海上风电、鼎信通讯·智能电网）——情绪第三日退潮，赚钱效应弱。龙虎榜净买第一=<b>金安国纪 +8.12 亿</b>（覆铜板·机构 +5.90 亿同榜第一）、长盈通 +5.21 亿（光纤/CPO）、博云新材 +4.03 亿（航空发动机/军工）；净卖第一=金健米业 -2.31 亿、红棉股份 -1.30 亿（农业链资金撤离，与种植业退潮互证）。结论：资金在普跌中<b>只认「涨价兑现 + 军工订单」两条硬逻辑</b>，其余方向失血——覆铜板链（金安国纪 H1 归母 +986.7%）是本日唯一「资金 + 业绩」双兑现方向。</div>
+
+<h2><span class="no">02</span>精选 5 股推荐<span class="hint">短中线定位（持有 3~10 个交易日）· 按确定性排序 · 每只均经能力#8 全面分析验证 · 全部为 2026-09-11 当日新信号</span></h2>
+
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">1</span><span class="nm">中际旭创</span>
+          <span class="tcode">300308.SZ</span><span class="stag a">主线右侧</span></div>
+        <div class="px"><b>926.00</b><span class="chg up"><span class="up">+4.03%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">板块轮动</span><span class="tg">经典策略信号</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">AI 光模块龙头 · W底颈线已破 + 业绩爆发（H1 归母 +241.7%）</div>
+      <div class="why">今日全场成交额第一（299.7 亿）+ 涨 4.03%，在 4871 家下跌的深度普跌中逆势走强，且通信设备是 26 个板块里<b>唯一收红</b>的行业——资金在普跌中把票投给了它。技术面：60日 -32.3% 深度回调后，今日收盘 926.00 站上 W 底颈线 866.12（超出 6.91%），且这一突破是「新触发」（前一日未确认）——正是回测里唯一长期为正的右侧范式（W底 +76.3%、海龟 +79.0%，均属「等突破确认后买」）。基本面（能力#8 验证）：2026H1 营收 417.78 亿（+182.5%）、归母 136.51 亿（+241.7%）、ROE 37.62%、毛利率 46.25%、净利率 35.27%，<b>H1 净利已超 2025 全年（107.97 亿）</b>；PE_TTM 53.3 对 240% 的增速并不贵（forward 更低）。关键位置：60日高点 1416.88、当前 926 仍在半山腰下方——不是追高，是超跌后的右侧确认。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+4.03%</span> 成交 299.7 亿</b></div><div class="kv"><span>60日涨幅</span><b><span class="dn">-32.3%</span> 深度回调</b></div><div class="kv"><span>W底颈线</span><b>866.12 已破(<span class="up">+6.9%</span>)</b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+241.7%</span></b></div><div class="kv"><span>PE_TTM</span><b>53.3</b></div><div class="kv"><span>ROE(H1)</span><b>37.62%</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>均线纠缠 · 站上 MA5/MA20</b></div><div class="kv"><span>RSI14</span><b>52.6 中性</b></div><div class="kv"><span>MACD</span><b>零轴下多头（柱 +27.2）</b></div><div class="kv"><span>量比</span><b>1.26 温和放量</b></div><div class="kv"><span>布林%B</span><b>69.6 中上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA10 868.6 / 颈线 866 / 压力 1014.9</b></div></div><div class="tnote">RSI 52.6 + %B 69.6 + 乖离仅 <span class="up">+4.57%</span> = <b>突破后位置干净，无超买</b>；20 日高 1014.87 为下一压力。回踩 MA10（868.6）/颈线（866）不破即可分批，跌破 866 视为 W 底突破失败、立即离场。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】不追高开，等回踩 MA10 868~880 区间分批（也是颈线回踩确认位）；目标 1015（20 日高）→ 1100；跌破 866（颈线）无条件止损。</span></div>
+      <div class="risk"><b>主要风险</b><span>AI 硬件整体弱势（半导体 -2.02%、消费电子 -1.54%）若持续，龙头难以独立走强；966~1015 一带是前期成交密集区有压力；光模块价格/订单若出现下修，估值将快速回归。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——H1 营收 +182.5%/归母 +241.7%/ROE 37.6%，H1 净利已超去年全年；PE 53.3 配 240% 增速不算贵；W底颈线新突破且位置干净(60日-32.3%、乖离仅+4.57%)</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev ">● 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">2</span><span class="nm">金安国纪</span>
+          <span class="tcode">002636.SZ</span><span class="stag b">主线低吸</span></div>
+        <div class="px"><b>82.46</b><span class="chg up"><span class="up">+7.86%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">龙虎榜资金</span><span class="tg">市场情绪</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">覆铜板涨价王 · 龙虎榜净买 +8.12 亿双榜第一（H1 归母 +986.7%）</div>
+      <div class="why">今日龙虎榜资金最集中标的：净买 <b>+8.12 亿</b>（全场第一）、机构净买 <b>+5.90 亿</b>（机构榜第一，买 4 卖 3），涨 7.86% 成交活跃——在 4871 家下跌、指数放量下跌的环境里，这是唯一获得「大额资金 + 机构」双确认的方向。产业逻辑（WebSearch 公开披露）：覆铜板涨价周期持续，建滔积层板年内第七次提价、FR-4 年内累计涨幅超 100%，AI 服务器/高速材料挤占高端产能。基本面（能力#8 验证）：2026H1 营收 33.99 亿（+65.74%）、归母 7.66 亿（<b>+986.66%</b>）、ROE 19.39%、净利率 22.56%——涨价 <b>已实实在在落到报表</b>（H1 净利是 2025 全年 3.01 亿的 2.5 倍），PE_TTM 60.3 对应近 10 倍利润增速，估值消化能力充足。60日 -21.02%（自 124.38 高位回落），位置并不极端。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+7.86%</span></b></div><div class="kv"><span>龙虎榜净买</span><b>+8.12 亿（全场第一）</b></div><div class="kv"><span>机构净买</span><b>+5.90 亿（第一）</b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+986.7%</span></b></div><div class="kv"><span>PE_TTM</span><b>60.3</b></div><div class="kv"><span>ROE(H1)</span><b>19.39%</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>均线纠缠 · 站上 MA5/MA20</b></div><div class="kv"><span>RSI14</span><b>64.1 偏强未超买</b></div><div class="kv"><span>MACD</span><b>零轴上多头（金叉后）</b></div><div class="kv"><span>量比</span><b>2.04 明显放量</b></div><div class="kv"><span>布林%B</span><b>110.7 破上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA5 73.0 / 压力 84.0（20日高）</b></div></div><div class="tnote">MACD 零轴上金叉 + 量比 2.04 放量突破 = 趋势确认，但 <b>%B 110.7 破上轨、乖离 MA20 已达 <span class="up">+19.95%</span></b>——短线过热，<b>不追高</b>；等回踩 MA5（73.0）缩量企稳再分批，跌破 MA10（71.7）短线转弱。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】只做回踩：跌回 MA5（73.0）附近缩量企稳分批，不上破 84.0 前高不追；目标 84（20日高）→ 90；跌破 MA10（71.7）止损。</span></div>
+      <div class="risk"><b>主要风险</b><span>★ 乖离 +19.95%、%B 破上轨，短线超买明显——追高即接盘；覆铜板价格若停止提价，涨价逻辑证伪回撤大；今日放量 7.86% 后有获利回吐压力；农业/资源链资金撤离显示市场承接力弱，主线一旦松动跌幅会放大。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过（须回踩）——H1 归母 +986.7%/ROE 19.4% 涨价已兑现、机构净买 +5.90 亿最强资金确认；但乖离 +19.95%/%B 110.7 超买，只能回踩参与</span></div>
+      <div class="evrow"><b>证据</b><span class="ev off">○ 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev ">● 龙虎榜</span><span class="ev off">○ 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">3</span><span class="nm">东方电缆</span>
+          <span class="tcode">603606.SH</span><span class="stag c">低位反转</span></div>
+        <div class="px"><b>35.65</b><span class="chg up"><span class="up">+3.36%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">板块轮动</span><span class="tg">经典策略信号</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">海缆龙头 · PE 21.6 全场最低 + W底低位启动（H1 营收 +30.9%）</div>
+      <div class="why">本组唯一「估值安全垫 + 低位形态」兼具的标的：PE_TTM <b>21.6</b>（五只中最低，显著低于中际旭创 53.3、金安国纪 60.3、嘉立创 58.2），在深度普跌日逆势 +3.36%、量比 2.33 放量，且今日触发 W 底突破（颈线 34.80，收盘 35.65 超出 2.44%）新信号。位置极干净：20日 -6.18%、60日 -10.72%，自 60 日高点 44.25 回落、距 60 日低点 32.99 仅 8%——属于「跌不动 + 刚开始转」的左侧末端，向下空间有限。基本面（能力#8 验证）：2026H1 营收 58.00 亿（+30.85%）、归母 5.65 亿（+19.41%）、ROE 6.65%、毛利率 19.44%——增速稳健非爆发，但 PE 21.6 已充分定价，海上风电（今日涨停热词之一，闽东电力 3 连板）景气延续提供订单支撑。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+3.36%</span> 放量</b></div><div class="kv"><span>20日涨幅</span><b><span class="dn">-6.18%</span></b></div><div class="kv"><span>60日涨幅</span><b><span class="dn">-10.72%</span></b></div><div class="kv"><span>W底颈线</span><b>34.80 已破(<span class="up">+2.4%</span>)</b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+19.4%</span></b></div><div class="kv"><span>PE_TTM</span><b>21.6（最低）</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>均线纠缠 · 站上 MA5/MA20</b></div><div class="kv"><span>RSI14</span><b>49.9 中性</b></div><div class="kv"><span>MACD</span><b>零轴下多头（柱 +0.60）</b></div><div class="kv"><span>量比</span><b>2.33 放量启动</b></div><div class="kv"><span>布林%B</span><b>66.1 中上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA5 34.4 / 颈线 34.8 / 压力 38.1</b></div></div><div class="tnote">RSI 49.9 + %B 66.1 + 乖离仅 <span class="up">+2.63%</span> = <b>低位启动、完全无超买</b>；量比 2.33 放量突破颈线 34.80 属有效信号。回踩 MA5（34.4）/颈线（34.8）不破即可介入，跌破 MA20（34.7）需减仓。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日】回踩 34.4~34.8（MA5/颈线共振位）分批低吸；目标 38.1（20日高）→ 40；跌破 MA20（34.7）减仓、跌破 33.0（60日低）止损。</span></div>
+      <div class="risk"><b>主要风险</b><span>海缆订单确认周期长、业绩弹性弱于题材股（今日仅 +3.36% 涨幅温和）；风电装机节奏若低于预期则估值难修复；缺乏资金龙虎榜背书，属「跟涨型」而非「领涨型」。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过——PE 21.6 全场最低提供安全垫、H1 营收 +30.9%/归母 +19.4% 稳健；W底颈线突破 + 乖离仅 +2.63% 位置最干净，风险收益比最佳</span></div>
+      <div class="evrow"><b>证据</b><span class="ev ">● 板块轮动</span><span class="ev off">○ 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev ">● 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">4</span><span class="nm">嘉立创</span>
+          <span class="tcode">001232.SZ</span><span class="stag b">主线低吸</span></div>
+        <div class="px"><b>182.48</b><span class="chg up"><span class="up">+10.00%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">龙虎榜资金</span><span class="tg">板块轮动</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">PCB 在线制造龙头 · 涨停 + 机构买入（H1 营收 +54.1%）</div>
+      <div class="why">PCB 主线第二梯队：今日涨停 +10.00%、龙虎榜净买 +1.87 亿、机构净买 +0.58 亿（买 3 卖 4）。基本面（能力#8 验证）：2026H1 营收 71.73 亿（+54.13%）、归母 10.30 亿（+73.54%）、ROE 13.37%、净利率 14.36%——在 PCB 链中属「增速与估值最匹配」的一只（PE_TTM 58.2，显著低于崇达 97.3、奥士康 118.1，且后两者 H1 利润均下滑）。产业逻辑：AI 服务器/算力硬件拉动高多层板需求，PCB 概念为今日涨停热词第一（40 家涨停中 6 家含 PCB）。<b>⚠️ 关键风险披露：嘉立创为 2026-08-04 上市的次新股，仅 29 个交易日、无 MA60 与 60 日基准</b>——上市后自 208.01 回落至 162 一线横盘，今日 182.48 放量突破横盘区上沿，属「次新无套牢盘 + 主线共振」的弹性品种，但波动天然大于老股，仓位须减半。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+10.00%</span> 涨停</b></div><div class="kv"><span>龙虎榜净买</span><b>+1.87 亿</b></div><div class="kv"><span>机构净买</span><b>+0.58 亿</b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+73.5%</span></b></div><div class="kv"><span>PE_TTM</span><b>58.2</b></div><div class="kv"><span>上市至今</span><b><span class="dn">-12.3%</span>（次新）</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>次新（无 MA60）· 站上 MA5/MA20</b></div><div class="kv"><span>RSI14</span><b>51.6 中性</b></div><div class="kv"><span>MACD</span><b>零轴下多头（柱 +6.13）</b></div><div class="kv"><span>量比</span><b>1.81 放量突破</b></div><div class="kv"><span>布林%B</span><b>97.6 上轨附近</b></div><div class="kv"><span>关键位</span><b>支撑 MA5 168.2 / 上市低 139.5 / 压力 208.0</b></div></div><div class="tnote">RSI 51.6 中性、%B 97.6 贴上轨未破，量比 1.81 放量突破 20 日横盘上沿；<b>无 MA60 基准，用 MA5（168.2）与横盘下沿（162）作防守</b>。回踩 168~172 分批，跌破 MA10（167.8）离场。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日·半仓】回踩 MA5（168）~MA10（168）分批（涨停次日不追高）；目标 190 → 200（上市首日 208 附近有压力）；跌破 162（横盘下沿）无条件止损。</span></div>
+      <div class="risk"><b>主要风险</b><span>★ 次新股仅 29 个交易日、无 60 日基准，波动与回撤天然更大，须半仓；上市价 208 上方是套牢区、压力明确；PCB 链若整体退潮（崇达/奥士康均已否决）个股难独立；今日涨停后次日高开回落风险大。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过（高风险档·半仓）——H1 营收 +54.1%/归母 +73.5% 且 PE 58 为 PCB 链最低、优于崇达(97)/奥士康(118)且后两者 H1 利润下滑；但次新股无 60 日基准，须降仓</span></div>
+      <div class="evrow"><b>证据</b><span class="ev off">○ 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev ">● 龙虎榜</span><span class="ev off">○ 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><span class="no">5</span><span class="nm">银河电子</span>
+          <span class="tcode">002519.SZ</span><span class="stag d">弹性博弈</span></div>
+        <div class="px"><b>6.31</b><span class="chg up"><span class="up">+9.93%</span></span></div>
+      </div>
+      <div class="tags"><span class="tg">市场情绪</span><span class="tg">经典策略信号</span><span class="tg">能力#8验证</span></div>
+      <div class="sec-t">军工+商业航天 · 位置最干净的低价弹性（60日仅 +0.64%）</div>
+      <div class="why">今日涨停 +9.93%、量比 5.31 急剧放量，且同时命中 60 日新高突破（新触发）——军工装备与商业航天均为今日涨停热词（各 x2），同链的内蒙一机（+9.99%）、博云新材（龙虎榜净买 +4.03 亿）共振。<b>核心优势是位置：60日仅 +0.64%</b>（对比金安国纪 60日 -21% 但 5日 +27.6%、闽东电力 5日 +29.4%），股价 6.31 元处于 60 日区间 4.48~6.31 的上沿刚突破，属「横盘后首次放量突破」——无长期套牢盘、上方无密集成交区。基本面（能力#8 验证）：2026H1 营收 4.41 亿（+114.47%）、归母 0.05 亿（+118.88%，由 2025 全年 -0.84 亿扭亏）、毛利率 18.55%、资产负债率 32.91%——<b>增长真实但基数极低（ROE 仅 0.25%、净利率 1.23%）</b>，本质是「扭亏初期 + 题材驱动」的弹性票，PE_TTM 为负（-143.8）不适用估值框架。</div>
+      <div class="grid"><div class="kv"><span>今日</span><b><span class="up">+9.93%</span> 涨停</b></div><div class="kv"><span>60日涨幅</span><b><span class="up">+0.64%</span>（最干净）</b></div><div class="kv"><span>量比</span><b>5.31（急剧放量）</b></div><div class="kv"><span>2026H1营收</span><b><span class="up">+114.5%</span></b></div><div class="kv"><span>2026H1归母</span><b><span class="up">+118.9%</span>（扭亏）</b></div><div class="kv"><span>ROE(H1)</span><b>0.25%（微利）</b></div></div>
+      <div class="tgrid"><div class="tt">📐 短线技术面（前复权日K自算 · 持有周期 3~10 个交易日）</div><div class="grid2"><div class="kv"><span>均线形态</span><b>⭐ 多头排列 MA5>10>20>60</b></div><div class="kv"><span>RSI14</span><b>73.8 超买</b></div><div class="kv"><span>MACD</span><b>零轴上多头（柱 +0.11）</b></div><div class="kv"><span>量比</span><b>5.31 急放量</b></div><div class="kv"><span>布林%B</span><b>121.2 破上轨</b></div><div class="kv"><span>关键位</span><b>支撑 MA5 5.83 / 压力 6.31（即当前）</b></div></div><div class="tnote">⭐ 唯一<b>均线多头排列</b>（MA5 5.83>MA10 5.78>MA20 5.59>MA60 5.51）= 趋势最健康；但 <b>RSI 73.8 + %B 121.2 + 乖离 <span class="up">+12.84%</span> 三连超买</b>，且量比 5.31 属急放量（易见情绪高潮）——<b>绝不可追高</b>，只做回踩 MA5（5.83）。</div></div>
+      <div class="plan"><b>操作参考 · 短中线</b><span>【3~10 个交易日·半仓·只回踩】次日不追高开；回踩 MA5（5.83）缩量企稳分批；目标 7.0（前高区）→ 7.5；跌破 MA10（5.78）离场、跌破 MA20（5.59）确认失败。</span></div>
+      <div class="risk"><b>主要风险</b><span>★ RSI 73.8/%B 121.2/乖离 +12.84% 三连超买，量比 5.31 急放量有情绪顶特征，追高必套；ROE 仅 0.25%、净利率 1.23%，业绩无法支撑估值，纯题材博弈；军工订单确认节奏不确定，题材退潮即快速回落。</span></div>
+      <div class="vchk ok">✅ 能力#8 验证：<span>通过（高风险档·半仓）—— H1 营收 +114.5%/归母扭亏、60日 +0.64% 位置最干净、唯一均线多头排列；但 ROE 仅 0.25% 微利且三连超买，仅限回踩参与</span></div>
+      <div class="evrow"><b>证据</b><span class="ev off">○ 板块轮动</span><span class="ev ">● 市场情绪</span><span class="ev off">○ 龙虎榜</span><span class="ev ">● 经典策略</span><span class="ev ">● 能力#8</span></div>
+    </div>
+
+<h2><span class="no">03</span>信号证据交叉矩阵<span class="hint">●=该股当日具备此项能力证据（5 项能力独立取证，末列=能力#8 验证通过）</span></h2>
+<table>
+<tr><th>股票</th><th>主线定位</th><th>板块轮动</th><th>市场情绪</th><th>龙虎榜</th><th>经典策略</th><th>能力#8</th></tr>
+<tr><td><b>中际旭创</b> 300308</td><td>CPO/光模块·W底突破</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td></tr><tr><td><b>金安国纪</b> 002636</td><td>覆铜板·涨价兑现</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td></tr><tr><td><b>东方电缆</b> 603606</td><td>海缆·估值最低</td><td class="ck">●</td><td class="no2">○</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td></tr><tr><td><b>嘉立创</b> 001232</td><td>PCB·次新弹性</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td></tr><tr><td><b>银河电子</b> 002519</td><td>军工·商业航天</td><td class="no2">○</td><td class="ck">●</td><td class="no2">○</td><td class="ck">●</td><td class="ck">●</td></tr>
+</table>
+<div class="insight">能力#8 验证后五只均有硬业绩背书且位置可控：<b>中际旭创</b>（CPO 龙头 H1 营收 +182.5%/归母 +241.7%/ROE 37.6%、PE 53.3、60日 -32.3% 深调后 W 底颈线 866.12 已破、今日 +4.03% 成交 299.7 亿全场第一）是本日「主线 + 位置」最均衡的一只；<b>金安国纪</b>（覆铜板 H1 归母 +986.7%/ROE 19.4%）为资金最集中方向（净买+8.12亿）但乖离 +19.95% 已偏高，只给回踩位；<b>东方电缆</b>（海缆 H1 营收 +30.9%/归母 +19.4%、PE 21.6 全场最低、60日 -10.7% 低位）提供估值安全垫；<b>嘉立创</b>（PCB H1 营收 +54.1%/归母 +73.5%、PE 58.2、今日机构 +0.58 亿）为链上估值相对合理者，但属次新股（仅 29 个交易日、无 60 日基准）须降仓；<b>银河电子</b>（军工+商业航天 H1 营收 +114.5%/归母 +118.9%、60日仅 +0.64% 位置干净）为纯题材弹性票，ROE 仅 0.25% 微利——列高风险档。被剔除方向：崇达技术（营收 +22.5% 但<b>归母 -31.3%</b>、ROE 1.71% 增收不增利）、奥士康（H1 归母 0.83 亿 vs 2025 全年 3.08 亿、PE 118 估值透支）、博敏电子（H1 -0.51 亿由盈转亏）、长盈通（PE 2553 极端）、风华高科（2026 至今 +231.8% 严重高位）、拓日新能（持续亏损）、芯能科技（H1 仅 0.24 亿）。</div>
+
+<h2><span class="no">★</span>能力#8 验证记录（v1.1 新增）<span class="hint">原选/候选逐一验证 → 剔除与补位全程留痕，宁缺毋滥</span></h2><table class="audit"><tr><th>标的</th><th>判定</th><th>关键依据（数据=CLI 实测，事件=WebSearch 公开披露）</th></tr><tr><td style="white-space:nowrap"><b>崇达技术 002815（候选·PCB）</b></td><td><span class="pill bad">剔除</span></td><td>营收 +22.55% 但<b>归母 -31.30%、ROE 仅 1.71%、净利率 4.26%</b>——增收不增利（PCB 中低端产能价格战，高端占比不足），PE 97.3 与基本面背离 → 基本面恶化 + 估值透支双否</td></tr><tr><td style="white-space:nowrap"><b>奥士康 002913（候选·PCB 新高）</b></td><td><span class="pill bad">剔除</span></td><td>今日 60 日新高 +2.11% 形态合格，但 2026H1 归母仅 0.83 亿（2025 全年 3.08 亿）、PE_TTM 118.1 → 利润大幅下滑叠加估值透支，直接否决</td></tr><tr><td style="white-space:nowrap"><b>博敏电子 603936（候选·机构 +1.06 亿）</b></td><td><span class="pill bad">剔除</span></td><td>机构净买 +1.06 亿（龙虎榜总净买仅 +0.26 亿）、涨停 +10.01%，但 2026H1 归母 <b>-0.51 亿（由盈转亏，2025 全年仅 +0.07 亿）</b>、PE -163.2 → 经营性亏损，基本面维度否决（非一次性事件）</td></tr><tr><td style="white-space:nowrap"><b>长盈通 688143（候选·龙虎榜净买 +5.21 亿）</b></td><td><span class="pill bad">剔除</span></td><td>光纤/CPO 概念、今日 +15.49%、龙虎榜净买 +5.21 亿居第二——但 <b>PE_TTM 2553.8、PS 59.5</b> 属极端估值透支，涨幅已消化远期预期 → 估值维度一票否决</td></tr><tr><td style="white-space:nowrap"><b>风华高科 000636（候选·净买 +2.92 亿）</b></td><td><span class="pill bad">剔除</span></td><td>MLCC/CPO、H1 归母 2.90 亿（已超 2025 全年 2.83 亿）业绩实际优秀，但 <b>2026 年至今 +231.8%</b>（16.87→55.99）、PE 157.9 → 位置风险极端（追高即接盘），本轮不参与、留观察</td></tr><tr><td style="white-space:nowrap"><b>拓日新能 002218 / 芯能科技 603105（候选·光伏）</b></td><td><span class="pill bad">剔除</span></td><td>拓日新能今日涨停 +9.98% 但 2026H1 归母 -0.58 亿、连续两年亏损（2025 全年 -1.99 亿）；芯能科技 H1 归母仅 0.24 亿（2025 全年 2.01 亿）大幅下滑 → 基本面维度双双否决</td></tr><tr><td style="white-space:nowrap"><b>军工链备选：内蒙一机 600967 / 航天彩虹 002389 / 建设工业 002265</b></td><td><span class="pill ok">通过</span></td><td>三者均命中 60 日新高或 W 底信号且属今日涨停热词方向：内蒙一机 H1 归母 1.72 亿（PE 117.6）、航天彩虹 H1 0.75 亿（PE 191.5）、建设工业 H1 0.67 亿（PE 91.8）——<b>均为「估值偏高 + 利润规模小于去年同期节奏」</b>，未见硬伤但性价比不及银河电子（60日 +0.64% 位置最干净），列军工线备选观察</td></tr><tr><td style="white-space:nowrap"><b>高斯贝尔 002848（候选·覆铜板）</b></td><td><span class="pill ok">通过</span></td><td>高频高速覆铜板 + AI 材料 + 定增推进，今日涨停并创 60 日新高；但 2026H1 归母 -0.05 亿（微亏，Q2 转亏）、PE -47.2 → 题材正而业绩未兑现，列覆铜板链弹性观察，不作主推</td></tr><tr><td style="white-space:nowrap"><b>中百集团 000759（候选·W底）</b></td><td><span class="pill bad">剔除</span></td><td>今日 -6.44% 且龙虎榜净买 +0.67 亿（逆势买入），W 底形态成立；但 5日 +27.83%、20日 +16.98%、60日 +29.87% 已明显走高，且概念为预制菜/免税店/农业种植（农业链今日整体退潮）→ 位置风险 + 方向退潮双否</td></tr><tr><td style="white-space:nowrap"><b>桂林旅游 000978 / 新农开发 600359（候选·60日新高）</b></td><td><span class="pill bad">剔除</span></td><td>桂林旅游 5日 +49.09%/20日 +62.6%/60日 +77.84%，新农开发 5日 +30.29%/20日 +59.87%/60日 +63.36%——<b>均已妖股化</b>（远超「20日 +50% 剔除线」），且属旅游/农业退潮方向 → 位置风险否决</td></tr></table>
+
+<h2><span class="no">04</span>操作纪律（短中线口径 · 源自能力 #1 回测实证）<span class="hint">20 策略 2025-08-22~2026-08-21 实测</span></h2>
+<table>
+<tr><th>纪律</th><th>回测证据 / 依据</th><th>本次应用</th></tr>
+<tr><td><b>短中线持有，不做长线</b></td><td>本报告全部为当日新触发的短线信号（W底突破/放量新高/涨停回踩），信号有效期即 3~10 个交易日；回测引擎按"信号触发→持有至卖点"统计，无长线维度</td><td>每卡给出入场技术位/止损位/短线目标；<b>破位即走，不因"基本面好"而扛单或转长线</b></td></tr>
+<tr><td><b>只做右侧突破，不左侧抄底</b></td><td>W底 +76.3%（回撤-23.1% 最优）& 海龟 +79.0% 唯二正收益；60日新低 -54.3%、RSI 抄底 -1.7% 全灭</td><td>推荐全部是「当日突破/涨停新触发」的右侧信号，无左侧接刀</td></tr>
+<tr><td><b>跌回颈线即跑（假突破离场）</b></td><td>W底假突破 10/21 笔靠此控制损失（平均 -3.5%）</td><td>W底标的跌破颈线/右底即离场；其余标的跌破启动位同理</td></tr>
+<tr><td><b>连板越高越差，禁止追板</b></td><td>二连板接力 -18.8%、三连板 -83.57%</td><td>连板标的均「不追下一板」，等分歧回踩</td></tr>
+<tr><td><b>盈亏比 > 胜率</b></td><td>RSI 胜率 58% 打平 vs 海龟 28% 大赚</td><td>单笔止损纪律严于胜率追求，回踩位参与、破位即走</td></tr>
+</table>
+
+<h2><span class="no">05</span>口径与免责</h2>
+<footer>数据来源：hithink-finance CLI 实测（涨停/跌停/炸板池 2026-09-11、龙虎榜普通+机构榜、板块指数 881xxx.TI 共 26 个、本地前复权 v_daily_qfq 全市场 W底/60日新高扫描、market/valuation snapshot、financials indicators 2026 中报、涨跌家数），数据截至 2026-09-11 收盘；短线技术指标（MA/RSI14/MACD/量比/布林%B/关键位）由本地前复权日K自算（RSI14 用 Wilder 平滑、MACD 用 EMA12/26/9、量比=今量÷前5日均量[自算口径，与交易所口径不同]）；产业逻辑/涨价/订单为 WebSearch 公开披露（已显式标注：覆铜板=建滔积层板年内第七次提价、FR-4 年内累计涨幅超 100%、AI 服务器高速材料挤占产能；军工/商业航天=今日涨停热词与龙虎榜资金方向）。本版按能力 #12 v1.2 流程：四能力（轮动#7×情绪#6×龙虎榜#11×策略#1）交叉取证 → 逐只 #8 全面分析验证 → 不值得买剔除（崇达技术归母 -31.3%、奥士康 H1 利润腰斩、博敏电子由盈转亏、长盈通 PE 2553、风华高科年内 +232%、拓日/芯能亏损，共 6 只否决）→ 补位。<b>定位为短中线（持有 3~10 个交易日，最长 20 日），非长线推荐</b>：基本面对本策略仅作「不做接刀」的安全垫，破位即走、不因基本面转长线。回测结论引用能力 #1 引擎 2025-08-22~2026-08-21 实测：W底双底突破 +76.3%（回撤 -23.1% 全场最优）、海龟唐奇安 +79.0%、二连板接力 -18.8%、三连板 -83.57%、涨停次日低吸 -66.3%——「等突破确认右侧买 + 跌回关键位即跑」是唯一正收益范式，故本次 5 只全部以「突破确认 / 回踩关键位」为入场条件，不推荐追高。当日为深度普跌日（下跌 4871 家、中位 -2.21%、上证放量 9582 亿下跌），组合以「回踩/企稳分批」为操作前提并建议半仓，非追高推荐。本报告为研究参考，不构成个人投资建议。</footer>
+
+</div></body></html>

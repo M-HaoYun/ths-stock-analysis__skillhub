@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>估值仪表盘_思源电气_20260821</title>
+<style>
+  :root {
+    --brand:#1f3a93; --brand-2:#2f56c9; --brand-soft:#eef1fa;
+    --gold:#c9a227; --gold-soft:#faf5e3;
+    --red:#e5484d; --green:#2fa36b;
+    --bg:#f4f5f7; --surface:#ffffff; --border:#e8eaee;
+    --ink:#18202f; --ink-2:#5b6470; --ink-3:#9aa1ad;
+    --radius:14px;
+    --shadow-sm:0 1px 3px rgba(24,32,47,.06);
+    --shadow-md:0 6px 20px rgba(24,32,47,.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; font-size:14px; line-height:1.6; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 20px 60px; }
+  .num { font-variant-numeric:tabular-nums; font-feature-settings:"tnum"; }
+  .code-mini { font-size:11px; color:var(--ink-3); font-weight:400; }
+  .pill { display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+  .pill.brand { background:var(--brand-soft); color:var(--brand); border:1px solid #d5def5; }
+  .pill.gold { background:var(--gold-soft); color:#8a6d12; border:1px solid #eddcab; }
+  .vbadge { display:inline-block; font-size:15px; font-weight:800; padding:4px 18px; border-radius:24px; border:1px solid; }
+  .tcode { font-size:14px; color:var(--ink-3); font-weight:600; letter-spacing:.5px; margin-left:8px; vertical-align:3px; }
+  .hero { background:linear-gradient(150deg,#ffffff 30%,#fbfcfe 100%); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow-md); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; right:-70px; top:-70px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(201,162,39,.12),transparent 65%); }
+  .hero::after { content:""; position:absolute; left:-50px; bottom:-90px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle,rgba(31,58,147,.06),transparent 70%); }
+  .hero .big { position:relative; z-index:1; }
+  .hero .title { font-size:24px; font-weight:800; letter-spacing:-.5px; }
+  .hero .sub { margin-top:8px; font-size:12.5px; color:var(--ink-3); }
+  .hero .sub .pill { margin-right:6px; }
+  .hero .kpis { display:flex; gap:24px; position:relative; z-index:1; flex-wrap:wrap; }
+  .hero .kpi { text-align:right; }
+  .hero .kpi .v { font-size:17px; font-weight:800; }
+  .hero .kpi .v.up { color:var(--red); } .hero .kpi .v.dn { color:var(--green); } .hero .kpi .v.gd { color:var(--gold); }
+  .hero .kpi .k { font-size:11.5px; color:var(--ink-3); margin-top:2px; }
+  .sec { display:flex; align-items:center; justify-content:space-between; margin:30px 2px 12px; }
+  .sec h2 { font-size:15px; font-weight:700; letter-spacing:.2px; display:flex; align-items:center; gap:9px; }
+  .sec h2 .no { font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 6px; letter-spacing:0; }
+  .sec h2::after { content:""; width:4px; height:16px; border-radius:2px; background:linear-gradient(180deg,var(--gold),var(--brand)); }
+  .sec .hint { font-size:12px; color:var(--ink-3); font-weight:400; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-sm); }
+  .card h3 { font-size:13.5px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .card h3 .unit { font-size:11px; color:var(--ink-3); font-weight:400; }
+  .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; font-size:11.5px; color:var(--ink-3); font-weight:600; padding:6px 8px; border-bottom:2px solid var(--border); }
+  td { padding:8px; border-bottom:1px dashed #f0f1f4; vertical-align:middle; }
+  tbody tr:nth-child(even) { background:#fafbfc; }
+  tbody tr:hover { background:var(--brand-soft); }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; font-size:13.5px; border-bottom:1px dashed #f0f1f4; }
+  .kv:last-child { border-bottom:none; }
+  .kv .k { color:var(--ink-2); }
+  .insight { margin-top:12px; padding:10px 14px; border-radius:10px; background:linear-gradient(120deg,#fdf9ec,#faf3d8); border:1px solid #eddcab; font-size:12.5px; font-weight:600; color:#8a6d12; line-height:1.7; }
+  .sum-row { display:flex; align-items:baseline; gap:8px; padding:9px 0; border-bottom:1px dashed #f0f1f4; font-size:13px; flex-wrap:wrap; }
+  .sum-row:last-child { border-bottom:none; }
+  .sum-tag { flex-shrink:0; font-size:11px; font-weight:800; color:#fff; background:linear-gradient(180deg,var(--gold),#a8871d); border-radius:5px; padding:2px 9px; }
+  .sum-tag2 { flex-shrink:0; font-size:11px; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid #d5def5; border-radius:5px; padding:2px 9px; }
+  .note { font-size:11px; color:var(--ink-3); margin-top:16px; line-height:1.8; border-top:1px dashed var(--border); padding-top:12px; }
+  @media print { body{background:#fff} .card{box-shadow:none} }
+  @media (max-width:760px) { .hero{flex-direction:column;align-items:flex-start} .hero .kpis{width:100%;justify-content:space-between} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="big">
+      <div class="title">思源电气 <span class="tcode">002028.SZ</span></div>
+      <div class="sub">
+        <span class="pill brand">周五 · 2026-08-21</span>
+        <span class="pill brand">⚡ 电网设备</span>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v num up">¥176.69</div><div class="k">最新价 (+1.76%)</div></div>
+      <div class="kpi"><div class="v num gd">41.6</div><div class="k">PE_TTM</div></div>
+      <div class="kpi"><div class="v num gd">8.40</div><div class="k">PB_MRQ</div></div>
+      <div class="kpi"><div class="v num">偏贵（静态高分位）</div><div class="k">5年92%分位</div></div>
+    </div>
+  </div>
+
+  <!-- 01 判定总览 -->
+  <div class="sec"><h2><span class="no">01</span>估值判定</h2><span class="hint">历史分位 + 行业对比 + 动态视角</span></div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px">
+      <span class="vbadge" style="color:#e5484d;background:#fdeeee;border-color:#e5484d33">贵</span>
+      <b style="font-size:15px">偏贵（静态高分位）</b>
+      <span style="font-size:12.5px;color:var(--ink-2)">当前 PE_TTM 41.6 / PB 8.4，处于 5 年 92% 高分位、显著高于行业——静态看偏贵；但券商预测 2026-28 归母净利 41.4/60.0/79.4 亿，对应 forward PE 29/20/15 倍，高成长正在消化估值——属'成长溢价'而非泡沫，关键看盈利兑现。</span>
+    </div>
+    <div class="sum-row"><span class="sum-tag">结论</span><span style="color:var(--ink-2)">—— 静态偏贵、动态可接受：5 年 92% 分位 + 行业 1.8 倍 PE 溢价 = 贵；但 forward PE 20 倍（2027E）+ 订单 30%/50% 增速 = 成长消化中。</span></div><div class="sum-row"><span class="sum-tag2">PE视角</span><span style="color:var(--ink-2)">—— PE_TTM 41.6，5 年分位 92%（均值 17.7/中位 12.8）——2025 年以来 AI 电网需求+出海逻辑驱动估值中枢上移。</span></div><div class="sum-row"><span class="sum-tag2">PB视角</span><span style="color:var(--ink-2)">—— PB_MRQ 8.40，5 年分位 92%——ROE 9-13% 的高盈利质量支撑高 PB，但 8.4 倍已远超行业 2.5 倍中位。</span></div><div class="sum-row"><span class="sum-tag2">行业对比</span><span style="color:var(--ink-2)">—— PE 为行业 6 家中位的 1.8 倍、PB 为 3.3 倍——显著溢价，但盈利增速（净利 13% vs 行业均值）与订单景气度同样居前。</span></div><div class="sum-row"><span class="sum-tag2">动态视角</span><span style="color:var(--ink-2)">—— 按券商预测 2027 年归母 60 亿、现价对应 forward PE 约 20 倍——处于公司历史估值区间偏低位置，高成长正在消化静态高估。</span></div>
+  </div>
+
+  <!-- 02 历史分位 -->
+  <div class="sec"><h2><span class="no">02</span>历史估值分位</h2><span class="hint">回溯法 · 当前TTM口径 [ASSUMED]</span></div>
+  <div class="card">
+    <h3>PE(TTM) 5年走势 <span class="unit">当前 41.6 · 5年分位 92%</span></h3>
+    <svg viewBox="0 0 880 64" width="100%" role="img" aria-label="PE 历史分位判定条"><rect x="70.0" y="18" width="398.0" height="16" rx="3" fill="#2fa36b" opacity="0.25"/><rect x="468.0" y="18" width="238.8" height="16" rx="3" fill="#c9a227" opacity="0.3"/><rect x="706.8" y="18" width="159.2" height="16" rx="3" fill="#e5484d" opacity="0.3"/><circle cx="802.3" cy="26" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="1.6"/><text x="802.3" y="12" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e5484d">5年 92%</text><circle cx="754.6" cy="26" r="4.5" fill="#c9a227" stroke="#fff" stroke-width="1.6"/><text x="754.6" y="30" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c9a227">3年 86%</text><circle cx="547.6" cy="26" r="4.5" fill="#2f56c9" stroke="#fff" stroke-width="1.6"/><text x="547.6" y="48" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f56c9">1年 60%</text><text x="468.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">便宜 ← 0%</text><text x="866.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">贵 → 100%</text></svg>
+    <svg viewBox="0 0 880 300" width="100%" role="img" aria-label="PE 5年走势">
+      <defs>
+        <linearGradient id="gradpe" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2f56c9" stop-opacity="0.14"/><stop offset="100%" stop-color="#2f56c9" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="70.0" x2="866" y2="70.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="120.0" x2="866" y2="120.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="170.0" x2="866" y2="170.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="220.0" x2="866" y2="220.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="88.1" x2="866" y2="88.1" stroke="#e5484d" stroke-width="1.6" stroke-dasharray="6 4"/><line x1="46" y1="211.9" x2="866" y2="211.9" stroke="#c9a227" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="46" y1="237.3" x2="866" y2="237.3" stroke="#2f56c9" stroke-width="1" stroke-dasharray="3 4" opacity="0.7"/><polygon points="46,270 46.0,270.0 52.7,266.6 59.4,263.7 66.2,259.2 72.9,256.4 79.6,257.9 86.3,256.2 93.0,245.6 99.8,239.1 106.5,235.4 113.2,244.9 119.9,250.5 126.7,247.8 133.4,249.3 140.1,252.8 146.8,258.3 153.5,264.7 160.3,265.3 167.0,267.4 173.7,265.7 180.4,257.0 187.1,259.9 193.9,263.3 200.6,252.7 207.3,250.8 214.0,247.7 220.8,253.6 227.5,252.8 234.2,256.3 240.9,256.1 247.6,263.7 254.4,258.9 261.1,257.1 267.8,258.5 274.5,256.7 281.2,254.5 288.0,251.7 294.7,249.1 301.4,247.5 308.1,250.3 314.9,250.3 321.6,252.8 328.3,249.7 335.0,248.2 341.7,247.8 348.5,247.3 355.2,249.3 361.9,241.3 368.6,243.9 375.3,241.8 382.1,245.5 388.8,242.4 395.5,244.5 402.2,246.3 409.0,245.5 415.7,245.2 422.4,245.6 429.1,245.6 435.8,244.5 442.6,240.1 449.3,243.1 456.0,242.0 462.7,237.7 469.4,231.0 476.2,233.5 482.9,230.9 489.6,225.4 496.3,215.6 503.0,217.0 509.8,216.8 516.5,220.4 523.2,223.9 529.9,229.1 536.7,226.6 543.4,225.5 550.1,221.6 556.8,221.2 563.5,214.4 570.3,211.9 577.0,208.0 583.7,210.1 590.4,213.7 597.1,216.4 603.9,218.0 610.6,213.9 617.3,210.4 624.0,213.8 630.8,215.0 637.5,215.1 644.2,219.9 650.9,214.6 657.6,218.5 664.4,210.7 671.1,216.4 677.8,216.6 684.5,214.5 691.2,209.2 698.0,207.3 704.7,201.6 711.4,186.5 718.1,190.3 724.9,177.7 731.6,154.4 738.3,130.0 745.0,130.1 751.7,127.4 758.5,122.4 765.2,114.1 771.9,98.3 778.6,77.8 785.3,38.2 792.1,20.0 798.8,56.2 805.5,49.1 812.2,39.1 819.0,52.6 825.7,62.1 832.4,69.4 839.1,72.6 845.8,100.0 852.6,124.2 859.3,112.7 866.0,100.5 866,270" fill="url(#gradpe)"/><polyline points="46.0,270.0 52.7,266.6 59.4,263.7 66.2,259.2 72.9,256.4 79.6,257.9 86.3,256.2 93.0,245.6 99.8,239.1 106.5,235.4 113.2,244.9 119.9,250.5 126.7,247.8 133.4,249.3 140.1,252.8 146.8,258.3 153.5,264.7 160.3,265.3 167.0,267.4 173.7,265.7 180.4,257.0 187.1,259.9 193.9,263.3 200.6,252.7 207.3,250.8 214.0,247.7 220.8,253.6 227.5,252.8 234.2,256.3 240.9,256.1 247.6,263.7 254.4,258.9 261.1,257.1 267.8,258.5 274.5,256.7 281.2,254.5 288.0,251.7 294.7,249.1 301.4,247.5 308.1,250.3 314.9,250.3 321.6,252.8 328.3,249.7 335.0,248.2 341.7,247.8 348.5,247.3 355.2,249.3 361.9,241.3 368.6,243.9 375.3,241.8 382.1,245.5 388.8,242.4 395.5,244.5 402.2,246.3 409.0,245.5 415.7,245.2 422.4,245.6 429.1,245.6 435.8,244.5 442.6,240.1 449.3,243.1 456.0,242.0 462.7,237.7 469.4,231.0 476.2,233.5 482.9,230.9 489.6,225.4 496.3,215.6 503.0,217.0 509.8,216.8 516.5,220.4 523.2,223.9 529.9,229.1 536.7,226.6 543.4,225.5 550.1,221.6 556.8,221.2 563.5,214.4 570.3,211.9 577.0,208.0 583.7,210.1 590.4,213.7 597.1,216.4 603.9,218.0 610.6,213.9 617.3,210.4 624.0,213.8 630.8,215.0 637.5,215.1 644.2,219.9 650.9,214.6 657.6,218.5 664.4,210.7 671.1,216.4 677.8,216.6 684.5,214.5 691.2,209.2 698.0,207.3 704.7,201.6 711.4,186.5 718.1,190.3 724.9,177.7 731.6,154.4 738.3,130.0 745.0,130.1 751.7,127.4 758.5,122.4 765.2,114.1 771.9,98.3 778.6,77.8 785.3,38.2 792.1,20.0 798.8,56.2 805.5,49.1 812.2,39.1 819.0,52.6 825.7,62.1 832.4,69.4 839.1,72.6 845.8,100.0 852.6,124.2 859.3,112.7 866.0,100.5" fill="none" stroke="#2f56c9" stroke-width="1.8"/><circle cx="866.0" cy="88.1" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="2"/><text x="46" y="14" font-size="12" font-weight="700" fill="#e5484d">当前 41.6（5年分位 92%）</text><text x="236" y="14" font-size="11" fill="#c9a227">均值 17.7</text><text x="326" y="14" font-size="11" fill="#2f56c9">中位 12.8</text><text x="406" y="14" font-size="11" fill="#9aa1ad">5年区间 6.5 ~ 54.8</text><text x="46.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2021-08</text><text x="456.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2024-02</text><text x="866.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2026-08</text>
+    </svg>
+    <div class="insight">💡 5 年 PE 区间 5.8~54.8，当前 41.6 处于 92% 高位——2025 年以来 AI 数据中心用电+电网出海逻辑驱动估值中枢从 12 倍抬升至 40 倍+，属于"戴维斯双击"后的高位。</div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>PB(MRQ) 5年走势 <span class="unit">当前 8.40 · 5年分位 92%</span></h3>
+    <svg viewBox="0 0 880 64" width="100%" role="img" aria-label="PB 历史分位判定条"><rect x="70.0" y="18" width="398.0" height="16" rx="3" fill="#2fa36b" opacity="0.25"/><rect x="468.0" y="18" width="238.8" height="16" rx="3" fill="#c9a227" opacity="0.3"/><rect x="706.8" y="18" width="159.2" height="16" rx="3" fill="#e5484d" opacity="0.3"/><circle cx="802.3" cy="26" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="1.6"/><text x="802.3" y="12" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e5484d">5年 92%</text><circle cx="754.6" cy="26" r="4.5" fill="#c9a227" stroke="#fff" stroke-width="1.6"/><text x="754.6" y="30" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c9a227">3年 86%</text><circle cx="547.6" cy="26" r="4.5" fill="#2f56c9" stroke="#fff" stroke-width="1.6"/><text x="547.6" y="48" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f56c9">1年 60%</text><text x="468.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">便宜 ← 0%</text><text x="866.0" y="52" text-anchor="middle" font-size="10" fill="#9aa1ad">贵 → 100%</text></svg>
+    <svg viewBox="0 0 880 300" width="100%" role="img" aria-label="PB 5年走势">
+      <defs>
+        <linearGradient id="gradpb" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1f3a93" stop-opacity="0.14"/><stop offset="100%" stop-color="#1f3a93" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="70.0" x2="866" y2="70.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="120.0" x2="866" y2="120.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="170.0" x2="866" y2="170.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="220.0" x2="866" y2="220.0" stroke="#eef0f3" stroke-width="1"/><line x1="46" y1="88.1" x2="866" y2="88.1" stroke="#e5484d" stroke-width="1.6" stroke-dasharray="6 4"/><line x1="46" y1="212.0" x2="866" y2="212.0" stroke="#c9a227" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="46" y1="237.1" x2="866" y2="237.1" stroke="#2f56c9" stroke-width="1" stroke-dasharray="3 4" opacity="0.7"/><polygon points="46,270 46.0,270.0 52.7,266.6 59.4,263.7 66.2,259.2 72.9,256.4 79.6,257.9 86.3,256.2 93.0,245.6 99.8,239.1 106.5,235.4 113.2,244.9 119.9,250.5 126.7,247.8 133.4,249.3 140.1,252.8 146.8,258.3 153.5,264.7 160.3,265.3 167.0,267.4 173.7,265.7 180.4,257.0 187.1,259.9 193.9,263.3 200.6,252.7 207.3,250.8 214.0,247.7 220.8,253.6 227.5,252.8 234.2,256.3 240.9,256.1 247.6,263.7 254.4,258.9 261.1,257.1 267.8,258.5 274.5,256.7 281.2,254.5 288.0,251.7 294.7,249.1 301.4,247.5 308.1,250.3 314.9,250.3 321.6,252.8 328.3,249.7 335.0,248.2 341.7,247.8 348.5,247.3 355.2,249.3 361.9,241.3 368.6,243.9 375.3,241.8 382.1,245.5 388.8,242.4 395.5,244.5 402.2,246.3 409.0,245.5 415.7,245.2 422.4,245.6 429.1,245.6 435.8,244.5 442.6,240.1 449.3,243.1 456.0,242.0 462.7,237.7 469.4,231.0 476.2,233.5 482.9,230.9 489.6,225.4 496.3,215.6 503.0,217.0 509.8,216.8 516.5,220.4 523.2,223.9 529.9,229.1 536.7,226.6 543.4,225.5 550.1,221.6 556.8,221.2 563.5,214.4 570.3,211.9 577.0,208.0 583.7,210.1 590.4,213.7 597.1,216.4 603.9,218.0 610.6,213.9 617.3,210.4 624.0,213.8 630.8,215.0 637.5,215.1 644.2,219.9 650.9,214.6 657.6,218.5 664.4,210.7 671.1,216.4 677.8,216.6 684.5,214.5 691.2,209.2 698.0,207.3 704.7,201.6 711.4,186.5 718.1,190.3 724.9,177.7 731.6,154.4 738.3,130.0 745.0,130.1 751.7,127.4 758.5,122.4 765.2,114.1 771.9,98.3 778.6,77.8 785.3,38.2 792.1,20.0 798.8,56.2 805.5,49.1 812.2,39.1 819.0,52.6 825.7,62.1 832.4,69.4 839.1,72.6 845.8,100.0 852.6,124.2 859.3,112.7 866.0,100.5 866,270" fill="url(#gradpb)"/><polyline points="46.0,270.0 52.7,266.6 59.4,263.7 66.2,259.2 72.9,256.4 79.6,257.9 86.3,256.2 93.0,245.6 99.8,239.1 106.5,235.4 113.2,244.9 119.9,250.5 126.7,247.8 133.4,249.3 140.1,252.8 146.8,258.3 153.5,264.7 160.3,265.3 167.0,267.4 173.7,265.7 180.4,257.0 187.1,259.9 193.9,263.3 200.6,252.7 207.3,250.8 214.0,247.7 220.8,253.6 227.5,252.8 234.2,256.3 240.9,256.1 247.6,263.7 254.4,258.9 261.1,257.1 267.8,258.5 274.5,256.7 281.2,254.5 288.0,251.7 294.7,249.1 301.4,247.5 308.1,250.3 314.9,250.3 321.6,252.8 328.3,249.7 335.0,248.2 341.7,247.8 348.5,247.3 355.2,249.3 361.9,241.3 368.6,243.9 375.3,241.8 382.1,245.5 388.8,242.4 395.5,244.5 402.2,246.3 409.0,245.5 415.7,245.2 422.4,245.6 429.1,245.6 435.8,244.5 442.6,240.1 449.3,243.1 456.0,242.0 462.7,237.7 469.4,231.0 476.2,233.5 482.9,230.9 489.6,225.4 496.3,215.6 503.0,217.0 509.8,216.8 516.5,220.4 523.2,223.9 529.9,229.1 536.7,226.6 543.4,225.5 550.1,221.6 556.8,221.2 563.5,214.4 570.3,211.9 577.0,208.0 583.7,210.1 590.4,213.7 597.1,216.4 603.9,218.0 610.6,213.9 617.3,210.4 624.0,213.8 630.8,215.0 637.5,215.1 644.2,219.9 650.9,214.6 657.6,218.5 664.4,210.7 671.1,216.4 677.8,216.6 684.5,214.5 691.2,209.2 698.0,207.3 704.7,201.6 711.4,186.5 718.1,190.3 724.9,177.7 731.6,154.4 738.3,130.0 745.0,130.1 751.7,127.4 758.5,122.4 765.2,114.1 771.9,98.3 778.6,77.8 785.3,38.2 792.1,20.0 798.8,56.2 805.5,49.1 812.2,39.1 819.0,52.6 825.7,62.1 832.4,69.4 839.1,72.6 845.8,100.0 852.6,124.2 859.3,112.7 866.0,100.5" fill="none" stroke="#1f3a93" stroke-width="1.8"/><circle cx="866.0" cy="88.1" r="4.5" fill="#e5484d" stroke="#fff" stroke-width="2"/><text x="46" y="14" font-size="12" font-weight="700" fill="#e5484d">当前 8.40（5年分位 92%）</text><text x="236" y="14" font-size="11" fill="#c9a227">均值 3.57</text><text x="326" y="14" font-size="11" fill="#2f56c9">中位 2.59</text><text x="406" y="14" font-size="11" fill="#9aa1ad">5年区间 1.31 ~ 11.05</text><text x="46.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2021-08</text><text x="456.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2024-02</text><text x="866.0" y="292" text-anchor="middle" font-size="10.5" fill="#9aa1ad">2026-08</text>
+    </svg>
+    <div class="insight">💡 5 年 PB 区间 1.16~11.06，当前 8.40 接近历史最高——ROE 9-13% 的盈利质量支撑高 PB，但 8.4 倍已远超行业 2.5 倍中位，透支了部分成长预期。</div>
+  </div>
+
+  <!-- 03 行业对比 -->
+  <div class="sec"><h2><span class="no">03</span>行业对比</h2><span class="hint">电网设备可比公司 · 2026-08-21</span></div>
+  <div class="grid-2">
+    <div class="card"><h3>PE(TTM) 对比 <span class="unit">金色=思源电气</span></h3><svg viewBox="0 0 420 320" width="100%" role="img" aria-label="行业PE对比"><text x="80" y="38.0" text-anchor="end" font-size="11.5" font-weight="800" fill="var(--ink)">思源电气</text><rect x="88" y="23.0" width="224.6" height="22" rx="5" fill="#c9a227"/><text x="318.6" y="38.0" font-size="11" font-weight="800" fill="#8a6d12">41.6</text><text x="80" y="76.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">国电南瑞</text><rect x="88" y="61.0" width="120.7" height="22" rx="5" fill="#2f56c9"/><text x="214.7" y="76.0" font-size="11" font-weight="600" fill="#1f3a93">22.4</text><text x="80" y="114.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">许继电气</text><rect x="88" y="99.0" width="125.5" height="22" rx="5" fill="#2f56c9"/><text x="219.5" y="114.0" font-size="11" font-weight="600" fill="#1f3a93">23.3</text><text x="80" y="152.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">平高电气</text><rect x="88" y="137.0" width="113.6" height="22" rx="5" fill="#2f56c9"/><text x="207.6" y="152.0" font-size="11" font-weight="600" fill="#1f3a93">21.1</text><text x="80" y="190.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">中国西电</text><rect x="88" y="175.0" width="262.0" height="22" rx="5" fill="#2f56c9"/><text x="356.0" y="190.0" font-size="11" font-weight="600" fill="#1f3a93">48.6</text><text x="80" y="228.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">四方股份</text><rect x="88" y="213.0" width="238.0" height="22" rx="5" fill="#2f56c9"/><text x="332.0" y="228.0" font-size="11" font-weight="600" fill="#1f3a93">44.1</text><text x="80" y="266.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">特变电工</text><rect x="88" y="251.0" width="102.7" height="22" rx="5" fill="#2f56c9"/><text x="196.7" y="266.0" font-size="11" font-weight="600" fill="#1f3a93">19.0</text><line x1="211.1" y1="12" x2="211.1" y2="276" stroke="#9aa1ad" stroke-width="1.4" stroke-dasharray="5 3"/><text x="211.1" y="12" text-anchor="middle" font-size="10" fill="#9aa1ad">行业中位 22.82</text></svg></div>
+    <div class="card"><h3>PB(MRQ) 对比 <span class="unit">金色=思源电气</span></h3><svg viewBox="0 0 420 320" width="100%" role="img" aria-label="行业PB对比"><text x="80" y="38.0" text-anchor="end" font-size="11.5" font-weight="800" fill="var(--ink)">思源电气</text><rect x="88" y="23.0" width="262.0" height="22" rx="5" fill="#c9a227"/><text x="356.0" y="38.0" font-size="11" font-weight="800" fill="#8a6d12">8.4</text><text x="80" y="76.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">国电南瑞</text><rect x="88" y="61.0" width="108.5" height="22" rx="5" fill="#2fa36b"/><text x="202.5" y="76.0" font-size="11" font-weight="600" fill="#1e7a4d">3.5</text><text x="80" y="114.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">许继电气</text><rect x="88" y="99.0" width="55.8" height="22" rx="5" fill="#2fa36b"/><text x="149.8" y="114.0" font-size="11" font-weight="600" fill="#1e7a4d">1.8</text><text x="80" y="152.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">平高电气</text><rect x="88" y="137.0" width="70.5" height="22" rx="5" fill="#2fa36b"/><text x="164.5" y="152.0" font-size="11" font-weight="600" fill="#1e7a4d">2.3</text><text x="80" y="190.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">中国西电</text><rect x="88" y="175.0" width="88.0" height="22" rx="5" fill="#2fa36b"/><text x="182.0" y="190.0" font-size="11" font-weight="600" fill="#1e7a4d">2.8</text><text x="80" y="228.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">四方股份</text><rect x="88" y="213.0" width="228.3" height="22" rx="5" fill="#2fa36b"/><text x="322.3" y="228.0" font-size="11" font-weight="600" fill="#1e7a4d">7.3</text><text x="80" y="266.0" text-anchor="end" font-size="11.5" font-weight="600" fill="#5b6470">特变电工</text><rect x="88" y="251.0" width="44.6" height="22" rx="5" fill="#2fa36b"/><text x="138.6" y="266.0" font-size="11" font-weight="600" fill="#1e7a4d">1.4</text><line x1="167.2" y1="12" x2="167.2" y2="276" stroke="#9aa1ad" stroke-width="1.4" stroke-dasharray="5 3"/><text x="167.2" y="12" text-anchor="middle" font-size="10" fill="#9aa1ad">行业中位 2.54</text></svg>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>行业对比解读</h3>
+    <div class="insight">💡 思源 PE 41.6 为行业中位（22.8）的 1.8 倍、PB 8.4 为 3.3 倍——显著溢价，但公司是行业盈利质量与订单景气度双第一（2026H1 净利行业排名 1/126、ROE 12/126、派现募资比 1/131），成长溢价有基本面支撑。</div>
+  </div>
+
+  <!-- 04 估值锚点 -->
+  <div class="sec"><h2><span class="no">04</span>估值锚点</h2><span class="hint">盈利增长能否消化高估值</span></div>
+  <div class="grid-2">
+    <div class="card"><h3>近4年业绩 <span class="unit">营收/归母/亿</span></h3>
+      <table>
+        <tr><th>年份</th><th>营收</th><th>归母净利</th><th>EPS</th></tr>
+        <tr><td class="num" style="color:var(--ink-3)">2022</td><td class="num">105.37</td><td class="num" style="font-weight:700">12.21</td><td class="num" style="color:var(--ink-2)">1.59</td></tr><tr><td class="num" style="color:var(--ink-3)">2023</td><td class="num">124.60</td><td class="num" style="font-weight:700">15.59</td><td class="num" style="color:var(--ink-2)">2.02</td></tr><tr><td class="num" style="color:var(--ink-3)">2024</td><td class="num">154.58</td><td class="num" style="font-weight:700">20.49</td><td class="num" style="color:var(--ink-2)">2.64</td></tr><tr><td class="num" style="color:var(--ink-3)">2025</td><td class="num">215.39</td><td class="num" style="font-weight:700">31.50</td><td class="num" style="color:var(--ink-2)">4.04</td></tr>
+      </table>
+      <div class="kv" style="margin-top:8px"><span class="k">2026H1</span><span class="v" style="font-size:12.5px;color:var(--ink-2)">营收 107.95亿(++27.05%) · 归母 14.64亿(++13.23%) · 毛利率 30.46%</span></div>
+      <div class="insight">盈利承压主因：汇兑损失约 0.8 亿、思源东芝并表比例 90%→70%、储能低毛利确收占比高；海外订单 H1 增速超 50% 目标，Q3 起交付加速</div>
+    </div>
+    <div class="card"><h3>动态估值（券商预测） <span class="unit">forward PE</span></h3>
+      <table>
+        <tr><th>年度</th><th>预测归母净利</th><th>对应PE</th></tr>
+        <tr><td>2026E</td><td class="num" style="font-weight:700">41.4亿</td><td class="num" style="color:var(--red);font-weight:800">29倍</td></tr><tr><td>2027E</td><td class="num" style="font-weight:700">60.0亿</td><td class="num" style="color:var(--red);font-weight:800">20倍</td></tr><tr><td>2028E</td><td class="num" style="font-weight:700">79.4亿</td><td class="num" style="color:var(--red);font-weight:800">15倍</td></tr>
+      </table>
+      <div class="insight">💡 现价对应 2027E PE 约 20 倍——回到公司历史估值区间中枢，说明高成长正在快速消化当前静态高估；若盈利兑现，当前价未必"贵"。</div>
+    </div>
+  </div>
+
+  <!-- 05 风险提示 -->
+  <div class="sec"><h2><span class="no">05</span>风险提示</h2><span class="hint">高分位下的回撤风险</span></div>
+  <div class="card"><div class="sum-row"><span class="sum-tag2">风险1</span><span style="color:var(--ink-2)">5 年 PE/PB 分位 92%，历史中位仅 12.8/2.6 倍——均值回归空间大，回撤风险高于历史多数时段</span></div><div class="sum-row"><span class="sum-tag2">风险2</span><span style="color:var(--ink-2)">历史分位为回溯口径 [ASSUMED]：按当前 TTM 净利与股本回溯历史价格估算，非实际历史 PE/PB</span></div><div class="sum-row"><span class="sum-tag2">风险3</span><span style="color:var(--ink-2)">高估值依赖盈利兑现：2026 下半年起海外订单加速交付是核心验证点（地缘冲突或致航运受阻）</span></div><div class="sum-row"><span class="sum-tag2">风险4</span><span style="color:var(--ink-2)">汇兑损失约 2 亿/年、思源东芝并表比例下降拖累归母增速；储能等低毛利业务确收占比波动</span></div></div>
+
+  <div class="note">数据来源：同花顺金融数据（hithink-finance v0.1.5，valuation.snapshot + market history 前复权 5 年）；历史 PE/PB 分位为【回溯法】计算（历史PE_i=当前PE_TTM×(前复权收盘_i/当前收盘)，口径假设当前 TTM 净利与股本不变，标 [ASSUMED]）；行业对比=电网设备 6 家可比公司估值快照中位数；业绩与券商预测来自公司中报/华泰证券/摩根士丹利公开研报（2026-08）。估值判定为模型综合判断（模型输出），仅供研究参考，不构成个人投资建议。</div>
+</div>
+</body>
+</html>
