@@ -300,7 +300,7 @@ TPL = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穿透分析__DATE_SHOW__</title>
+<title>穿透分析___NAME_____DATE_SHOW__</title>
 <style>
   :root{
     --brand:#1f3a93; --brand-soft:#eef2fb; --gold:#c9a227; --gold-soft:#fdf9ec;
@@ -447,7 +447,8 @@ def main():
     html = html.replace("__DATE__", DATE.replace("-", ""))
     html = html.replace("__WEEKDAY__", WEEKDAY).replace("__DATE_SHOW__", DATE.replace("-", ""))
     html = (html.replace("__WEEKDAY__", WEEKDAY)
-            .replace("__ETF_NAME__", CFG["etf_name"])
+            .replace("__NAME__", CFG["out_tag"])            # 标题主体名，与文件名 {穿透分析}_{out_tag}_{日期} 口径一致
+.replace("__ETF_NAME__", CFG["etf_name"])
             .replace("__STOCK_NAME__", CFG["stock_name"])
             .replace("__VERDICT__", CFG["verdict"])
             .replace("__VERDICT_NOTE__", CFG["verdict_note"])

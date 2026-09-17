@@ -148,7 +148,7 @@ TPL = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全面分析__NAME__</title>
+<title>全面分析___NAME_____DATE_SHOW__</title>
 <style>
   :root{ --brand:#1f3a93; --brand-soft:#eef2fb; --gold:#c9a227; --gold-soft:#fdf9ec;
     --red:#e5484d; --green:#2fa36b; --ink:#1d2433; --ink-2:#5b6470; --ink-3:#9aa1ad;

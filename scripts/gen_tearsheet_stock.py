@@ -66,19 +66,13 @@ FY_LABEL = '2025 年报'
 CF_DIV_HINT = '现金流量：年度亿元 · 分红：近6次除息'
 
 # ================= 历史日K =================
+# ⚠️⚠️ 数据区契约：本区**只负责把原始 K 线读进来**，产物只有 `bars`（近 252 个交易日的窗口由下方渲染区截取）。
+#     窗口截取 / 近1年涨幅 / 52周高低 / 指标预热 **一律放在渲染区**（`def ema` 之后），原因：
+#     外部拼接器（如量化平台 backend/app/render/caps/*.py）会**整体替换本数据区、只提供 bars**，
+#     放在这里的逻辑会被替换掉；渲染区才是原样复用的部分，放那里才能对拼接器同样生效。
 with open(HIST, "r", encoding="utf-8") as f:
     bars = json.load(f)["data"]
-dates = [b["date"] for b in bars]
-closes = [b["close"] for b in bars]
-highs = [b["high"] for b in bars]
-lows = [b["low"] for b in bars]
-vols = [b["volume"] for b in bars]
-hi_52 = max(highs)
-lo_52 = min(lows)
-chg_52 = (closes[-1] / closes[0] - 1) * 100
-n = len(bars)
 
-# ---------- 技术指标 ----------
 def ema(vals, period):
     k = 2 / (period + 1)
     out, prev = [], None
@@ -87,11 +81,39 @@ def ema(vals, period):
         out.append(prev)
     return out
 
-ema12 = ema(closes, 12)
-ema26 = ema(closes, 26)
-dif = [a - b for a, b in zip(ema12, ema26)]
-dea = ema(dif, 9)
-macd_hist = [2 * (d - e) for d, e in zip(dif, dea)]
+# ================= 近一年窗口（252 个交易日）+ 指标预热 =================
+# ⚠️ 2026-09-17 修复（坑 61）：本页的「近1年走势图 / 近1年涨幅 / 52周高 / 52周低」统一按
+#    最后交易日回溯 252 个交易日取窗口，与传入 K 线的根数**解耦**。
+#    原实现是 hi_52 = max(highs) / lo_52 = min(lows) / chg_52 = closes[-1]/closes[0]-1，
+#    即「整个输入序列」——喂 5 年会显示「近5年涨幅」却仍标「近1年涨幅」、X 轴也画成 5 年，属静默错误。
+#    现在多喂历史 K 只用于【指标预热】（窗口左端 MA20/MACD/KDJ 即为有效值），不再影响窗口口径。
+#    ⚠️ 本段刻意放在**渲染区**而非数据区：外部拼接器会替换数据区，放数据区则修复会被覆盖。
+W52_BARS = 252
+_bars_all = bars                                    # 全量序列
+_off = max(0, len(_bars_all) - W52_BARS)            # 窗口起点 = 预热段长度
+bars = _bars_all[_off:]                             # 展示窗口 = 近 252 个交易日
+dates = [b["date"] for b in bars]
+closes = [b["close"] for b in bars]
+highs = [b["high"] for b in bars]
+lows = [b["low"] for b in bars]
+vols = [b["volume"] for b in bars]
+n = len(bars)
+hi_52 = max(highs)
+lo_52 = min(lows)
+chg_52 = (closes[-1] / closes[0] - 1) * 100 if closes[0] else None
+_all_closes = [b["close"] for b in _bars_all]
+_all_highs = [b["high"] for b in _bars_all]
+_all_lows = [b["low"] for b in _bars_all]
+if len(_bars_all) < W52_BARS:
+    print(f"⚠️ [WARN] 输入 K 线仅 {len(_bars_all)} 根 < {W52_BARS} 根：窗口不足一年，"
+          f"「近1年涨幅 / 52周高 / 52周低」实为这 {len(_bars_all)} 个交易日的区间值，请在报告中注明。")
+
+ema12 = ema(_all_closes, 12)
+ema26 = ema(_all_closes, 26)
+_dif_all = [a - b for a, b in zip(ema12, ema26)]
+_dea_all = ema(_dif_all, 9)
+_mh_all = [2 * (d - e) for d, e in zip(_dif_all, _dea_all)]
+dif, dea, macd_hist = _dif_all[_off:], _dea_all[_off:], _mh_all[_off:]
 
 def sma(vals, period):
     out, prev = [], None
@@ -100,14 +122,15 @@ def sma(vals, period):
         out.append(prev)
     return out
 
-rsv = []
-for i in range(n):
-    lo9 = min(lows[max(0, i-8):i+1])
-    hi9 = max(highs[max(0, i-8):i+1])
-    rsv.append(50.0 if hi9 == lo9 else (closes[i] - lo9) / (hi9 - lo9) * 100)
-k_arr = sma(rsv, 3)
-d_arr = sma(k_arr, 3)
-j_arr = [3 * k - 2 * d for k, d in zip(k_arr, d_arr)]
+_rsv_all = []
+for i in range(len(_bars_all)):
+    lo9 = min(_all_lows[max(0, i-8):i+1])
+    hi9 = max(_all_highs[max(0, i-8):i+1])
+    _rsv_all.append(50.0 if hi9 == lo9 else (_all_closes[i] - lo9) / (hi9 - lo9) * 100)
+_k_all = sma(_rsv_all, 3)
+_d_all = sma(_k_all, 3)
+_j_all = [3 * k - 2 * d for k, d in zip(_k_all, _d_all)]
+k_arr, d_arr, j_arr = _k_all[_off:], _d_all[_off:], _j_all[_off:]
 
 # ================= 最近一日 K 线 =================
 kb = bars[-1]
@@ -145,7 +168,10 @@ kline_svg = f'''
 
 # ================= 走势图 =================
 W, HP, HV, HM, HK, PAD = 880, 210, 76, 92, 92, 52
-y_min, y_max = min(closes) * 0.965, max(closes) * 1.02
+# ⚠️ 2026-09-17 修复：原为 min(closes)/max(closes)，但图上还要画「52周高/低」两条线，
+#    而高/低取的是 high/low —— 只要某日插针超过最大收盘价 2%，标注线就会被画到绘图区之外。
+#    故 Y 轴范围按 high/low 取。
+y_min, y_max = min(lows) * 0.965, max(highs) * 1.02
 def px(i): return PAD + i * (W - 2 * PAD) / (n - 1)
 def py(v): return HP + 16 - (v - y_min) / (y_max - y_min) * (HP - 32)
 vol_max = max(vols)
@@ -153,8 +179,9 @@ pts = " ".join(f"{px(i):.1f},{py(c):.1f}" for i, c in enumerate(closes))
 area_pts = f"{PAD},{HP+16} " + pts + f" {W-PAD},{HP+16}"
 ma20 = []
 for i in range(n):
-    s = sum(closes[max(0, i-19):i+1]) / (i - max(0, i-19) + 1)
-    ma20.append(s)
+    _e = _off + i + 1                       # 在全量序列上取 20 根，保证窗口左端已预热
+    _seg = _all_closes[max(0, _e-20):_e]
+    ma20.append(sum(_seg) / len(_seg))
 pts_ma = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(ma20))
 vol_rects = []
 for i, v in enumerate(vols):

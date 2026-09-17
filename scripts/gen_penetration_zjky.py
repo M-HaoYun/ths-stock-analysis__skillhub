@@ -168,7 +168,7 @@ TPL = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穿透分析__DATE_SHOW__</title>
+<title>穿透分析___NAME_____DATE_SHOW__</title>
 <style>
   :root{
     --brand:#1f3a93; --brand-soft:#eef2fb; --gold:#c9a227; --gold-soft:#fdf9ec;
