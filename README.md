@@ -4,6 +4,8 @@ description: 基于 hithink-finance（同花顺金融数据）的股票二次分
 agent_created: true
 ---
 
+也可直接在腾讯skillhub下载：https://skillhub.cn/skills/user_e285fd2e/ths-stock-analysis
+
 # 同花顺股票二次分析（ths-stock-analysis）
 
 ## 概览
